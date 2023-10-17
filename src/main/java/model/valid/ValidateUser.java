@@ -5,6 +5,7 @@
 package model.valid;
 
 import model.User;
+import model.exceptions.UserException;
 
 /**
  *
