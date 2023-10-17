@@ -102,6 +102,5 @@ public class UserDAO implements IDao {
         } else {
             return (User) lst.get(0);
         }                
-    }
-    
+    }  
 }
