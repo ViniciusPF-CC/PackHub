@@ -44,4 +44,12 @@ public class User {
         this.typePositions = typePositions;
     }
     
+    public void copy(User other){
+        this.id = other.id;
+        this.nome = other.nome;
+        this.email = other.email;
+        this.cpf = other.cpf;
+        this.phone = other.phone;
+        this.typePositions = other.typePositions;
+    }
 }
