@@ -4,10 +4,13 @@
  */
 package view;
 
+import controller.UserController;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
+import model.exceptions.UserException;
 
 /**
  *
@@ -15,11 +18,12 @@ import javax.swing.text.MaskFormatter;
  */
 public class FrRegister extends javax.swing.JDialog {
 
-    /**
-     * Creates new form FrTeste
-     */
+    UserController userController;
+    
     public FrRegister(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        userController = new UserController();
+        
         initComponents();
         
         this.addMaskCPF();
@@ -29,7 +33,7 @@ public class FrRegister extends javax.swing.JDialog {
     public void addMaskCPF(){
         try {
             MaskFormatter mask = new MaskFormatter("###.###.###-##");
-            mask.install(fedtCPF);
+            mask.install(edtCPF);
         } catch (ParseException ex) {
             Logger.getLogger(FrRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -38,7 +42,7 @@ public class FrRegister extends javax.swing.JDialog {
     public void addMaskPhone(){
         try {
             MaskFormatter mask = new MaskFormatter("(##) # ####-####");
-            mask.install(fedtPhone);
+            mask.install(edtPhone);
         } catch (ParseException ex) {
             Logger.getLogger(FrRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -62,8 +66,8 @@ public class FrRegister extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnRegister = new javax.swing.JButton();
-        fedtCPF = new javax.swing.JFormattedTextField();
-        fedtPhone = new javax.swing.JFormattedTextField();
+        edtCPF = new javax.swing.JFormattedTextField();
+        edtPhone = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,6 +79,12 @@ public class FrRegister extends javax.swing.JDialog {
         jLabel2.setText("Registrar-se");
 
         jLabel3.setText("Nome completo:");
+
+        edtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtNameActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("E-mail:");
 
@@ -90,9 +100,9 @@ public class FrRegister extends javax.swing.JDialog {
             }
         });
 
-        fedtCPF.addActionListener(new java.awt.event.ActionListener() {
+        edtCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fedtCPFActionPerformed(evt);
+                edtCPFActionPerformed(evt);
             }
         });
 
@@ -108,7 +118,7 @@ public class FrRegister extends javax.swing.JDialog {
                     .addComponent(btnRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(edtName)
                     .addComponent(edtEmail)
-                    .addComponent(fedtCPF)
+                    .addComponent(edtCPF)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -116,7 +126,7 @@ public class FrRegister extends javax.swing.JDialog {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(fedtPhone))
+                    .addComponent(edtPhone))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -137,11 +147,11 @@ public class FrRegister extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fedtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(edtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(jLabel6)
                 .addGap(4, 4, 4)
-                .addComponent(fedtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(edtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegister)
                 .addGap(0, 10, Short.MAX_VALUE))
@@ -152,11 +162,22 @@ public class FrRegister extends javax.swing.JDialog {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
+        
+        try{
+            userController.cadastrarUser(edtName.getText(), edtEmail.getText(), edtCPF.getText(),edtPhone.getText());  
+        }catch (UserException u){
+            System.err.println(u.getMessage());
+            JOptionPane.showMessageDialog(this, u.getMessage());
+        }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
-    private void fedtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fedtCPFActionPerformed
+    private void edtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCPFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fedtCPFActionPerformed
+    }//GEN-LAST:event_edtCPFActionPerformed
+
+    private void edtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,10 +186,10 @@ public class FrRegister extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegister;
+    private javax.swing.JFormattedTextField edtCPF;
     private javax.swing.JTextField edtEmail;
     private javax.swing.JTextField edtName;
-    private javax.swing.JFormattedTextField fedtCPF;
-    private javax.swing.JFormattedTextField fedtPhone;
+    private javax.swing.JFormattedTextField edtPhone;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

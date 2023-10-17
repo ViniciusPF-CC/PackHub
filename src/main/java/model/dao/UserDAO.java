@@ -103,5 +103,25 @@ public class UserDAO implements IDao {
         } else {
             return (User) lst.get(0);
         }                
+    }
+    
+    public User findByCPF(String Cpf) { 
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        
+        jpql = " SELECT u "
+             + " FROM User u "
+             + " WHERE u.cpf like :cpf ";
+        qry = this.entityManager.createQuery(jpql);
+        qry.setParameter("cpf", Cpf);
+        
+        List lst = qry.getResultList();
+
+        this.entityManager.close();
+        
+        if (lst.isEmpty()) {
+            return null;
+        } else {
+            return (User) lst.get(0);
+        }                
     }  
 }

@@ -31,7 +31,7 @@
                   <Component id="btnRegister" max="32767" attributes="0"/>
                   <Component id="edtName" max="32767" attributes="0"/>
                   <Component id="edtEmail" alignment="0" max="32767" attributes="0"/>
-                  <Component id="fedtCPF" alignment="0" max="32767" attributes="0"/>
+                  <Component id="edtCPF" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -41,7 +41,7 @@
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="fedtPhone" alignment="0" max="32767" attributes="0"/>
+                  <Component id="edtPhone" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -65,11 +65,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="fedtCPF" min="-2" max="-2" attributes="0"/>
+              <Component id="edtCPF" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-              <Component id="fedtPhone" min="-2" max="-2" attributes="0"/>
+              <Component id="edtPhone" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnRegister" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
@@ -101,6 +101,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="edtName">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtNameActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -130,12 +133,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegisterActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="fedtCPF">
+    <Component class="javax.swing.JFormattedTextField" name="edtCPF">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fedtCPFActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtCPFActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="fedtPhone">
+    <Component class="javax.swing.JFormattedTextField" name="edtPhone">
     </Component>
   </SubComponents>
 </Form>

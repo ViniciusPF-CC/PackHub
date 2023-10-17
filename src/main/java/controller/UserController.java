@@ -21,27 +21,25 @@ public class UserController {
         repositorio = new UserDAO();  
     }
     
-    public void cadastrarUser(String nome, String email) {
+    public void cadastrarUser(String nome, String email, String cpf, String phone) {
         ValidateUser valid = new ValidateUser();
-        User novoUser = valid.validaCamposEntrada(nome, email);
+        User novoUser = valid.validaCamposEntrada(nome, email, cpf, phone);
                 
         if (repositorio.findByEmail(novoUser.getEmail()) != null) {
             throw new UserException("Error - Já existe um usuario com este 'email'.");
-        } else {
+        } else if(repositorio.findByCPF(novoUser.getCpf()) != null) {
+            throw new UserException("Error - Já existe um usuario com este 'cpf'.");
+        }else{
             repositorio.save(novoUser);
         }
     }    
     
-    public void atualizarUser(int idUser, String nome, String email) {
+    public void atualizarUser(int idUser, String nome, String email, String cpf, String phone) {
         ValidateUser valid = new ValidateUser();
-        User novoUser = valid.validaCamposEntrada(nome, email);
+        User novoUser = valid.validaCamposEntrada(nome, email, cpf, phone);
         novoUser.setId(idUser);
         repositorio.update(novoUser);
     }    
-
-    public void atualizarTabela(JTable grd) {
-        Util.jTableShow(grd, new TMCadUser(repositorio.findAll()), null);
-    }
 
     public void excluirUser(User funcionario) {
         //Encontrar professor e exlcui                   
