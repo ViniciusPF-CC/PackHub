@@ -4,6 +4,7 @@
  */
 package model.valid;
 
+import javax.swing.JOptionPane;
 import model.User;
 import model.exceptions.UserException;
 
@@ -14,21 +15,24 @@ import model.exceptions.UserException;
 public class ValidateUser {
     public User validaCamposEntrada(String nome, String email, String cpf, String phone){
         User user = new User();
-        if (nome.isEmpty())
-            throw new UserException("Error - Campo vazio: 'nome'.");
+        if (nome.isEmpty() || email.isEmpty() || cpf.isEmpty() || phone.isEmpty()) {
+            throw new UserException("Erro - Preencha todos os campos.");
+        }
+        
+        if(!EmailValid.isEmailValid(email)){
+            throw new UserException("O email não é válido.");
+        }
+        
+        if(!ValidateCPF.validaCPF(cpf)){
+            throw new UserException("CPF inválido");
+        }
+        
         user.setNome(nome);
-        
-        if (email.isEmpty()) 
-            throw new UserException("Error - Campo vazio: 'email'.");                
         user.setEmail(email);
-        
-        if (cpf.isEmpty())
-            throw new UserException("Error - Campo vazio: 'cpf'.");                
         user.setCpf(cpf);
-        
-        if(phone.isEmpty())
-            throw new UserException("Error - Campo vazio: 'telefone'.");                
         user.setPhone(phone);
+        
+        JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
         return user;
     }
