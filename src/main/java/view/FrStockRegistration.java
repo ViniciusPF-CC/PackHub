@@ -24,17 +24,6 @@ public class FrStockRegistration extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         stockController = new StockController();
-
-        this.addMaskPrice();
-    }
-
-    public void addMaskPrice() {
-        try {
-            MaskFormatter mask = new MaskFormatter("$#####.##");
-            mask.install(edtCostPrice);
-        } catch (ParseException ex) {
-            Logger.getLogger(FrRegister.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**

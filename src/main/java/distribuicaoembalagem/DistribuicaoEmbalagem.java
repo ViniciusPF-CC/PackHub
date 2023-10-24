@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import view.FrLogin;
+import view.FrSelectAction;
 
 /**
  *
@@ -21,8 +22,9 @@ public class DistribuicaoEmbalagem {
         
         entityManager.close();
         factory.close();
-        FrLogin login = new FrLogin();
-        login.setVisible(true);
-        System.out.println("Hello World!");
+//        FrLogin login = new FrLogin();
+//        login.setVisible(true);
+        FrSelectAction select = new FrSelectAction();
+        select.setVisible(true);
     }
 }
