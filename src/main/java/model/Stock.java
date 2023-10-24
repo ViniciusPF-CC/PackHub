@@ -4,10 +4,12 @@
  */
 package model;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import lombok.Data;
 
 /**
@@ -27,6 +29,8 @@ public class Stock {
     private float precoVenda;
     private int quantEstoque;
     private String fornecedor;
+    @ManyToMany(mappedBy = "produtosFornecidos")
+    private List<Supplier> suppliers;
     
     public Stock(){
         id= -1;
