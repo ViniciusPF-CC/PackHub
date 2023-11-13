@@ -24,6 +24,8 @@ public class FrStockRegistration extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         stockController = new StockController();
+        
+        stockController.atualizarTabela(grdStock);
     }
 
     /**
@@ -49,7 +51,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         edtFornecedor = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        grdStock = new javax.swing.JTable();
         edtCostPrice = new javax.swing.JFormattedTextField();
         btnCadastrar = new javax.swing.JButton();
 
@@ -87,7 +89,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        grdStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -106,7 +108,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(grdStock);
 
         btnCadastrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCadastrar.setText("Cadastrar estoque agora");
@@ -126,23 +128,24 @@ public class FrStockRegistration extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(edtCodProduto)
+                            .addComponent(edtCodProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
                             .addComponent(edtDescProduto)
-                            .addComponent(edtCostPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                            .addComponent(edtCostPrice))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(edtQuantEstoque, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(edtPrecoVenda, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(edtFornecedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                                .addComponent(edtQuantEstoque)
+                                .addComponent(edtPrecoVenda))
                             .addComponent(jLabel7)
-                            .addComponent(edtFornecedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))))
+                            .addComponent(jLabel6))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -184,6 +187,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void edtCodProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCodProdutoActionPerformed
@@ -222,6 +226,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
     private javax.swing.JTextField edtFornecedor;
     private javax.swing.JTextField edtPrecoVenda;
     private javax.swing.JTextField edtQuantEstoque;
+    private javax.swing.JTable grdStock;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -231,6 +236,5 @@ public class FrStockRegistration extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
