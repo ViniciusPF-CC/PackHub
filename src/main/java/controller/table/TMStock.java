@@ -90,10 +90,10 @@ public class TMStock extends AbstractTableModel {
                 return "Fornecedor";
             }
             case COL_PRECOCUSTO -> {
-                return "Preço de Custo";
+                return "P. de Custo";
             }
             case COL_PRECOVENDA -> {
-                return "Preço de Venda";
+                return "P. de Venda";
             }
             case COL_QUANTESTOQUE -> {
                 return "Quat. em estoque";

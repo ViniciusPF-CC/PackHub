@@ -37,11 +37,11 @@ public class SupplierDAO implements IDao{
     }
 
     @Override
-    public boolean delete(Object obj) {
+    public boolean delete(Long id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
 
         this.entityManager.getTransaction().begin();
-        this.entityManager.remove(obj);
+        this.entityManager.remove(id);
         this.entityManager.getTransaction().commit();
 
         this.entityManager.close();

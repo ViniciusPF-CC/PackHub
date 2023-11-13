@@ -14,7 +14,7 @@ import lombok.Data;
 
 /**
  *
- * @author Vinicius
+ * @author vinic
  */
 @Entity
 @Data
@@ -22,7 +22,7 @@ public class Stock {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private int codigo;
     private String descricao;
     private float precoCusto;
@@ -33,7 +33,6 @@ public class Stock {
     private List<Supplier> suppliers;
     
     public Stock(){
-        id= -1;
         codigo = 0;
         descricao = "";
         precoCusto = 0;
@@ -41,7 +40,7 @@ public class Stock {
         quantEstoque = 0;
         fornecedor = "";
     }
-    public Stock(Integer id, Integer codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor){
+    public Stock(Long id, Integer codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor){
         this.id = id;
         this.codigo = codigo;
         this.descricao = descricao;

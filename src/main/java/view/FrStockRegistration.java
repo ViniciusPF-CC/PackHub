@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
+import model.Stock;
 import model.exceptions.StockException;
 
 /**
@@ -19,13 +20,32 @@ import model.exceptions.StockException;
 public class FrStockRegistration extends javax.swing.JDialog {
 
     StockController stockController;
+    Long idStockEditando;
 
     public FrStockRegistration(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         stockController = new StockController();
+        idStockEditando = -1L;
         
         stockController.atualizarTabela(grdStock);
+    }
+    
+    /**
+     * Retorna o objeto (classe) da linha selecionada na grid.
+     *
+     * Uso a estratégia do metodo getValueAt() la na TableModel, receber coluna
+     * -1 e retornar o objeto ao inves de uma célula.
+     *
+     * @return
+     */
+    private Object getObjetoSelecionadoNaGrid() {
+        int rowCliked = grdStock.getSelectedRow();
+        Object obj = null;
+        if (rowCliked >= 0) {
+            obj = grdStock.getModel().getValueAt(rowCliked, -1);
+        }
+        return obj;
     }
 
     /**
@@ -54,6 +74,9 @@ public class FrStockRegistration extends javax.swing.JDialog {
         grdStock = new javax.swing.JTable();
         edtCostPrice = new javax.swing.JFormattedTextField();
         btnCadastrar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        btnEdit = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar item");
@@ -111,10 +134,24 @@ public class FrStockRegistration extends javax.swing.JDialog {
         jScrollPane1.setViewportView(grdStock);
 
         btnCadastrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/btnSave.png"))); // NOI18N
         btnCadastrar.setText("Cadastrar estoque agora");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Ações para tabela:");
+
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/btnEdit.png"))); // NOI18N
+        btnEdit.setText("Editar");
+
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/btnCancel.png"))); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
             }
         });
 
@@ -124,12 +161,12 @@ public class FrStockRegistration extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
@@ -145,7 +182,14 @@ public class FrStockRegistration extends javax.swing.JDialog {
                                 .addComponent(edtQuantEstoque)
                                 .addComponent(edtPrecoVenda))
                             .addComponent(jLabel7)
-                            .addComponent(jLabel6))))
+                            .addComponent(jLabel6)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEdit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExcluir)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -181,8 +225,13 @@ public class FrStockRegistration extends javax.swing.JDialog {
                     .addComponent(edtCostPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCadastrar)
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(btnEdit)
+                    .addComponent(btnExcluir))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -208,6 +257,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
             String fornecedor = edtFornecedor.getText();
 
             stockController.cadastrarStock(codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
+            stockController.atualizarTabela(grdStock);
         } catch (NumberFormatException e) {
             System.err.println("Erro ao converter valores: " + e.getMessage());
             JOptionPane.showMessageDialog(this, "Erro ao converter valores: " + e.getMessage());
@@ -217,9 +267,39 @@ public class FrStockRegistration extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        Stock stockExcluido = (Stock) this.getObjetoSelecionadoNaGrid();
+
+        if (stockExcluido == null)
+            JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
+        else {
+
+            int response = JOptionPane.showConfirmDialog(null,
+                    "Deseja exlcuir o  \n("
+                    + stockExcluido.getDescricao()+ ", ",
+                    "Confirmar exclusão",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.OK_OPTION) {
+
+                try {
+                    this.idStockEditando = stockExcluido.getId();
+                    stockController.excluirStock(this.idStockEditando);
+
+                    stockController.atualizarTabela(grdStock);
+                    JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso!");
+                } catch (StockException ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JTextField edtCodProduto;
     private javax.swing.JFormattedTextField edtCostPrice;
     private javax.swing.JTextField edtDescProduto;
@@ -235,6 +315,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

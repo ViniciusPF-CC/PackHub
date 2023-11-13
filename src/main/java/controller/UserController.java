@@ -40,14 +40,4 @@ public class UserController {
         novoUser.setId(idUser);
         repositorio.update(novoUser);
     }    
-
-    public void excluirUser(User funcionario) {
-        //Encontrar professor e exlcui                   
-        
-        if (funcionario != null) {
-            repositorio.delete(funcionario);
-        } else {
-            throw new UserException("Error - Usuario inexistente.");
-        }
-    }
 }

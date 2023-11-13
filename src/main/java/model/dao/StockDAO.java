@@ -37,15 +37,22 @@ public class StockDAO implements IDao {
     }
 
     @Override
-    public boolean delete(Object obj) {
+    public boolean delete(Long id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-
         this.entityManager.getTransaction().begin();
-        this.entityManager.remove(obj);
-        this.entityManager.getTransaction().commit();
 
+        Stock disciplinaJPA = this.entityManager.find(Stock.class, id);
+        if (disciplinaJPA != null) {
+            this.entityManager.remove(disciplinaJPA);
+        } else {
+            this.entityManager.getTransaction().rollback();
+            throw new RuntimeException("Error - Stock inexistente.");
+        }
+
+        this.entityManager.getTransaction().commit();
         this.entityManager.close();
         return true;
+    
     }
 
     @Override

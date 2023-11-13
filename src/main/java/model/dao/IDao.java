@@ -14,7 +14,7 @@ public interface IDao {
     
     public void save(Object obj);
     
-    public boolean delete(Object obj);
+    public boolean delete(Long id);
             
     public Object find(Object obj);
         

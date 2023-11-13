@@ -39,4 +39,12 @@ public class StockController {
         }
     }
     
+    public void excluirStock(Long id) {     
+        if (id != -1) {
+            repositorio.delete(id);
+        } else {
+            throw new StockException("Error - Disciplina inexistente.");
+        }
+    }
+    
 }
