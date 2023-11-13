@@ -47,6 +47,24 @@ public class FrStockRegistration extends javax.swing.JDialog {
         }
         return obj;
     }
+    
+    public void limparCampos() {
+        edtCodProduto.setText("");
+        edtCostPrice.setText("");
+        edtDescProduto.setText("");
+        edtFornecedor.setText("");
+        edtPrecoVenda.setText("");
+        edtQuantEstoque.setText("");
+    }
+    
+    public void preencherFormulario(Stock stock) {
+        edtCodProduto.setText(stock.getCodigo() + "");
+        edtCostPrice.setText(stock.getPrecoCusto()+ "");
+        edtDescProduto.setText(stock.getDescricao()+ "");
+        edtFornecedor.setText(stock.getFornecedor());
+        edtPrecoVenda.setText(stock.getPrecoVenda()+ "");
+        edtQuantEstoque.setText(stock.getQuantEstoque()+ "");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -146,6 +164,11 @@ public class FrStockRegistration extends javax.swing.JDialog {
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/btnEdit.png"))); // NOI18N
         btnEdit.setText("Editar");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/btnCancel.png"))); // NOI18N
         btnExcluir.setText("Excluir");
@@ -294,6 +317,18 @@ public class FrStockRegistration extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        Stock stockEditando = (Stock) this.getObjetoSelecionadoNaGrid();
+
+        if (stockEditando == null)
+            JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
+        else {
+            this.limparCampos();
+            this.preencherFormulario(stockEditando);
+            this.idStockEditando = stockEditando.getId();
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
