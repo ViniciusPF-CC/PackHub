@@ -4,12 +4,12 @@
  */
 package model;
 
-import java.util.List;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import lombok.Data;
 
 /**
@@ -18,7 +18,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-public class Stock {
+public class Stock implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,26 +28,26 @@ public class Stock {
     private float precoCusto;
     private float precoVenda;
     private int quantEstoque;
-    private String fornecedor;
-    @ManyToMany(mappedBy = "produtosFornecidos")
-    private List<Supplier> suppliers;
+    @ManyToOne
+    private Supplier supplier;
     
     public Stock(){
+        id = -1L;
         codigo = 0;
         descricao = "";
         precoCusto = 0;
         precoVenda = 0;
         quantEstoque = 0;
-        fornecedor = "";
+        supplier = new Supplier();
     }
-    public Stock(Long id, Integer codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor){
+    public Stock(Long id, Integer codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, Supplier supplier){
         this.id = id;
         this.codigo = codigo;
         this.descricao = descricao;
         this.precoCusto = precoCusto;
         this.precoVenda = precoVenda;
         this.quantEstoque = quantEstoque;
-        this.fornecedor = fornecedor;
+        this.supplier = supplier;
     }
     
     public void copy(Stock other){
@@ -57,6 +57,7 @@ public class Stock {
         this.precoCusto = other.precoCusto;
         this.precoVenda = other.precoVenda;
         this.quantEstoque = other.quantEstoque;
-        this.fornecedor = other.fornecedor;
+        this.supplier = other.supplier;
+        
     }
 }

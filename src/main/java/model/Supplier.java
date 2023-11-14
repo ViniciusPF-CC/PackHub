@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import lombok.Data;
 
 /**
@@ -23,22 +23,22 @@ import lombok.Data;
 public class Supplier implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String endereco;
     private String telefone;
     private String cnpj;
-    @ManyToMany
+    @OneToMany(mappedBy = "supplier")
     private List<Stock> produtosFornecidos;
     
     public void Supplier(){
-        this.id = -1;
+        this.id = -1L;
         this.endereco = "";
         this.telefone = "";
         this.cnpj = "";
         this.produtosFornecidos = new ArrayList<>();
     }
     
-    public void Supplier(int id, String endereco, String telefone, String cnpj, List produtosFornecidos){
+    public void Supplier(Long id, String endereco, String telefone, String cnpj, List produtosFornecidos){
         this.id = id;
         this.endereco = endereco;
         this.telefone = telefone;
