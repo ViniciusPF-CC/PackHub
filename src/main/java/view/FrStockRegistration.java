@@ -223,9 +223,9 @@ public class FrStockRegistration extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel6))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(edtPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -271,16 +271,21 @@ public class FrStockRegistration extends javax.swing.JDialog {
     }//GEN-LAST:event_edtFornecedorActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        try {
+        try{
             Integer codigo = Integer.parseInt(edtCodProduto.getText());
             String descricao = edtDescProduto.getText();
             float precoCusto = Float.parseFloat(edtCostPrice.getText());
             float precoVenda = Float.parseFloat(edtPrecoVenda.getText());
             Integer quantEstoque = Integer.parseInt(edtQuantEstoque.getText());
             String fornecedor = edtFornecedor.getText();
-
-            stockController.cadastrarStock(codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
-            stockController.atualizarTabela(grdStock);
+            if(idStockEditando > 0){
+                stockController.atualizarStock(idStockEditando, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
+                stockController.atualizarTabela(grdStock);
+            }else{
+                stockController.cadastrarStock(codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
+                stockController.atualizarTabela(grdStock);
+            }
+            this.idStockEditando = -1L;
         } catch (NumberFormatException e) {
             System.err.println("Erro ao converter valores: " + e.getMessage());
             JOptionPane.showMessageDialog(this, "Erro ao converter valores: " + e.getMessage());

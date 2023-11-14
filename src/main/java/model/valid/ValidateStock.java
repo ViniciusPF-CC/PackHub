@@ -31,5 +31,22 @@ public class ValidateStock {
 
         return stock;
     }
+    
+    public Stock validaCamposEntrada(String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor) {
+        if (descricao.isEmpty() || precoCusto <= 0 || precoVenda <= 0 || quantEstoque == null || fornecedor.isEmpty()) {
+            throw new StockException("Erro - Preencha todos os campos corretamente.");
+        }
+
+        Stock stock = new Stock();
+        stock.setDescricao(descricao);
+        stock.setPrecoCusto(precoCusto);
+        stock.setPrecoVenda(precoVenda);
+        stock.setQuantEstoque(quantEstoque);
+        stock.setFornecedor(fornecedor);
+
+        JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        return stock;
+    }
 
 }

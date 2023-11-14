@@ -30,7 +30,7 @@ public class StockController {
     
     public void cadastrarStock(Integer codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor) {
         ValidateStock valid = new ValidateStock();
-        Stock stock = valid.validaCamposEntrada(codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
+        Stock stock = valid.validaCamposEntrada(codigo,descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
         
         if(repositorio.findByCodigo(stock.getCodigo()) != null) {
             throw new StockException("Error - Já existe um produto com esse código");
@@ -39,11 +39,18 @@ public class StockController {
         }
     }
     
+    public void atualizarStock(Long id, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor){
+        ValidateStock valid = new ValidateStock();
+        Stock novoStock = valid.validaCamposEntrada(descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
+        novoStock.setId(id);
+        repositorio.update(novoStock);
+    }
+    
     public void excluirStock(Long id) {     
         if (id != -1) {
             repositorio.delete(id);
         } else {
-            throw new StockException("Error - Disciplina inexistente.");
+            throw new StockException("Error - Item inexistente.");
         }
     }
     
