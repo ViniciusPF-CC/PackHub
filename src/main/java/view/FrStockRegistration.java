@@ -61,7 +61,6 @@ public class FrStockRegistration extends javax.swing.JDialog {
         edtCodProduto.setText(stock.getCodigo() + "");
         edtCostPrice.setText(stock.getPrecoCusto()+ "");
         edtDescProduto.setText(stock.getDescricao()+ "");
-        edtFornecedor.setText(stock.getFornecedor());
         edtPrecoVenda.setText(stock.getPrecoVenda()+ "");
         edtQuantEstoque.setText(stock.getQuantEstoque()+ "");
     }

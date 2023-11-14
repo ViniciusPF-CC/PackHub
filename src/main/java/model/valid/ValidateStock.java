@@ -6,6 +6,7 @@ package model.valid;
 
 import javax.swing.JOptionPane;
 import model.Stock;
+import model.Supplier;
 import model.exceptions.StockException;
 
 /**
@@ -14,8 +15,8 @@ import model.exceptions.StockException;
  */
 public class ValidateStock {
 
-    public Stock validaCamposEntrada(Integer codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor) {
-        if (codigo == null || descricao.isEmpty() || precoCusto <= 0 || precoVenda <= 0 || quantEstoque == null || fornecedor.isEmpty()) {
+    public Stock validaCamposEntrada(Integer codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, Supplier fornecedor) {
+        if (codigo == null || descricao.isEmpty() || precoCusto <= 0 || precoVenda <= 0 || quantEstoque == null || fornecedor == null) {
             throw new StockException("Erro - Preencha todos os campos corretamente.");
         }
 
@@ -25,15 +26,15 @@ public class ValidateStock {
         stock.setPrecoCusto(precoCusto);
         stock.setPrecoVenda(precoVenda);
         stock.setQuantEstoque(quantEstoque);
-        stock.setFornecedor(fornecedor);
+        stock.setSupplier(fornecedor);
 
         JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
         return stock;
     }
     
-    public Stock validaCamposEntrada(String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor) {
-        if (descricao.isEmpty() || precoCusto <= 0 || precoVenda <= 0 || quantEstoque == null || fornecedor.isEmpty()) {
+    public Stock validaCamposEntrada(String descricao, float precoCusto, float precoVenda, Integer quantEstoque, Supplier fornecedor) {
+        if (descricao.isEmpty() || precoCusto <= 0 || precoVenda <= 0 || quantEstoque == null || fornecedor == null) {
             throw new StockException("Erro - Preencha todos os campos corretamente.");
         }
 
@@ -42,7 +43,7 @@ public class ValidateStock {
         stock.setPrecoCusto(precoCusto);
         stock.setPrecoVenda(precoVenda);
         stock.setQuantEstoque(quantEstoque);
-        stock.setFornecedor(fornecedor);
+        stock.setSupplier(fornecedor);
 
         JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 

@@ -35,6 +35,5 @@ public class Manager extends Employee implements Serializable{
         this.setCnpj(other.getCnpj());
         this.setPhone(other.getPhone());
         this.setTypePositions(other.getTypePositions());
-    
     }
 }
