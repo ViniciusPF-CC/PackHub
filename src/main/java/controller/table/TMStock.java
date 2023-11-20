@@ -56,7 +56,7 @@ public class TMStock extends AbstractTableModel {
                 return aux.getDescricao();
             }
             case COL_FORNECEDOR -> {
-                return aux.getFornecedor();
+                return aux.getSupplier();
             }
             case COL_PRECOCUSTO -> {
                 return aux.getPrecoCusto();

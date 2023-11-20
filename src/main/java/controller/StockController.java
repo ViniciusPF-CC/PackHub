@@ -8,6 +8,7 @@ import controller.table.TMStock;
 import java.util.List;
 import javax.swing.JTable;
 import model.Stock;
+import model.Supplier;
 import model.dao.StockDAO;
 import model.exceptions.StockException;
 import model.valid.ValidateStock;
@@ -28,7 +29,7 @@ public class StockController {
         Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
     }
     
-    public void cadastrarStock(Integer codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor) {
+    public void cadastrarStock(Integer codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, Supplier fornecedor) {
         ValidateStock valid = new ValidateStock();
         Stock stock = valid.validaCamposEntrada(codigo,descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
         
@@ -39,7 +40,7 @@ public class StockController {
         }
     }
     
-    public void atualizarStock(Long id, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor){
+    public void atualizarStock(Long id, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, Supplier fornecedor){
         ValidateStock valid = new ValidateStock();
         Stock novoStock = valid.validaCamposEntrada(descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
         novoStock.setId(id);

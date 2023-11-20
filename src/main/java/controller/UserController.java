@@ -34,7 +34,7 @@ public class UserController {
         }
     }    
     
-    public void atualizarUser(int idUser, String nome, String email, String cpf, String phone) {
+    public void atualizarUser(Long idUser, String nome, String email, String cpf, String phone) {
         ValidateUser valid = new ValidateUser();
         User novoUser = valid.validaCamposEntrada(nome, email, cpf, phone);
         novoUser.setId(idUser);
