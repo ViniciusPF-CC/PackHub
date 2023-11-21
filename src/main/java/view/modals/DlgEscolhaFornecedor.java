@@ -1,9 +1,9 @@
 package view.modals;
 
-import com.ifcoder.projetodacc_jpa.controller.DisciplinaController;
-import com.ifcoder.projetodacc_jpa.model.Disciplina;
-import com.ifcoder.projetodacc_jpa.model.Turma;
+import controller.SupplierController;
 import javax.swing.JOptionPane;
+import model.Stock;
+import model.Supplier;
 
 /**
  *
@@ -11,21 +11,21 @@ import javax.swing.JOptionPane;
  */
 public class DlgEscolhaFornecedor extends javax.swing.JDialog {
 
-    Turma turma;
-    Disciplina itemEscolhido;
-    DisciplinaController disciplinaController;
+    Stock stock;
+    Supplier itemEscolhido;
+    SupplierController fornecedorController;
     
 
-    public DlgEscolhaFornecedor(java.awt.Frame parent, boolean modal, Turma turma) {
+    public DlgEscolhaFornecedor(java.awt.Frame parent, boolean modal, Stock stock) {
 
         super(parent, modal);
         initComponents();
         
-        this.disciplinaController = new DisciplinaController();
-        this.itemEscolhido = new Disciplina();
-        this.turma = turma;
+        this.fornecedorController = new SupplierController();
+        this.itemEscolhido = new Supplier();
+        this.stock = stock;
 
-        this.disciplinaController.atualizarTabela(grdItens);
+        this.fornecedorController.atualizarTabela(grdItens);
     }
 
     /**
@@ -47,14 +47,14 @@ public class DlgEscolhaFornecedor extends javax.swing.JDialog {
         grdItens = new javax.swing.JTable();
         panEscolhido = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        lblPessoaEscolhida = new javax.swing.JTextArea();
+        lblFornecedorEscolhido = new javax.swing.JTextArea();
         btnAddItem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblTitle.setFont(new java.awt.Font("Fira Sans", 1, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("Escolha uma Disciplina");
+        lblTitle.setText("Escolha o Fornecedor");
 
         splConteudo.setDividerLocation(420);
 
@@ -113,11 +113,11 @@ public class DlgEscolhaFornecedor extends javax.swing.JDialog {
 
         splConteudo.setLeftComponent(panListaPessoas);
 
-        lblPessoaEscolhida.setEditable(false);
-        lblPessoaEscolhida.setColumns(20);
-        lblPessoaEscolhida.setRows(5);
-        lblPessoaEscolhida.setBorder(javax.swing.BorderFactory.createTitledBorder("Item selecionado"));
-        jScrollPane2.setViewportView(lblPessoaEscolhida);
+        lblFornecedorEscolhido.setEditable(false);
+        lblFornecedorEscolhido.setColumns(20);
+        lblFornecedorEscolhido.setRows(5);
+        lblFornecedorEscolhido.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jScrollPane2.setViewportView(lblFornecedorEscolhido);
 
         btnAddItem.setBackground(new java.awt.Color(0, 153, 51));
         btnAddItem.setText("Adicionar");
@@ -185,27 +185,27 @@ public class DlgEscolhaFornecedor extends javax.swing.JDialog {
                 dispose();
             }
         } else {
-            this.turma.setDisciplina(itemEscolhido);
+            this.stock.setSupplier(itemEscolhido);
             dispose();
         }
     }//GEN-LAST:event_btnAddItemActionPerformed
 
     private void grdItensMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdItensMouseClicked
-        itemEscolhido = (Disciplina) this.getObjetoSelecionadoNaGrid();
+        itemEscolhido = (Supplier) this.getObjetoSelecionadoNaGrid();
 
         if (itemEscolhido == null) {
             JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
         } else {
-           lblPessoaEscolhida.setText(itemEscolhido.toString());
+           lblFornecedorEscolhido.setText(itemEscolhido.toString());
         }
     }//GEN-LAST:event_grdItensMouseClicked
 
     private void edtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtNomeKeyPressed
         String nomeDigitado = edtNome.getText();
         if(!nomeDigitado.isEmpty())
-            this.disciplinaController.atualizarTabela(grdItens, nomeDigitado);
+            this.fornecedorController.atualizarTabela(grdItens, nomeDigitado);
         else
-            this.disciplinaController.atualizarTabela(grdItens);
+            this.fornecedorController.atualizarTabela(grdItens);
     }//GEN-LAST:event_edtNomeKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -215,8 +215,8 @@ public class DlgEscolhaFornecedor extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea lblFornecedorEscolhido;
     private javax.swing.JLabel lblNome2;
-    private javax.swing.JTextArea lblPessoaEscolhida;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel panEscolhido;
     private javax.swing.JPanel panListaPessoas;

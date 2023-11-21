@@ -54,7 +54,7 @@
           <Font name="Fira Sans" size="24" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Escolha uma Disciplina"/>
+        <Property name="text" type="java.lang.String" value="Escolha o Fornecedor"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JSplitPane" name="splConteudo">
@@ -183,7 +183,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="lblPessoaEscolhida">
+                <Component class="javax.swing.JTextArea" name="lblFornecedorEscolhido">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
