@@ -15,20 +15,33 @@ import model.valid.ValidateSupplier;
  * @author Gabriel
  */
 public class SupplierController {
-    private SupplierDAO respositorio;
+    private SupplierDAO repositorio;
     
     public SupplierController(){
-        respositorio = new SupplierDAO();
+        repositorio = new SupplierDAO();
     }
     
     public void cadastrarSupplier(String endereco, String telefone, String cnpj, List produtosFornecidos) {
         ValidateSupplier valid = new ValidateSupplier();
         Supplier supplier = valid.validaCamposEntrada(endereco, telefone, cnpj, produtosFornecidos);
         
-        if(respositorio.findByCnpj(supplier.getCnpj()) != null) {
+        if(repositorio.findByCnpj(supplier.getCnpj()) != null) {
             throw new SupplierException("Error - Já existe um produto com esse código");
         } else {
-            respositorio.save(supplier);
+            repositorio.save(supplier);
         }
     }
+    
+        public String buscarSupplierString() {
+            
+        List<Supplier> suppliers = repositorio.findAll();
+        
+        String supplierString = "";
+        for (Supplier supplier : suppliers) {
+            supplierString += supplier.getId() + "\n";
+        }
+
+        return supplierString;
+    }
+    
 }

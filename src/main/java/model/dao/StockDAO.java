@@ -14,7 +14,7 @@ import model.Stock;
  *
  * @author vinic
  */
-public class StockDAO implements IDao {
+public class StockDAO implements IDao<Stock> {
 
     private EntityManager entityManager;
 
@@ -26,7 +26,7 @@ public class StockDAO implements IDao {
     }
 
     @Override
-    public void save(Object obj) {
+    public void save(Stock obj) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
 
         this.entityManager.getTransaction().begin();
@@ -56,12 +56,10 @@ public class StockDAO implements IDao {
     }
 
     @Override
-    public Object find(Object obj) {
+    public Stock find(Long id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
 
-        Stock stock = (Stock) obj;
-
-        Stock u = this.entityManager.find(Stock.class, stock.getId());
+        Stock u = this.entityManager.find(Stock.class, id);
 
         this.entityManager.close();
 
@@ -69,7 +67,7 @@ public class StockDAO implements IDao {
     }
 
     @Override
-    public List<Object> findAll() {
+    public List<Stock> findAll() {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
 
         jpql = " SELECT s "
@@ -80,10 +78,11 @@ public class StockDAO implements IDao {
         List lst = qry.getResultList();
 
         this.entityManager.close();
-        return (List<Object>) lst;
+        return (List<Stock>) lst;
     }
 
-    public void update(Object obj) {
+    @Override
+    public void update(Stock obj) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
 
         this.entityManager.getTransaction().begin();

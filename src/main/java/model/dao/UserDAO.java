@@ -14,7 +14,7 @@ import model.User;
  *
  * @author Gabriel
  */
-public class UserDAO implements IDao {
+public class UserDAO implements IDao<User> {
     private EntityManager entityManager;
     
     private Query qry;
@@ -25,7 +25,7 @@ public class UserDAO implements IDao {
     }
     
     @Override
-    public void save(Object obj){
+    public void save(User obj){
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         
         this.entityManager.getTransaction().begin();       
@@ -36,7 +36,7 @@ public class UserDAO implements IDao {
     }
     
     
-    public void update(Object obj) {
+    public void update(User obj) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         
         this.entityManager.getTransaction().begin();       
@@ -59,19 +59,18 @@ public class UserDAO implements IDao {
     }      
     
     @Override
-    public Object find(Object obj) {
+    public User find(Long id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         
-        User user = (User) obj;
-        
-        User u = this.entityManager.find(User.class, user.getId());
+        User u = this.entityManager.find(User.class, id);
         
         this.entityManager.close();
         
         return u;
     }
     
-    public List<Object> findAll() {
+    @Override
+    public List<User> findAll() {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         
         jpql = " SELECT u "
@@ -82,7 +81,7 @@ public class UserDAO implements IDao {
         List lst = qry.getResultList();
         
         this.entityManager.close();
-        return (List<Object>) lst;
+        return (List<User>) lst;
                 
     }
     

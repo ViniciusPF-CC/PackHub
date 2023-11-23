@@ -10,14 +10,12 @@ import java.util.List;
  *
  * @author Gabriel
  */
-public interface IDao {
+public interface IDao <T>{
     
-    public void save(Object obj);
-    
-    public boolean delete(Long id);
-            
-    public Object find(Object obj);
-        
-    public List<Object> findAll();
-    
+    void save(T obj);
+    void update(T obj);
+    boolean delete(Long id);           
+    T find(Long id);        
+    List<T> findAll();
+
 }

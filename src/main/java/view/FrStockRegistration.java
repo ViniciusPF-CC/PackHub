@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import model.Stock;
 import model.exceptions.StockException;
+import controller.SupplierController;
 
 /**
  *
@@ -21,6 +22,8 @@ public class FrStockRegistration extends javax.swing.JDialog {
 
     StockController stockController;
     Long idStockEditando;
+    SupplierController supplierController
+    
 
     public FrStockRegistration(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -46,6 +49,15 @@ public class FrStockRegistration extends javax.swing.JDialog {
             obj = grdStock.getModel().getValueAt(rowCliked, -1);
         }
         return obj;
+    }
+    
+        public void FornecedorCombobox() {
+        cbxFornecedor.addItem("");
+        String[] supplierString = supplierController.buscarSupplierString .split("\n");
+
+        for (String baiaId : baiasString) {
+            cbxBaia.addItem(baiaId);
+        }
     }
     
     public void limparCampos() {
@@ -86,7 +98,6 @@ public class FrStockRegistration extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         edtQuantEstoque = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        edtFornecedor = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdStock = new javax.swing.JTable();
         edtCostPrice = new javax.swing.JFormattedTextField();
@@ -94,6 +105,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        cbxFornecedor = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar item");
@@ -122,12 +134,6 @@ public class FrStockRegistration extends javax.swing.JDialog {
         jLabel7.setText("Quantidade em estoque:");
 
         jLabel8.setText("Fornecedor:");
-
-        edtFornecedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtFornecedorActionPerformed(evt);
-            }
-        });
 
         grdStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -177,6 +183,13 @@ public class FrStockRegistration extends javax.swing.JDialog {
             }
         });
 
+        cbxFornecedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFornecedorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,14 +210,13 @@ public class FrStockRegistration extends javax.swing.JDialog {
                             .addComponent(edtDescProduto)
                             .addComponent(edtCostPrice))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel8)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(edtFornecedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
-                                .addComponent(edtQuantEstoque)
-                                .addComponent(edtPrecoVenda))
+                            .addComponent(edtQuantEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                            .addComponent(edtPrecoVenda)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel6)))
+                            .addComponent(jLabel6)
+                            .addComponent(cbxFornecedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -243,8 +255,8 @@ public class FrStockRegistration extends javax.swing.JDialog {
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtCostPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtCostPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCadastrar)
                 .addGap(37, 37, 37)
@@ -264,10 +276,6 @@ public class FrStockRegistration extends javax.swing.JDialog {
     private void edtCodProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCodProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtCodProdutoActionPerformed
-
-    private void edtFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtFornecedorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtFornecedorActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         try{
@@ -334,15 +342,19 @@ public class FrStockRegistration extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
+    private void cbxFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFornecedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxFornecedorActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JComboBox<String> cbxFornecedor;
     private javax.swing.JTextField edtCodProduto;
     private javax.swing.JFormattedTextField edtCostPrice;
     private javax.swing.JTextField edtDescProduto;
-    private javax.swing.JTextField edtFornecedor;
     private javax.swing.JTextField edtPrecoVenda;
     private javax.swing.JTextField edtQuantEstoque;
     private javax.swing.JTable grdStock;

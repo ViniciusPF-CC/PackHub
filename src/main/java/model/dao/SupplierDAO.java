@@ -15,7 +15,7 @@ import model.Supplier;
  *
  * @author Gabriel
  */
-public class SupplierDAO implements IDao{
+public class SupplierDAO implements IDao<Supplier>{
     private EntityManager entityManager;
 
     private Query qry;
@@ -25,8 +25,12 @@ public class SupplierDAO implements IDao{
 
     }
 
+    /**
+     *
+     * @param obj
+     */
     @Override
-    public void save(Object obj) {
+    public void save(Supplier obj) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
 
         this.entityManager.getTransaction().begin();
@@ -48,21 +52,24 @@ public class SupplierDAO implements IDao{
         return true;
     }
 
+   
     @Override
-    public Object find(Object obj) {
+    public Supplier find(Long id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
 
-        Supplier stock = (Supplier) obj;
-
-        Supplier u = this.entityManager.find(Supplier.class, stock.getId());
+        Supplier u = this.entityManager.find(Supplier.class, id);
 
         this.entityManager.close();
 
         return u;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
-    public List<Object> findAll() {
+    public List<Supplier> findAll() {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
 
         jpql = " SELECT s "
@@ -73,10 +80,11 @@ public class SupplierDAO implements IDao{
         List lst = qry.getResultList();
 
         this.entityManager.close();
-        return (List<Object>) lst;
+        return (List<Supplier>) lst;
     }
 
-    public void update(Object obj) {
+    @Override
+    public void update(Supplier obj) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
 
         this.entityManager.getTransaction().begin();
