@@ -30,7 +30,7 @@ public class Supplier implements Serializable {
     @OneToMany(mappedBy = "supplier")
     private List<Stock> produtosFornecidos;
     
-    public void Supplier(){
+    public Supplier(){
         this.id = -1L;
         this.endereco = "";
         this.telefone = "";
@@ -38,7 +38,7 @@ public class Supplier implements Serializable {
         this.produtosFornecidos = new ArrayList<>();
     }
     
-    public void Supplier(Long id, String endereco, String telefone, String cnpj, List produtosFornecidos){
+    public Supplier(Long id, String endereco, String telefone, String cnpj, List produtosFornecidos){
         this.id = id;
         this.endereco = endereco;
         this.telefone = telefone;

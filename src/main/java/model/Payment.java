@@ -31,14 +31,14 @@ public class Payment implements Serializable {
     private LocalDateTime dataHora;
     private double valor;
     
-    public void Payment(){
+    public Payment(){
         this.id = -1L;
         this.tipoPagamento = "";
         this.dataHora = LocalDateTime.of(2023, 1, 1, 0, 0);
         this.valor = 0.0;
     }
     
-    public void Payment(Long id, String tipoPagamento, LocalDateTime data, Double valor){
+    public Payment(Long id, String tipoPagamento, LocalDateTime data, Double valor){
         this.id = id;
         this.tipoPagamento = tipoPagamento;
         this.dataHora = data;
