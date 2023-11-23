@@ -43,5 +43,12 @@ public class SupplierController {
 
         return supplierString;
     }
-    
+        
+        public Supplier buscarSupplierPorId(Long id){
+        if(id == null){
+            return null;
+        }
+            Supplier supp = (Supplier) repositorio.find(id);
+        return supp;
+    }
 }
