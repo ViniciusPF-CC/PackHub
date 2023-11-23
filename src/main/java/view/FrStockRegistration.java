@@ -13,6 +13,7 @@ import javax.swing.text.MaskFormatter;
 import model.Stock;
 import model.exceptions.StockException;
 import controller.SupplierController;
+import model.Supplier;
 
 /**
  *
@@ -22,7 +23,8 @@ public class FrStockRegistration extends javax.swing.JDialog {
 
     StockController stockController;
     Long idStockEditando;
-    SupplierController supplierController
+    SupplierController supplierController;
+    
     
 
     public FrStockRegistration(java.awt.Frame parent, boolean modal) {
@@ -30,10 +32,11 @@ public class FrStockRegistration extends javax.swing.JDialog {
         initComponents();
         stockController = new StockController();
         idStockEditando = -1L;
+        FornecedorCombobox();
         
         stockController.atualizarTabela(grdStock);
     }
-    
+     
     /**
      * Retorna o objeto (classe) da linha selecionada na grid.
      *
@@ -53,10 +56,10 @@ public class FrStockRegistration extends javax.swing.JDialog {
     
         public void FornecedorCombobox() {
         cbxFornecedor.addItem("");
-        String[] supplierString = supplierController.buscarSupplierString .split("\n");
+        String[] supplierString = supplierController.buscarSupplierString().split("\n");
 
-        for (String baiaId : baiasString) {
-            cbxBaia.addItem(baiaId);
+        for (String SupplierId : supplierString) {
+            cbxFornecedor.addItem(SupplierId);
         }
     }
     
@@ -64,7 +67,6 @@ public class FrStockRegistration extends javax.swing.JDialog {
         edtCodProduto.setText("");
         edtCostPrice.setText("");
         edtDescProduto.setText("");
-        edtFornecedor.setText("");
         edtPrecoVenda.setText("");
         edtQuantEstoque.setText("");
     }
@@ -283,8 +285,8 @@ public class FrStockRegistration extends javax.swing.JDialog {
             String descricao = edtDescProduto.getText();
             float precoCusto = Float.parseFloat(edtCostPrice.getText());
             float precoVenda = Float.parseFloat(edtPrecoVenda.getText());
-            Integer quantEstoque = Integer.parseInt(edtQuantEstoque.getText());
-            String fornecedor = edtFornecedor.getText();
+            Integer quantEstoque = Integer.valueOf(edtQuantEstoque.getText());
+            String fornecedor = String.valueOf(cbxFornecedor.getSelectedItem());
             if(idStockEditando > 0){
                 stockController.atualizarStock(idStockEditando, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
                 stockController.atualizarTabela(grdStock);
