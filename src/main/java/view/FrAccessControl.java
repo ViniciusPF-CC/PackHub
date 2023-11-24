@@ -17,12 +17,12 @@ import model.exceptions.StockException;
  *
  * @author vinic
  */
-public class FrUserRegistration extends javax.swing.JDialog {
+public class FrAccessControl extends javax.swing.JDialog {
 
     StockController stockController;
     Long idStockEditando;
 
-    public FrUserRegistration(java.awt.Frame parent, boolean modal) {
+    public FrAccessControl(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         stockController = new StockController();
@@ -92,7 +92,9 @@ public class FrUserRegistration extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
-        edtTipoPessoa = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar item");
@@ -102,7 +104,7 @@ public class FrUserRegistration extends javax.swing.JDialog {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Cadastrar usuário");
+        jLabel2.setText("Controle de acesso dos usuários");
 
         jLabel3.setText("Nome da pessoa:");
 
@@ -124,28 +126,20 @@ public class FrUserRegistration extends javax.swing.JDialog {
 
         grdStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Cod.", "Nome", "Preço", "Q. Estoque", "Edit"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
+        ));
         jScrollPane1.setViewportView(grdStock);
 
         btnCadastrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/btnSave.png"))); // NOI18N
-        btnCadastrar.setText("Cadastrar pessoa agora");
+        btnCadastrar.setText("Salvar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
@@ -170,56 +164,74 @@ public class FrUserRegistration extends javax.swing.JDialog {
             }
         });
 
-        edtTipoPessoa.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtTipoPessoaActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Esse local é destinado para criar um novo usuário e atulizar as infomações dos usuários, como o tipo de acesso (Admin / Funcionário)");
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Para editar informações do usuário, clique na linha da tabela na qual deseja realizar a edição e, em seguida, pressione o botão de editar.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(edtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                            .addComponent(edtNome)
                             .addComponent(edtCpf)
-                            .addComponent(edtTelefone))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel8)
-                            .addComponent(edtCNPJ, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                            .addComponent(edtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(edtCNPJ, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
                             .addComponent(edtEmail)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6)
-                            .addComponent(edtTipoPessoa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel6))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEdit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3))
@@ -242,17 +254,19 @@ public class FrUserRegistration extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtTipoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCadastrar)
-                .addGap(37, 37, 37)
+                .addGap(11, 11, 11)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(btnEdit)
                     .addComponent(btnExcluir))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         pack();
@@ -264,73 +278,20 @@ public class FrUserRegistration extends javax.swing.JDialog {
     }//GEN-LAST:event_edtNomeActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        try{
-            Integer codigo = Integer.parseInt(edtNome.getText());
-            String descricao = edtCpf.getText();
-            float precoCusto = Float.parseFloat(edtTelefone.getText());
-            float precoVenda = Float.parseFloat(edtEmail.getText());
-            Integer quantEstoque = Integer.parseInt(edtCNPJ.getText());
-            String fornecedor = edtFornecedor.getText();
-            if(idStockEditando > 0){
-                stockController.atualizarStock(idStockEditando, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
-                stockController.atualizarTabela(grdStock);
-            }else{
-                stockController.cadastrarStock(codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
-                stockController.atualizarTabela(grdStock);
-            }
-            this.idStockEditando = -1L;
-        } catch (NumberFormatException e) {
-            System.err.println("Erro ao converter valores: " + e.getMessage());
-            JOptionPane.showMessageDialog(this, "Erro ao converter valores: " + e.getMessage());
-        } catch (StockException s) {
-            System.err.println(s.getMessage());
-            JOptionPane.showMessageDialog(this, s.getMessage());
-        }
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        Stock stockExcluido = (Stock) this.getObjetoSelecionadoNaGrid();
-
-        if (stockExcluido == null)
-            JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
-        else {
-
-            int response = JOptionPane.showConfirmDialog(null,
-                    "Deseja exlcuir o  \n("
-                    + stockExcluido.getDescricao()+ ", ",
-                    "Confirmar exclusão",
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE);
-            if (response == JOptionPane.OK_OPTION) {
-
-                try {
-                    this.idStockEditando = stockExcluido.getId();
-                    stockController.excluirStock(this.idStockEditando);
-
-                    stockController.atualizarTabela(grdStock);
-                    JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso!");
-                } catch (StockException ex) {
-                    JOptionPane.showMessageDialog(this, ex.getMessage());
-                }
-            }
-        }
+        
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        Stock stockEditando = (Stock) this.getObjetoSelecionadoNaGrid();
-
-        if (stockEditando == null)
-            JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
-        else {
-            this.limparCampos();
-            this.preencherFormulario(stockEditando);
-            this.idStockEditando = stockEditando.getId();
-        }
+        
     }//GEN-LAST:event_btnEditActionPerformed
 
-    private void edtTipoPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtTipoPessoaActionPerformed
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_edtTipoPessoaActionPerformed
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -342,9 +303,11 @@ public class FrUserRegistration extends javax.swing.JDialog {
     private javax.swing.JTextField edtEmail;
     private javax.swing.JTextField edtNome;
     private javax.swing.JFormattedTextField edtTelefone;
-    private javax.swing.JComboBox<String> edtTipoPessoa;
     private javax.swing.JTable grdStock;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

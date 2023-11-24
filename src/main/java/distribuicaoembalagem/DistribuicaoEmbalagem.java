@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import view.FrLogin;
-import view.FrSelectAction;
+import view.FrSelectActionAdmin;
 
 /**
  *
@@ -24,7 +24,7 @@ public class DistribuicaoEmbalagem {
         factory.close();
 //        FrLogin login = new FrLogin();
 //        login.setVisible(true);
-        FrSelectAction select = new FrSelectAction();
+        FrSelectActionAdmin select = new FrSelectActionAdmin();
         select.setVisible(true);
     }
 }
