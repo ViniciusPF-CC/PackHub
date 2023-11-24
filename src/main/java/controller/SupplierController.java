@@ -21,9 +21,9 @@ public class SupplierController {
         repositorio = new SupplierDAO();
     }
     
-    public void cadastrarSupplier(String endereco, String telefone, String cnpj, List produtosFornecidos) {
+    public void cadastrarSupplier(String endereco, String telefone, String cnpj) {
         ValidateSupplier valid = new ValidateSupplier();
-        Supplier supplier = valid.validaCamposEntrada(endereco, telefone, cnpj, produtosFornecidos);
+        Supplier supplier = valid.validaCamposEntrada(endereco, telefone, cnpj);
         
         if(repositorio.findByCnpj(supplier.getCnpj()) != null) {
             throw new SupplierException("Error - Já existe um produto com esse código");

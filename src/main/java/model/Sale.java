@@ -17,6 +17,7 @@ import lombok.Data;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -31,10 +32,11 @@ public class Sale implements Serializable {
     private Long id;
     @Column
     private LocalDateTime dataHora;
-    @ManyToOne
+    @OneToMany(mappedBy = "supplier")
     private List<Stock> produtos;
+    @Column
     private double valor;
-    @OneToOne
+    @ManyToOne
     private Payment pagamento;
     
     public void Sale(){

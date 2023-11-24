@@ -14,8 +14,8 @@ import model.exceptions.SupplierException;
  * @author Gabriel
  */
 public class ValidateSupplier {
-    public Supplier validaCamposEntrada(String endereco, String telefone, String cnpj, List produtosFornecidos) {
-        if (endereco == null || telefone.isEmpty() || cnpj.isEmpty() || produtosFornecidos.isEmpty()) {
+    public Supplier validaCamposEntrada(String endereco, String telefone, String cnpj) {
+        if (endereco == null || telefone.isEmpty() || cnpj.isEmpty()) {
             throw new SupplierException("Erro - Preencha todos os campos corretamente.");
         }
 
@@ -23,7 +23,6 @@ public class ValidateSupplier {
         supplier.setEndereco(endereco);
         supplier.setTelefone(telefone);
         supplier.setCnpj(cnpj);
-        supplier.setProdutosFornecidos(produtosFornecidos);
 
         JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
