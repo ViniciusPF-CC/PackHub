@@ -14,12 +14,12 @@ import model.exceptions.StockException;
  * @author vinic
  */
 public class ValidateStock {
-
-    public Stock validaCamposEntrada(Integer codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, Supplier fornecedor) {
+    
+    public Stock validaCamposEntrada(String codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, Supplier fornecedor) {
         if (codigo == null || descricao.isEmpty() || precoCusto <= 0 || precoVenda <= 0 || quantEstoque == null || fornecedor == null) {
             throw new StockException("Erro - Preencha todos os campos corretamente.");
         }
-
+        
         Stock stock = new Stock();
         stock.setCodigo(codigo);
         stock.setDescricao(descricao);
@@ -32,7 +32,7 @@ public class ValidateStock {
 
         return stock;
     }
-    
+
     public Stock validaCamposEntrada(String descricao, float precoCusto, float precoVenda, Integer quantEstoque, Supplier fornecedor) {
         if (descricao.isEmpty() || precoCusto <= 0 || precoVenda <= 0 || quantEstoque == null || fornecedor == null) {
             throw new StockException("Erro - Preencha todos os campos corretamente.");
@@ -49,5 +49,5 @@ public class ValidateStock {
 
         return stock;
     }
-
+    
 }

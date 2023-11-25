@@ -92,7 +92,7 @@ public class StockDAO implements IDao<Stock> {
         this.entityManager.close();
     }
 
-    public Stock findByCodigo(Integer codigo) {
+    public Stock findByCodigo(String codigo) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
 
         jpql = "SELECT s FROM Stock s WHERE s.codigo = :codigo";
