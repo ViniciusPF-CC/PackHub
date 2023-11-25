@@ -23,7 +23,7 @@ public class Stock implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int codigo;
+    private String codigo;
     private String descricao;
     private float precoCusto;
     private float precoVenda;
@@ -33,14 +33,14 @@ public class Stock implements Serializable {
     
     public Stock(){
         id = -1L;
-        codigo = 0;
+        codigo = "";
         descricao = "";
         precoCusto = 0;
         precoVenda = 0;
         quantEstoque = 0;
         supplier = new Supplier();
     }
-    public Stock(Long id, Integer codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, Supplier supplier){
+    public Stock(Long id, String codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, Supplier supplier){
         this.id = id;
         this.codigo = codigo;
         this.descricao = descricao;
