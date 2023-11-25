@@ -4,13 +4,13 @@
  */
 package view;
 
-import controller.StockController;
+import controller.UserController;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
-import model.Stock;
+import model.User;
 import model.exceptions.StockException;
 
 /**
@@ -19,18 +19,18 @@ import model.exceptions.StockException;
  */
 public class FrAccessControl extends javax.swing.JDialog {
 
-    StockController stockController;
-    Long idStockEditando;
+    UserController userController;
+    Long idUserEditando;
 
     public FrAccessControl(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        stockController = new StockController();
-        idStockEditando = -1L;
-        
-        stockController.atualizarTabela(grdStock);
+        userController = new UserController();
+        idUserEditando = -1L;
+
+        userController.atualizarTabela(grdUser);
     }
-    
+
     /**
      * Retorna o objeto (classe) da linha selecionada na grid.
      *
@@ -40,14 +40,14 @@ public class FrAccessControl extends javax.swing.JDialog {
      * @return
      */
     private Object getObjetoSelecionadoNaGrid() {
-        int rowCliked = grdStock.getSelectedRow();
+        int rowCliked = grdUser.getSelectedRow();
         Object obj = null;
         if (rowCliked >= 0) {
-            obj = grdStock.getModel().getValueAt(rowCliked, -1);
+            obj = grdUser.getModel().getValueAt(rowCliked, -1);
         }
         return obj;
     }
-    
+
     public void limparCampos() {
         edtNome.setText("");
         edtTelefone.setText("");
@@ -55,13 +55,13 @@ public class FrAccessControl extends javax.swing.JDialog {
         edtEmail.setText("");
         edtCNPJ.setText("");
     }
-    
-    public void preencherFormulario(Stock stock) {
-        edtNome.setText(stock.getCodigo() + "");
-        edtTelefone.setText(stock.getPrecoCusto()+ "");
-        edtCpf.setText(stock.getDescricao()+ "");
-        edtEmail.setText(stock.getPrecoVenda()+ "");
-        edtCNPJ.setText(stock.getQuantEstoque()+ "");
+
+    public void preencherFormulario(User user) {
+        edtNome.setText(user.getNome() + "");
+        edtTelefone.setText(user.getPhone() + "");
+        edtCpf.setText(user.getCpf() + "");
+        edtEmail.setText(user.getEmail() + "");
+        edtCNPJ.setText(user.getCnpj() + "");
     }
 
     /**
@@ -86,13 +86,13 @@ public class FrAccessControl extends javax.swing.JDialog {
         edtCNPJ = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        grdStock = new javax.swing.JTable();
+        grdUser = new javax.swing.JTable();
         edtTelefone = new javax.swing.JFormattedTextField();
-        btnCadastrar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxTipoUsuario = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
@@ -124,7 +124,7 @@ public class FrAccessControl extends javax.swing.JDialog {
 
         jLabel8.setText("Tipo de Usuario");
 
-        grdStock.setModel(new javax.swing.table.DefaultTableModel(
+        grdUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -135,14 +135,14 @@ public class FrAccessControl extends javax.swing.JDialog {
 
             }
         ));
-        jScrollPane1.setViewportView(grdStock);
+        jScrollPane1.setViewportView(grdUser);
 
-        btnCadastrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/btnSave.png"))); // NOI18N
-        btnCadastrar.setText("Salvar");
-        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/btnSave.png"))); // NOI18N
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
@@ -164,10 +164,9 @@ public class FrAccessControl extends javax.swing.JDialog {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cbxTipoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cbxTipoUsuarioActionPerformed(evt);
             }
         });
 
@@ -192,7 +191,7 @@ public class FrAccessControl extends javax.swing.JDialog {
                         .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3)
@@ -205,7 +204,7 @@ public class FrAccessControl extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(edtCNPJ, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
                             .addComponent(edtEmail)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbxTipoUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
@@ -254,9 +253,9 @@ public class FrAccessControl extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCadastrar)
+                .addComponent(btnSalvar)
                 .addGap(11, 11, 11)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -277,34 +276,55 @@ public class FrAccessControl extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtNomeActionPerformed
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-
-    }//GEN-LAST:event_btnCadastrarActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+//        try {
+//            String nome = edtNome.getText();
+//            String email = edtEmail.getText();
+//            String cpf = edtCpf.getText();
+//            String cnpj = edtCNPJ.getText();
+//            String phone = edtTelefone.getText();
+//            String typeUser = String.valueOf(cbxTipoUsuario.getSelectedItem());
+//            if (idUserEditando > 0) {
+//                userController.atualizarUser(idStockEditando, codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
+//                stockController.atualizarTabela(grdStock);
+//            } else {
+//                stockController.cadastrarStock(codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
+//                stockController.atualizarTabela(grdStock);
+//            }
+//            this.idStockEditando = -1L;
+//        } catch (NumberFormatException e) {
+//            System.err.println("Erro ao converter valores: " + e.getMessage());
+//            JOptionPane.showMessageDialog(this, "Erro ao converter valores: " + e.getMessage());
+//        } catch (StockException s) {
+//            System.err.println(s.getMessage());
+//            JOptionPane.showMessageDialog(this, s.getMessage());
+//        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        
+
     }//GEN-LAST:event_btnEditActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cbxTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cbxTipoUsuarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox<String> cbxTipoUsuario;
     private javax.swing.JTextField edtCNPJ;
     private javax.swing.JTextField edtCpf;
     private javax.swing.JTextField edtEmail;
     private javax.swing.JTextField edtNome;
     private javax.swing.JFormattedTextField edtTelefone;
-    private javax.swing.JTable grdStock;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTable grdUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

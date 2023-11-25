@@ -102,7 +102,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         grdStock = new javax.swing.JTable();
         edtCostPrice = new javax.swing.JFormattedTextField();
-        btnCadastrar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
@@ -157,12 +157,12 @@ public class FrStockRegistration extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(grdStock);
 
-        btnCadastrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/btnSave.png"))); // NOI18N
-        btnCadastrar.setText("Cadastrar estoque agora");
-        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/btnSave.png"))); // NOI18N
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
@@ -184,7 +184,6 @@ public class FrStockRegistration extends javax.swing.JDialog {
             }
         });
 
-        cbxFornecedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxFornecedorActionPerformed(evt);
@@ -200,7 +199,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -259,7 +258,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
                     .addComponent(edtCostPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCadastrar)
+                .addComponent(btnSalvar)
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -278,16 +277,16 @@ public class FrStockRegistration extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtCodProdutoActionPerformed
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
-            Integer codigo = Integer.parseInt(edtCodProduto.getText());
+            String codigo = edtCodProduto.getText();
             String descricao = edtDescProduto.getText();
             float precoCusto = Float.parseFloat(edtCostPrice.getText());
             float precoVenda = Float.parseFloat(edtPrecoVenda.getText());
             Integer quantEstoque = Integer.valueOf(edtQuantEstoque.getText());
             String fornecedor = String.valueOf(cbxFornecedor.getSelectedItem());
             if (idStockEditando > 0) {
-                stockController.atualizarStock(idStockEditando, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
+                stockController.atualizarStock(idStockEditando, codigo , descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
                 stockController.atualizarTabela(grdStock);
             } else {
                 stockController.cadastrarStock(codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
@@ -301,7 +300,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
             System.err.println(s.getMessage());
             JOptionPane.showMessageDialog(this, s.getMessage());
         }
-    }//GEN-LAST:event_btnCadastrarActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         Stock stockExcluido = (Stock) this.getObjetoSelecionadoNaGrid();
@@ -349,9 +348,9 @@ public class FrStockRegistration extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cbxFornecedor;
     private javax.swing.JTextField edtCodProduto;
     private javax.swing.JFormattedTextField edtCostPrice;
