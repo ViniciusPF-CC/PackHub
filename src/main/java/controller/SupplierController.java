@@ -38,7 +38,7 @@ public class SupplierController {
         
         String supplierString = "";
         for (Supplier supplier : suppliers) {
-            supplierString += supplier.getId() + "\n";
+            supplierString += supplier.getId()+" - "+supplier.getNome()+"\n";
         }
 
         return supplierString;

@@ -4,6 +4,8 @@
  */
 package controller;
 
+import controller.table.TMUser;
+import java.util.List;
 import javax.swing.JTable;
 import model.User;
 import model.dao.UserDAO;
@@ -39,5 +41,13 @@ public class UserController {
         User novoUser = valid.validaCamposEntrada(nome, email, cpf, phone);
         novoUser.setId(idUser);
         repositorio.update(novoUser);
-    }    
+    }  
+    
+    
+    
+        public void atualizarTabela(JTable grd) {
+        List lst = repositorio.findAll();
+        TMUser tableModel = new TMUser(lst);
+        Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
+    }
 }

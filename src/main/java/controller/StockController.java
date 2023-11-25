@@ -25,12 +25,12 @@ public class StockController {
         repositorio = new StockDAO();
     }
 
-    private Integer getIdDoidNome(String idNome) {
-        if (idNome.equals("")) {
+    private Integer getIdDoidSupplier(String idSupplier) {
+        if (idSupplier.equals("")) {
             return null;
         }
-        String[] novoIdNome = idNome.split(" - ");
-        return Integer.parseInt(novoIdNome[0]);
+        String[] novoIdSupplier = idSupplier.split(" - ");
+        return Integer.parseInt(novoIdSupplier[0]);
     }
 
     public void atualizarTabela(JTable grd) {
@@ -39,9 +39,9 @@ public class StockController {
         Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
     }
 
-    public void cadastrarStock(Integer codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor) {
+    public void cadastrarStock(String codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor) {
 
-        long idSupplier = getIdDoidNome(String.valueOf(fornecedor));
+        long idSupplier = getIdDoidSupplier(String.valueOf(fornecedor));
 
         SupplierController suppC = new SupplierController();
 
@@ -57,18 +57,19 @@ public class StockController {
         }
     }
 
-    public void atualizarStock(Long id, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor) {
+    public void atualizarStock(Long id, String codigo, String descricao, float precoCusto, float precoVenda, Integer quantEstoque, String fornecedor) {
 
-        long idSupplier = getIdDoidNome(String.valueOf(fornecedor));
+        long idSupplier = getIdDoidSupplier(String.valueOf(fornecedor));
 
         SupplierController suppC = new SupplierController();
 
         Supplier suppV = suppC.buscarSupplierPorId(idSupplier);
 
         ValidateStock valid = new ValidateStock();
-        Stock novoStock = valid.validaCamposEntrada(descricao, precoCusto, precoVenda, quantEstoque, suppV);
+        Stock novoStock = valid.validaCamposEntrada(codigo, descricao, precoCusto, precoVenda, quantEstoque, suppV);
         novoStock.setId(id);
         repositorio.update(novoStock);
+        
     }
 
     public void excluirStock(Long id) {
