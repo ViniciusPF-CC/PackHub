@@ -15,113 +15,119 @@ import model.User;
  * @author Gabriel
  */
 public class UserDAO implements IDao<User> {
+
     private EntityManager entityManager;
-    
+
     private Query qry;
     private String jpql;
-    
-    public UserDAO(){
-        
+
+    public UserDAO() {
+
     }
-    
+
     @Override
-    public void save(User obj){
+    public void save(User obj) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        
-        this.entityManager.getTransaction().begin();       
-        this.entityManager.persist(obj);                    
-        this.entityManager.getTransaction().commit();        
-        
+
+        this.entityManager.getTransaction().begin();
+        this.entityManager.persist(obj);
+        this.entityManager.getTransaction().commit();
+
         this.entityManager.close();
     }
-    
-    
+
     public void update(User obj) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        
-        this.entityManager.getTransaction().begin();       
-        this.entityManager.merge(obj);                    
-        this.entityManager.getTransaction().commit();     
-        
+
+        this.entityManager.getTransaction().begin();
+        this.entityManager.merge(obj);
+        this.entityManager.getTransaction().commit();
+
         this.entityManager.close();
     }
-    
+
     @Override
     public boolean delete(Long id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        
         this.entityManager.getTransaction().begin();
-        this.entityManager.remove(id);
+
+        User UserJPA = this.entityManager.find(User.class, id);
+        if (UserJPA != null) {
+            this.entityManager.remove(UserJPA);
+        } else {
+            this.entityManager.getTransaction().rollback();
+            throw new RuntimeException("Error - User inexistente.");
+        }
+
         this.entityManager.getTransaction().commit();
-        
         this.entityManager.close();
         return true;
-    }      
-    
+    }
+
     @Override
     public User find(Long id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        
+
         User u = this.entityManager.find(User.class, id);
-        
+
         this.entityManager.close();
-        
+
         return u;
     }
-    
+
     @Override
     public List<User> findAll() {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        
+
         jpql = " SELECT u "
-             + " FROM User u ";
+                + " FROM User u ";
 
         qry = this.entityManager.createQuery(jpql);
-        
+
         List lst = qry.getResultList();
-        
+
         this.entityManager.close();
         return (List<User>) lst;
-                
+
     }
-    
-    public User findByEmail(String email) { 
+
+    public User findByEmail(String email) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        
+
         jpql = " SELECT u "
-             + " FROM User u "
-             + " WHERE u.email like :email ";
+                + " FROM User u "
+                + " WHERE u.email like :email ";
         qry = this.entityManager.createQuery(jpql);
         qry.setParameter("email", email);
-        
+
         List lst = qry.getResultList();
 
         this.entityManager.close();
-        
+
         if (lst.isEmpty()) {
             return null;
         } else {
             return (User) lst.get(0);
-        }                
+        }
     }
-    
-    public User findByCPF(String Cpf) { 
+
+    public User findByCPF(String Cpf) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        
+
         jpql = " SELECT u "
-             + " FROM User u "
-             + " WHERE u.cpf like :cpf ";
+                + " FROM User u "
+                + " WHERE u.cpf like :cpf ";
         qry = this.entityManager.createQuery(jpql);
         qry.setParameter("cpf", Cpf);
-        
+
         List lst = qry.getResultList();
 
         this.entityManager.close();
-        
+
         if (lst.isEmpty()) {
             return null;
         } else {
             return (User) lst.get(0);
-        }                
-    }  
+        }
+    }
 }

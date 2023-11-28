@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import model.User;
 import model.exceptions.StockException;
+import model.exceptions.UserException;
 
 /**
  *
@@ -27,6 +28,7 @@ public class FrAccessControl extends javax.swing.JDialog {
         initComponents();
         userController = new UserController();
         idUserEditando = -1L;
+//        UserCombobox();
 
         userController.atualizarTabela(grdUser);
     }
@@ -48,11 +50,24 @@ public class FrAccessControl extends javax.swing.JDialog {
         return obj;
     }
 
+//    ArrayList<MyClass> a = new ArrayList<MyClass>();
+//a.add(new MyClass(0, "hahah"));
+//a.add(new MyClass(1, "bleeeee"));
+//a.add(new MyClass(5, "cleeeee")); 
+//for (MyClass value : a) {
+//     supplierComboBox.addItem(value); 
+//}
+//    public void UserCombobox() {
+//        cbxTipoUsuario.addItem(Admin);
+//        cbxTipoUsuario.addItem(Fornecedor);
+//        
+//    }
     public void limparCampos() {
         edtNome.setText("");
         edtTelefone.setText("");
         edtCpf.setText("");
         edtEmail.setText("");
+        edtCpf.setText("");
         edtCNPJ.setText("");
     }
 
@@ -62,6 +77,10 @@ public class FrAccessControl extends javax.swing.JDialog {
         edtCpf.setText(user.getCpf() + "");
         edtEmail.setText(user.getEmail() + "");
         edtCNPJ.setText(user.getCnpj() + "");
+
+        if (user.getTypePositions() != null) {
+            cbxTipoUsuario.setSelectedItem(user.getTypePositions());
+        }
     }
 
     /**
@@ -164,6 +183,8 @@ public class FrAccessControl extends javax.swing.JDialog {
             }
         });
 
+        cbxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Fornecedor" }));
+        cbxTipoUsuario.setSelectedIndex(-1);
         cbxTipoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxTipoUsuarioActionPerformed(evt);
@@ -277,36 +298,71 @@ public class FrAccessControl extends javax.swing.JDialog {
     }//GEN-LAST:event_edtNomeActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-//        try {
-//            String nome = edtNome.getText();
-//            String email = edtEmail.getText();
-//            String cpf = edtCpf.getText();
-//            String cnpj = edtCNPJ.getText();
-//            String phone = edtTelefone.getText();
-//            String typeUser = String.valueOf(cbxTipoUsuario.getSelectedItem());
-//            if (idUserEditando > 0) {
-//                userController.atualizarUser(idStockEditando, codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
-//                stockController.atualizarTabela(grdStock);
-//            } else {
-//                stockController.cadastrarStock(codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
-//                stockController.atualizarTabela(grdStock);
-//            }
-//            this.idStockEditando = -1L;
-//        } catch (NumberFormatException e) {
-//            System.err.println("Erro ao converter valores: " + e.getMessage());
-//            JOptionPane.showMessageDialog(this, "Erro ao converter valores: " + e.getMessage());
-//        } catch (StockException s) {
-//            System.err.println(s.getMessage());
-//            JOptionPane.showMessageDialog(this, s.getMessage());
-//        }
+        try {
+            String nome = edtNome.getText();
+            String email = edtEmail.getText();
+            String cpf = edtCpf.getText();
+            String phone = edtTelefone.getText();
+            String typeUser = cbxTipoUsuario.getSelectedItem().toString();
+            if (idUserEditando > 0) {
+                userController.atualizarUserAdmin(idUserEditando, nome, email, cpf, phone, typeUser);
+                userController.atualizarTabela(grdUser);
+            } else {
+                try {
+                    userController.cadastrarUserAdmin(nome, email, cpf, phone, typeUser);
+                    userController.atualizarTabela(grdUser);
+                } catch (UserException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Falha", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            this.idUserEditando = -1L;
+        } catch (NumberFormatException e) {
+            System.err.println("Erro ao converter valores: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro ao converter valores: " + e.getMessage());
+        } catch (StockException s) {
+            System.err.println(s.getMessage());
+            JOptionPane.showMessageDialog(this, s.getMessage());
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        User userExcluido = (User) this.getObjetoSelecionadoNaGrid();
+
+        if (userExcluido == null) {
+            JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
+        } else {
+            int response = JOptionPane.showConfirmDialog(null,
+                    "Deseja exlcuir o  \n("
+                    + userExcluido.getNome() + ", ",
+                    "Confirmar exclusão",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.OK_OPTION) {
+
+                try {
+                    this.idUserEditando = userExcluido.getId();
+                    userController.excluirUser(this.idUserEditando);
+
+                    userController.atualizarTabela(grdUser);
+                    JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso!");
+                } catch (StockException ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
+                }
+            }
+        }
 
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        User userEditando = (User) this.getObjetoSelecionadoNaGrid();
 
+        if (userEditando == null)
+            JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
+        else {
+            this.limparCampos();
+            this.preencherFormulario(userEditando);
+            this.idUserEditando = userEditando.getId();
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void cbxTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoUsuarioActionPerformed
@@ -338,4 +394,5 @@ public class FrAccessControl extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
 }
