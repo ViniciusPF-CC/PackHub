@@ -10,8 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
-import model.Stock;
-import model.exceptions.StockException;
+import model.Supplier;
+import model.exceptions.SupplierException;
 import controller.SupplierController;
 import model.Supplier;
 
@@ -22,16 +22,15 @@ import model.Supplier;
 public class FrRegisterSupplier extends javax.swing.JDialog {
 
     SupplierController supplierController;
-    Long idSupplierController;
+    Long idSupplierEditando;
 
     public FrRegisterSupplier(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         supplierController = new SupplierController();
-        idSupplierController = -1L;
-        FornecedorCombobox();
+        idSupplierEditando = -1L;
 
-        supplierController.atualizarTabela(grdStock);
+        supplierController.atualizarTabela(grdSupplier);
     }
 
     /**
@@ -43,10 +42,10 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
      * @return
      */
     private Object getObjetoSelecionadoNaGrid() {
-        int rowCliked = grdStock.getSelectedRow();
+        int rowCliked = grdSupplier.getSelectedRow();
         Object obj = null;
         if (rowCliked >= 0) {
-            obj = grdStock.getModel().getValueAt(rowCliked, -1);
+            obj = grdSupplier.getModel().getValueAt(rowCliked, -1);
         }
         return obj;
     }
@@ -58,11 +57,11 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
         edtCnpj.setText("");
     }
 
-    public void preencherFormulario(Stock stock) {
-        edtNome.setText(stock.getCodigo() + "");
-        edtTelefone.setText(stock.getDescricao() + "");
-        edtEndereco.setText(stock.getPrecoVenda() + "");
-        edtCnpj.setText(stock.getQuantEstoque() + "");
+    public void preencherFormulario(Supplier supplier) {
+        edtNome.setText(supplier.getNome() + "");
+        edtTelefone.setText(supplier.getTelefone() + "");
+        edtEndereco.setText(supplier.getEndereco() + "");
+        edtCnpj.setText(supplier.getCnpj() + "");
     }
 
     /**
@@ -240,24 +239,21 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
-            String codigo = edtNome.getText();
-            String descricao = edtTelefone.getText();
-            float precoVenda = Float.parseFloat(edtEndereco.getText());
-            Integer quantEstoque = Integer.valueOf(edtCnpj.getText());
-            supplierController.cadastrarStock(codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
-            supplierController.atualizarTabela(grdStock);
-            this.idSupplierController = -1L;
-        } catch (NumberFormatException e) {
-            System.err.println("Erro ao converter valores: " + e.getMessage());
-            JOptionPane.showMessageDialog(this, "Erro ao converter valores: " + e.getMessage());
-        } catch (StockException s) {
+            String nome = edtNome.getText();
+            String telefone = edtTelefone.getText();
+            String endereco = edtEndereco.getText();
+            String cnpj = edtCnpj.getText();
+            supplierController.cadastrarSupplier(nome, telefone, endereco, cnpj);
+            supplierController.atualizarTabela(grdSupplier);
+            this.idSupplierEditando = -1L;
+        } catch (SupplierException s) {
             System.err.println(s.getMessage());
             JOptionPane.showMessageDialog(this, s.getMessage());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        Stock stockExcluido = (Stock) this.getObjetoSelecionadoNaGrid();
+        Supplier supplierExcluido = (Supplier) this.getObjetoSelecionadoNaGrid();
 
         if (stockExcluido == null)
             JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
@@ -272,12 +268,12 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
             if (response == JOptionPane.OK_OPTION) {
 
                 try {
-                    this.idSupplierController = stockExcluido.getId();
-                    supplierController.excluirStock(this.idSupplierController);
+                    this.idSupplierEditando = stockExcluido.getId();
+                    supplierController.excluirSupplier(this.idSupplierEditando);
 
-                    supplierController.atualizarTabela(grdStock);
+                    supplierController.atualizarTabela(grdSupplier);
                     JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso!");
-                } catch (StockException ex) {
+                } catch (SupplierException ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage());
                 }
             }
@@ -285,14 +281,14 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        Stock stockEditando = (Stock) this.getObjetoSelecionadoNaGrid();
+        Supplier supplierEditando = (Supplier) this.getObjetoSelecionadoNaGrid();
 
         if (stockEditando == null)
             JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
         else {
             this.limparCampos();
             this.preencherFormulario(stockEditando);
-            this.idSupplierController = stockEditando.getId();
+            this.idSupplierEditando = stockEditando.getId();
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
