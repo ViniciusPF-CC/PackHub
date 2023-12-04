@@ -255,20 +255,20 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         Supplier supplierExcluido = (Supplier) this.getObjetoSelecionadoNaGrid();
 
-        if (stockExcluido == null)
+        if (supplierExcluido == null)
             JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
         else {
 
             int response = JOptionPane.showConfirmDialog(null,
                     "Deseja exlcuir o  \n("
-                    + stockExcluido.getDescricao() + ", ",
+                    + supplierExcluido.getDescricao() + ", ",
                     "Confirmar exclusão",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.OK_OPTION) {
 
                 try {
-                    this.idSupplierEditando = stockExcluido.getId();
+                    this.idSupplierEditando = supplierExcluido.getId();
                     supplierController.excluirSupplier(this.idSupplierEditando);
 
                     supplierController.atualizarTabela(grdSupplier);
@@ -283,12 +283,12 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         Supplier supplierEditando = (Supplier) this.getObjetoSelecionadoNaGrid();
 
-        if (stockEditando == null)
+        if (supplierEditando == null)
             JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
         else {
             this.limparCampos();
-            this.preencherFormulario(stockEditando);
-            this.idSupplierEditando = stockEditando.getId();
+            this.preencherFormulario(supplierEditando);
+            this.idSupplierEditando = supplierEditando.getId();
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
