@@ -21,7 +21,7 @@ public class SupplierController {
         repositorio = new SupplierDAO();
     }
     
-    public void cadastrarSupplier(String endereco, String telefone, String cnpj) {
+    public void cadastrarSupplier(String nome, String endereco, String telefone, String cnpj) {
         ValidateSupplier valid = new ValidateSupplier();
         Supplier supplier = valid.validaCamposEntrada(endereco, telefone, cnpj);
         
