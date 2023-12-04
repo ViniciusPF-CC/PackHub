@@ -28,8 +28,6 @@ public class ValidateStock {
         stock.setQuantEstoque(quantEstoque);
         stock.setSupplier(fornecedor);
 
-        JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
         return stock;
     }
 

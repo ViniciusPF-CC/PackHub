@@ -308,20 +308,20 @@ public class FrAccessControl extends javax.swing.JDialog {
                 userController.atualizarUserAdmin(idUserEditando, nome, email, cpf, phone, typeUser);
                 userController.atualizarTabela(grdUser);
             } else {
-                try {
+//                try {
                     userController.cadastrarUserAdmin(nome, email, cpf, phone, typeUser);
                     userController.atualizarTabela(grdUser);
-                } catch (UserException ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Falha", JOptionPane.INFORMATION_MESSAGE);
-                }
+//                } catch (UserException ex) {
+//                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Falha", JOptionPane.INFORMATION_MESSAGE);
+//                }
             }
             this.idUserEditando = -1L;
         } catch (NumberFormatException e) {
             System.err.println("Erro ao converter valores: " + e.getMessage());
             JOptionPane.showMessageDialog(this, "Erro ao converter valores: " + e.getMessage());
-        } catch (StockException s) {
-            System.err.println(s.getMessage());
-            JOptionPane.showMessageDialog(this, s.getMessage());
+        } catch (UserException u) {
+            System.err.println(u.getMessage());
+            JOptionPane.showMessageDialog(this, u.getMessage());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
