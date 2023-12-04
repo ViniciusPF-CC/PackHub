@@ -21,61 +21,13 @@ import model.Supplier;
  */
 public class FrControlBills extends javax.swing.JDialog {
 
-    StockController stockController;
-    Long idStockEditando;
-    SupplierController supplierController;
+    BillsController billsController;
 
     public FrControlBills(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        stockController = new StockController();
-        idStockEditando = -1L;
-        FornecedorCombobox();
-
-        stockController.atualizarTabela(grdStock);
-    }
-
-    /**
-     * Retorna o objeto (classe) da linha selecionada na grid.
-     *
-     * Uso a estratégia do metodo getValueAt() la na TableModel, receber coluna
-     * -1 e retornar o objeto ao inves de uma célula.
-     *
-     * @return
-     */
-    private Object getObjetoSelecionadoNaGrid() {
-        int rowCliked = grdStock.getSelectedRow();
-        Object obj = null;
-        if (rowCliked >= 0) {
-            obj = grdStock.getModel().getValueAt(rowCliked, -1);
-        }
-        return obj;
-    }
-
-    public void FornecedorCombobox() {
-        supplierController = new SupplierController();
-        cbxFornecedor.addItem("");
-        String[] supplierString = supplierController.buscarSupplierString().split("\n");
-
-        for (String SupplierId : supplierString) {
-            cbxFornecedor.addItem(SupplierId);
-        }
-    }
-
-    public void limparCampos() {
-        edtCodProduto.setText("");
-        edtCostPrice.setText("");
-        edtDescProduto.setText("");
-        edtPrecoVenda.setText("");
-        edtQuantEstoque.setText("");
-    }
-
-    public void preencherFormulario(Stock stock) {
-        edtCodProduto.setText(stock.getCodigo() + "");
-        edtCostPrice.setText(stock.getPrecoCusto() + "");
-        edtDescProduto.setText(stock.getDescricao() + "");
-        edtPrecoVenda.setText(stock.getPrecoVenda() + "");
-        edtQuantEstoque.setText(stock.getQuantEstoque() + "");
+        billsController = new BillsController();
+        billsController.atualizarTabela(grdBills);
     }
 
     /**
@@ -87,22 +39,22 @@ public class FrControlBills extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblImgTitle = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        grdStock = new javax.swing.JTable();
+        grdBills = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar item");
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Logo.png"))); // NOI18N
+        lblImgTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImgTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Logo.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Visualizar contas existentes");
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setText("Visualizar contas existentes");
 
-        grdStock.setModel(new javax.swing.table.DefaultTableModel(
+        grdBills.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -121,14 +73,14 @@ public class FrControlBills extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(grdStock);
+        jScrollPane1.setViewportView(grdBills);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblImgTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
@@ -138,9 +90,9 @@ public class FrControlBills extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblImgTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(lblTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(10, Short.MAX_VALUE))
@@ -152,9 +104,9 @@ public class FrControlBills extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable grdStock;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTable grdBills;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblImgTitle;
+    private javax.swing.JLabel lblTitle;
     // End of variables declaration//GEN-END:variables
 }

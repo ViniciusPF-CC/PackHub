@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.SaleController;
 import controller.StockController;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -21,18 +22,14 @@ import model.Supplier;
  */
 public class FrSalesReport extends javax.swing.JDialog {
 
-    StockController stockController;
-    Long idStockEditando;
-    SupplierController supplierController;
+    SaleController salesController;
 
     public FrSalesReport(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        stockController = new StockController();
-        idStockEditando = -1L;
-        FornecedorCombobox();
+        salesController = new SaleController();
 
-        stockController.atualizarTabela(grdStock);
+        salesController.atualizarTabela(grdSales);
     }
 
     /**
@@ -43,41 +40,6 @@ public class FrSalesReport extends javax.swing.JDialog {
      *
      * @return
      */
-    private Object getObjetoSelecionadoNaGrid() {
-        int rowCliked = grdStock.getSelectedRow();
-        Object obj = null;
-        if (rowCliked >= 0) {
-            obj = grdStock.getModel().getValueAt(rowCliked, -1);
-        }
-        return obj;
-    }
-
-    public void FornecedorCombobox() {
-        supplierController = new SupplierController();
-        cbxFornecedor.addItem("");
-        String[] supplierString = supplierController.buscarSupplierString().split("\n");
-
-        for (String SupplierId : supplierString) {
-            cbxFornecedor.addItem(SupplierId);
-        }
-    }
-
-    public void limparCampos() {
-        edtCodProduto.setText("");
-        edtCostPrice.setText("");
-        edtDescProduto.setText("");
-        edtPrecoVenda.setText("");
-        edtQuantEstoque.setText("");
-    }
-
-    public void preencherFormulario(Stock stock) {
-        edtCodProduto.setText(stock.getCodigo() + "");
-        edtCostPrice.setText(stock.getPrecoCusto() + "");
-        edtDescProduto.setText(stock.getDescricao() + "");
-        edtPrecoVenda.setText(stock.getPrecoVenda() + "");
-        edtQuantEstoque.setText(stock.getQuantEstoque() + "");
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,7 +52,7 @@ public class FrSalesReport extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        grdStock = new javax.swing.JTable();
+        grdSales = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar item");
@@ -102,7 +64,7 @@ public class FrSalesReport extends javax.swing.JDialog {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Visualizar vendas existentes");
 
-        grdStock.setModel(new javax.swing.table.DefaultTableModel(
+        grdSales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -121,7 +83,7 @@ public class FrSalesReport extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(grdStock);
+        jScrollPane1.setViewportView(grdSales);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,7 +114,7 @@ public class FrSalesReport extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable grdStock;
+    private javax.swing.JTable grdSales;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

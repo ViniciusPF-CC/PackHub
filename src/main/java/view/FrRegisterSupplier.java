@@ -84,7 +84,7 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         edtCnpj = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        grdStock = new javax.swing.JTable();
+        grdSupplier = new javax.swing.JTable();
         btnSalvar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
@@ -114,7 +114,7 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
 
         jLabel7.setText("CNPJ:");
 
-        grdStock.setModel(new javax.swing.table.DefaultTableModel(
+        grdSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -133,7 +133,7 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(grdStock);
+        jScrollPane1.setViewportView(grdSupplier);
 
         btnSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/btnSave.png"))); // NOI18N
@@ -261,7 +261,7 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
 
             int response = JOptionPane.showConfirmDialog(null,
                     "Deseja exlcuir o  \n("
-                    + supplierExcluido.getDescricao() + ", ",
+                    + supplierExcluido.getNome()+ ", ",
                     "Confirmar exclusão",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
@@ -301,7 +301,7 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
     private javax.swing.JTextField edtEndereco;
     private javax.swing.JTextField edtNome;
     private javax.swing.JTextField edtTelefone;
-    private javax.swing.JTable grdStock;
+    private javax.swing.JTable grdSupplier;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;

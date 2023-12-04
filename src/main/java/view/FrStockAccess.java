@@ -22,60 +22,12 @@ import model.Supplier;
 public class FrStockAccess extends javax.swing.JDialog {
 
     StockController stockController;
-    Long idStockEditando;
-    SupplierController supplierController;
 
     public FrStockAccess(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         stockController = new StockController();
-        idStockEditando = -1L;
-        FornecedorCombobox();
-
         stockController.atualizarTabela(grdStock);
-    }
-
-    /**
-     * Retorna o objeto (classe) da linha selecionada na grid.
-     *
-     * Uso a estratégia do metodo getValueAt() la na TableModel, receber coluna
-     * -1 e retornar o objeto ao inves de uma célula.
-     *
-     * @return
-     */
-    private Object getObjetoSelecionadoNaGrid() {
-        int rowCliked = grdStock.getSelectedRow();
-        Object obj = null;
-        if (rowCliked >= 0) {
-            obj = grdStock.getModel().getValueAt(rowCliked, -1);
-        }
-        return obj;
-    }
-
-    public void FornecedorCombobox() {
-        supplierController = new SupplierController();
-        cbxFornecedor.addItem("");
-        String[] supplierString = supplierController.buscarSupplierString().split("\n");
-
-        for (String SupplierId : supplierString) {
-            cbxFornecedor.addItem(SupplierId);
-        }
-    }
-
-    public void limparCampos() {
-        edtCodProduto.setText("");
-        edtCostPrice.setText("");
-        edtDescProduto.setText("");
-        edtPrecoVenda.setText("");
-        edtQuantEstoque.setText("");
-    }
-
-    public void preencherFormulario(Stock stock) {
-        edtCodProduto.setText(stock.getCodigo() + "");
-        edtCostPrice.setText(stock.getPrecoCusto() + "");
-        edtDescProduto.setText(stock.getDescricao() + "");
-        edtPrecoVenda.setText(stock.getPrecoVenda() + "");
-        edtQuantEstoque.setText(stock.getQuantEstoque() + "");
     }
 
     /**
