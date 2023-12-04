@@ -245,7 +245,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGerenciarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarEstoqueActionPerformed
-        FrStockRegistration stock = new FrStockRegistration(this, true);
+        FrSalesReport stock = new FrSalesReport(this, true);
         stock.setLocationRelativeTo(this);
         stock.setVisible(true);
     }//GEN-LAST:event_btnGerenciarEstoqueActionPerformed
