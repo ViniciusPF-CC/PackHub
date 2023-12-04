@@ -4,7 +4,10 @@
  */
 package controller;
 
+import controller.table.TMStock;
+import controller.table.TMSupplier;
 import java.util.List;
+import javax.swing.JTable;
 import model.Supplier;
 import model.dao.SupplierDAO;
 import model.exceptions.SupplierException;
@@ -21,7 +24,14 @@ public class SupplierController {
         repositorio = new SupplierDAO();
     }
     
-    public void cadastrarSupplier(String endereco, String telefone, String cnpj) {
+    public void atualizarTabela(JTable grd) {
+        List lst = repositorio.findAll();
+        TMSupplier tableModel = new TMSupplier(lst);
+        Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
+    }
+    
+    
+    public void cadastrarSupplier(String nome, String endereco, String telefone, String cnpj) {
         ValidateSupplier valid = new ValidateSupplier();
         Supplier supplier = valid.validaCamposEntrada(endereco, telefone, cnpj);
         
@@ -50,5 +60,13 @@ public class SupplierController {
         }
             Supplier supp = (Supplier) repositorio.find(id);
         return supp;
+    }
+        
+    public void excluirSupplier(Long id) {
+        if (id != -1) {
+            repositorio.delete(id);
+        } else {
+            throw new SupplierException("Error - Item inexistente.");
+        }
     }
 }
