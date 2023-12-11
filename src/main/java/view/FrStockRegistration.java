@@ -76,6 +76,10 @@ public class FrStockRegistration extends javax.swing.JDialog {
         edtDescProduto.setText(stock.getDescricao() + "");
         edtPrecoVenda.setText(stock.getPrecoVenda() + "");
         edtQuantEstoque.setText(stock.getQuantEstoque() + "");
+
+        if (stock.getSupplier() != null) {
+            cbxFornecedor.getModel().setSelectedItem(stock.getSupplier().getId() + " - " + stock.getSupplier().getNome());
+        }
     }
 
     /**
@@ -286,7 +290,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
             Integer quantEstoque = Integer.valueOf(edtQuantEstoque.getText());
             String fornecedor = String.valueOf(cbxFornecedor.getSelectedItem());
             if (idStockEditando > 0) {
-                stockController.atualizarStock(idStockEditando, codigo , descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
+                stockController.atualizarStock(idStockEditando, codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
                 JOptionPane.showMessageDialog(null, "Edição feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 stockController.atualizarTabela(grdStock);
             } else {

@@ -45,7 +45,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnGerenciarUsuario = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnRelatorio = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
@@ -163,10 +163,10 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Gerenciar estoque");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnRelatorio.setText("Relatorio de Vendas");
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnRelatorioActionPerformed(evt);
             }
         });
 
@@ -197,7 +197,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGerenciarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -230,7 +230,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
                     .addComponent(btnGerenciarUsuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
+                    .addComponent(btnRelatorio)
                     .addComponent(jButton6))
                 .addContainerGap(124, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +245,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGerenciarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarEstoqueActionPerformed
-        FrSalesReport stock = new FrSalesReport(this, true);
+        FrStockRegistration stock = new FrStockRegistration(this, true);
         stock.setLocationRelativeTo(this);
         stock.setVisible(true);
     }//GEN-LAST:event_btnGerenciarEstoqueActionPerformed
@@ -264,9 +264,11 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+        FrSalesReport stock = new FrSalesReport(this, true);
+        stock.setLocationRelativeTo(this);
+        stock.setVisible(true);
+    }//GEN-LAST:event_btnRelatorioActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -275,13 +277,13 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGerenciarEstoque;
     private javax.swing.JButton btnGerenciarUsuario;
+    private javax.swing.JButton btnRelatorio;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JLabel imgLogo1;
     private javax.swing.JLabel imgUser;
     private javax.swing.JLabel imgUser1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;

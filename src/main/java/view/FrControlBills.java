@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.BillsController;
 import controller.StockController;
 import java.text.ParseException;
 import java.util.logging.Level;

@@ -50,18 +50,6 @@ public class FrAccessControl extends javax.swing.JDialog {
         return obj;
     }
 
-//    ArrayList<MyClass> a = new ArrayList<MyClass>();
-//a.add(new MyClass(0, "hahah"));
-//a.add(new MyClass(1, "bleeeee"));
-//a.add(new MyClass(5, "cleeeee")); 
-//for (MyClass value : a) {
-//     supplierComboBox.addItem(value); 
-//}
-//    public void UserCombobox() {
-//        cbxTipoUsuario.addItem(Admin);
-//        cbxTipoUsuario.addItem(Fornecedor);
-//        
-//    }
     public void limparCampos() {
         edtNome.setText("");
         edtTelefone.setText("");

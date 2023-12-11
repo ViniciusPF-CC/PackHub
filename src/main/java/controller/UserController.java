@@ -60,7 +60,7 @@ public class UserController {
 
     public void cadastrarUserAdmin(String nome, String email, String documento, String phone, String typeUser) {
         ValidateUser valid = new ValidateUser();
-        User novoUser = valid.validaCamposEntrada(nome, email, documento, phone);
+        User novoUser = valid.validaCamposEntradaAdmin(nome, email, documento, phone, typeUser);
 
         if (repositorio.findByEmail(novoUser.getEmail()) != null) {
             throw new UserException("Error - Já existe um usuario com este 'email'.");
