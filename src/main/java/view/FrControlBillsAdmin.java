@@ -20,11 +20,11 @@ import model.Supplier;
  *
  * @author vinic
  */
-public class FrControlBills extends javax.swing.JDialog {
+public class FrControlBillsAdmin extends javax.swing.JDialog {
 
     SaleController saleController;
 
-    public FrControlBills(java.awt.Frame parent, boolean modal) {
+    public FrControlBillsAdmin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         saleController = new SaleController();

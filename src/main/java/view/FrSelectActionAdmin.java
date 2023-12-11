@@ -46,7 +46,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         btnGerenciarUsuario = new javax.swing.JButton();
         btnRelatorio = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnRegistrarVenda = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -170,10 +170,10 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("Gerenciar estoque");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrarVenda.setText("Registrar Venda");
+        btnRegistrarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnRegistrarVendaActionPerformed(evt);
             }
         });
 
@@ -199,7 +199,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRegistrarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +231,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRelatorio)
-                    .addComponent(jButton6))
+                    .addComponent(btnRegistrarVenda))
                 .addContainerGap(124, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -270,13 +270,16 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
         stock.setVisible(true);
     }//GEN-LAST:event_btnRelatorioActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void btnRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVendaActionPerformed
+        FrRegisterSale stock = new FrRegisterSale(this, true);
+        stock.setLocationRelativeTo(this);
+        stock.setVisible(true);
+    }//GEN-LAST:event_btnRegistrarVendaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGerenciarEstoque;
     private javax.swing.JButton btnGerenciarUsuario;
+    private javax.swing.JButton btnRegistrarVenda;
     private javax.swing.JButton btnRelatorio;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JLabel imgLogo1;
@@ -284,7 +287,6 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel imgUser1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -41,9 +41,9 @@ public class StockDAO implements IDao<Stock> {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         this.entityManager.getTransaction().begin();
 
-        Stock disciplinaJPA = this.entityManager.find(Stock.class, id);
-        if (disciplinaJPA != null) {
-            this.entityManager.remove(disciplinaJPA);
+        Stock stockJPA = this.entityManager.find(Stock.class, id);
+        if (stockJPA != null) {
+            this.entityManager.remove(stockJPA);
         } else {
             this.entityManager.getTransaction().rollback();
             throw new RuntimeException("Error - Stock inexistente.");

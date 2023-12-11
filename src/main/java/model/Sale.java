@@ -38,6 +38,7 @@ public class Sale implements Serializable {
     private double valor;
     @ManyToOne
     private Payment pagamento;
+    private Long idVendedor;
     
     public void Sale(){
         this.id = -1L;
@@ -45,14 +46,16 @@ public class Sale implements Serializable {
         this.produtos = new ArrayList<>();
         this.valor = 0.0;
         this.pagamento = new Payment();
+        this.idVendedor = -1L;
     }
     
-    public void Sale(Long id, LocalDateTime data, List produtos, Double valor, Payment pagamento){
+    public void Sale(Long id, LocalDateTime data, List produtos, Double valor, Payment pagamento, Long idVendedor){
         this.id = id;
         this.dataHora = data;
         this.produtos = produtos;
         this.valor = valor;
         this.pagamento = pagamento;
+        this.idVendedor = idVendedor;
     }
     
     public void copy(Sale other){
@@ -61,5 +64,6 @@ public class Sale implements Serializable {
         this.produtos = other.produtos;
         this.valor = other.valor;
         this.pagamento = other.pagamento;
+        this.idVendedor = other.idVendedor;
     }
 }

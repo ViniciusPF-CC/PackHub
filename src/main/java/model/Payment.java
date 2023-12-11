@@ -30,19 +30,22 @@ public class Payment implements Serializable {
     @Column
     private LocalDateTime dataHora;
     private double valor;
+    private Boolean status;
     
     public Payment(){
         this.id = -1L;
         this.tipoPagamento = "";
         this.dataHora = LocalDateTime.of(2023, 1, 1, 0, 0);
         this.valor = 0.0;
+        this.status = false;
     }
     
-    public Payment(Long id, String tipoPagamento, LocalDateTime data, Double valor){
+    public Payment(Long id, String tipoPagamento, LocalDateTime data, Double valor, Boolean status){
         this.id = id;
         this.tipoPagamento = tipoPagamento;
         this.dataHora = data;
         this.valor = valor;
+        this.status = false;
     }
     
     public void copy(Payment other){
@@ -50,6 +53,7 @@ public class Payment implements Serializable {
         this.tipoPagamento = other.tipoPagamento;
         this.dataHora = other.dataHora;
         this.valor = other.valor;
+        this.status = false;
     }
     
 }
