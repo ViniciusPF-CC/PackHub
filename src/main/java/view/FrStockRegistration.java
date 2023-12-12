@@ -35,14 +35,6 @@ public class FrStockRegistration extends javax.swing.JDialog {
         stockController.atualizarTabela(grdStock);
     }
 
-    /**
-     * Retorna o objeto (classe) da linha selecionada na grid.
-     *
-     * Uso a estratégia do metodo getValueAt() la na TableModel, receber coluna
-     * -1 e retornar o objeto ao inves de uma célula.
-     *
-     * @return
-     */
     private Object getObjetoSelecionadoNaGrid() {
         int rowCliked = grdStock.getSelectedRow();
         Object obj = null;
