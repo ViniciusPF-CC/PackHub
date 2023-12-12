@@ -33,14 +33,6 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
         supplierController.atualizarTabela(grdSupplier);
     }
 
-    /**
-     * Retorna o objeto (classe) da linha selecionada na grid.
-     *
-     * Uso a estratégia do metodo getValueAt() la na TableModel, receber coluna
-     * -1 e retornar o objeto ao inves de uma célula.
-     *
-     * @return
-     */
     private Object getObjetoSelecionadoNaGrid() {
         int rowCliked = grdSupplier.getSelectedRow();
         Object obj = null;
