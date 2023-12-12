@@ -33,14 +33,6 @@ public class FrAccessControl extends javax.swing.JDialog {
         userController.atualizarTabela(grdUser);
     }
 
-    /**
-     * Retorna o objeto (classe) da linha selecionada na grid.
-     *
-     * Uso a estratégia do metodo getValueAt() la na TableModel, receber coluna
-     * -1 e retornar o objeto ao inves de uma célula.
-     *
-     * @return
-     */
     private Object getObjetoSelecionadoNaGrid() {
         int rowCliked = grdUser.getSelectedRow();
         Object obj = null;
@@ -297,8 +289,8 @@ public class FrAccessControl extends javax.swing.JDialog {
                 userController.atualizarTabela(grdUser);
             } else {
 //                try {
-                    userController.cadastrarUserAdmin(nome, email, cpf, phone, typeUser);
-                    userController.atualizarTabela(grdUser);
+                userController.cadastrarUserAdmin(nome, email, cpf, phone, typeUser);
+                userController.atualizarTabela(grdUser);
 //                } catch (UserException ex) {
 //                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Falha", JOptionPane.INFORMATION_MESSAGE);
 //                }

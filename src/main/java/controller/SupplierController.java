@@ -18,50 +18,59 @@ import model.valid.ValidateSupplier;
  * @author Gabriel
  */
 public class SupplierController {
+
     private SupplierDAO repositorio;
-    
-    public SupplierController(){
+
+    public SupplierController() {
         repositorio = new SupplierDAO();
     }
-    
+
     public void atualizarTabela(JTable grd) {
         List lst = repositorio.findAll();
         TMSupplier tableModel = new TMSupplier(lst);
-        Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
+        Util.jTableShow(grd, tableModel, null);
     }
-    
-    
+
     public void cadastrarSupplier(String nome, String endereco, String telefone, String cnpj) {
         ValidateSupplier valid = new ValidateSupplier();
-        Supplier supplier = valid.validaCamposEntrada(endereco, telefone, cnpj);
-        
-        if(repositorio.findByCnpj(supplier.getCnpj()) != null) {
-            throw new SupplierException("Error - Já existe um produto com esse código");
+        Supplier supplier = valid.validaCamposEntrada(nome, endereco, telefone, cnpj);
+
+        if (repositorio.findByCnpj(supplier.getCnpj()) != null) {
+            throw new SupplierException("Error - Já existe um produto com esse cnpj");
         } else {
             repositorio.save(supplier);
         }
     }
-    
-        public String buscarSupplierString() {
-            
+
+    public void atualizarSupplier(Long id, String nome, String endereco, String telefone, String cnpj) {
+
+        ValidateSupplier valid = new ValidateSupplier();
+        Supplier novoSupplier = valid.validaCamposEntrada(nome, endereco, telefone, cnpj);
+        novoSupplier.setId(id);
+        repositorio.update(novoSupplier);
+
+    }
+
+    public String buscarSupplierString() {
+
         List<Supplier> suppliers = repositorio.findAll();
-        
+
         String supplierString = "";
         for (Supplier supplier : suppliers) {
-            supplierString += supplier.getId()+" - "+supplier.getNome()+"\n";
+            supplierString += supplier.getId() + " - " + supplier.getNome() + "\n";
         }
 
         return supplierString;
     }
-        
-        public Supplier buscarSupplierPorId(Long id){
-        if(id == null){
+
+    public Supplier buscarSupplierPorId(Long id) {
+        if (id == null) {
             return null;
         }
-            Supplier supp = (Supplier) repositorio.find(id);
+        Supplier supp = (Supplier) repositorio.find(id);
         return supp;
     }
-        
+
     public void excluirSupplier(Long id) {
         if (id != -1) {
             repositorio.delete(id);

@@ -15,6 +15,7 @@ import model.Stock;
 import controller.SupplierController;
 import controller.UserController;
 import java.time.LocalDateTime;
+import java.util.List;
 import model.Sale;
 import model.Supplier;
 import model.exceptions.SaleException;
@@ -72,13 +73,18 @@ public class FrRegisterSale extends javax.swing.JDialog {
     public void limparCampos() {
         edtQuantVendida.setText("");
         edtValor.setText("");
-        edtPagamento.setText("");
     }
 
     public void preencherFormulario(Sale sale) {
+        
+        if (sale.getProduto() != null) {
+            cbxProduto.setSelectedItem(sale.getProduto());
+        }
         edtValor.setText(sale.getValor() + "");
         edtQuantVendida.setText(sale.getQuantidadeVendida() + "");
-        edtPagamento.setText(sale.getPagamento() + "");
+        if (sale.getPagamento() != null) {
+            cbxPagamento.setSelectedItem(sale.getPagamento());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -102,7 +108,7 @@ public class FrRegisterSale extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         cbxProduto = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        edtPagamento = new javax.swing.JTextField();
+        cbxPagamento = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar item");
@@ -178,6 +184,14 @@ public class FrRegisterSale extends javax.swing.JDialog {
 
         jLabel10.setText("Pagamento:");
 
+        cbxPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "à vista", "a prazo" }));
+        cbxPagamento.setSelectedIndex(-1);
+        cbxPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxPagamentoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -192,12 +206,23 @@ public class FrRegisterSale extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(12, 12, 12)
+                                .addComponent(btnEdit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExcluir))
+                            .addComponent(jLabel10))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbxPagamento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(cbxProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(edtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
@@ -205,19 +230,7 @@ public class FrRegisterSale extends javax.swing.JDialog {
                             .addComponent(jLabel8)
                             .addComponent(edtQuantVendida)
                             .addComponent(jLabel7)
-                            .addComponent(cbxVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(12, 12, 12)
-                                .addComponent(btnEdit)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnExcluir))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel10)
-                                .addComponent(edtPagamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(cbxVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -246,7 +259,7 @@ public class FrRegisterSale extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edtPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbxPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar)
                 .addGap(31, 31, 31)
@@ -280,13 +293,14 @@ public class FrRegisterSale extends javax.swing.JDialog {
                 idVendedor = Long.parseLong(parts[0]);
             }
 
-            double payment = Double.parseDouble(edtPagamento.getText());
+            String pagamento = String.valueOf(cbxPagamento.getSelectedItem());
+
             if (idSaleEditando > 0) {
-                saleController.atualizarSale(idSaleEditando, LocalDateTime.now(), produto, valor, payment, quantidadeVendida, idVendedor);
+                saleController.atualizarSale(idSaleEditando, LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, idVendedor);
                 JOptionPane.showMessageDialog(null, "Edição feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 saleController.atualizarTabela(grdSales);
             } else {
-                saleController.cadastrarSale(LocalDateTime.now(), produto, valor, payment, quantidadeVendida, idVendedor);
+                saleController.cadastrarSale(LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, idVendedor);
                 JOptionPane.showMessageDialog(null, "Error - Já existe um produto com esse código", "Falha", JOptionPane.INFORMATION_MESSAGE);
                 saleController.atualizarTabela(grdSales);
             }
@@ -340,14 +354,18 @@ public class FrRegisterSale extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void cbxPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPagamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxPagamentoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox<String> cbxPagamento;
     private javax.swing.JComboBox<String> cbxProduto;
     private javax.swing.JComboBox<String> cbxVendedor;
-    private javax.swing.JTextField edtPagamento;
     private javax.swing.JTextField edtQuantVendida;
     private javax.swing.JTextField edtValor;
     private javax.swing.JTable grdSales;

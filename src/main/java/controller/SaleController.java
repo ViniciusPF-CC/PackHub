@@ -49,7 +49,7 @@ public class SaleController {
         Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
     }
 
-    public void cadastrarSale(LocalDateTime dataHora, String produto, double valor, double pagamento, int quantidadeVendida, Long idVendedor) {
+    public void cadastrarSale(LocalDateTime dataHora, String produto, double valor, String pagamento, int quantidadeVendida, Long idVendedor) {
 
         long idStock = getIdDoidStock(String.valueOf(produto));
 
@@ -63,7 +63,7 @@ public class SaleController {
         repositorio.save(sale);
     }
 
-    public void atualizarSale(Long id, LocalDateTime dataHora, String produto, double valor, double pagamento, int quantidadeVendida, Long idVendedor) {
+    public void atualizarSale(Long id, LocalDateTime dataHora, String produto, double valor, String pagamento, int quantidadeVendida, Long idVendedor) {
 
         long idStock = getIdDoidStock(String.valueOf(produto));
 
@@ -98,5 +98,4 @@ public class SaleController {
             throw new SaleException("Error - Item inexistente.");
         }
     }
-
 }

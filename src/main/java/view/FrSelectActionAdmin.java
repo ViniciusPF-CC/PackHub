@@ -47,6 +47,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
         btnGerenciarUsuario = new javax.swing.JButton();
         btnRelatorio = new javax.swing.JButton();
         btnRegistrarVenda = new javax.swing.JButton();
+        btnRegistrarFornecedor = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -177,6 +178,13 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
             }
         });
 
+        btnRegistrarFornecedor.setText("Gerenciar fornecedor");
+        btnRegistrarFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarFornecedorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,9 +205,12 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGerenciarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnRegistrarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnRegistrarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnRegistrarFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +243,9 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRelatorio)
                     .addComponent(btnRegistrarVenda))
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRegistrarFornecedor)
+                .addContainerGap(89, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(16, 16, 16)
@@ -276,9 +289,16 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
         stock.setVisible(true);
     }//GEN-LAST:event_btnRegistrarVendaActionPerformed
 
+    private void btnRegistrarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarFornecedorActionPerformed
+        FrRegisterSupplier stock = new FrRegisterSupplier(this, true);
+        stock.setLocationRelativeTo(this);
+        stock.setVisible(true);
+    }//GEN-LAST:event_btnRegistrarFornecedorActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGerenciarEstoque;
     private javax.swing.JButton btnGerenciarUsuario;
+    private javax.swing.JButton btnRegistrarFornecedor;
     private javax.swing.JButton btnRegistrarVenda;
     private javax.swing.JButton btnRelatorio;
     private javax.swing.JLabel imgLogo;

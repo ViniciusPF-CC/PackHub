@@ -21,7 +21,8 @@ public class TMSale extends AbstractTableModel {
     private final int COL_PRODUTO = 2;
     private final int COL_VALOR = 3;
     private final int COL_QUANTIDADEVENDIDA = 4;
-    private final int COL_VENDEDOR = 5;
+    private final int COL_PAGAMENTO = 5;
+    private final int COL_VENDEDOR = 6;
 
     public TMSale(List<Sale> lstSale) {
         this.lista = lstSale;
@@ -34,7 +35,7 @@ public class TMSale extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 6;
+        return 7;
     }
 
     @Override
@@ -59,6 +60,9 @@ public class TMSale extends AbstractTableModel {
             }
             case COL_QUANTIDADEVENDIDA -> {
                 return aux.getQuantidadeVendida();
+            }
+            case COL_PAGAMENTO -> {
+                return aux.getPagamento();
             }
             case COL_VENDEDOR -> {
                 return aux.getIdVendedor();
@@ -87,6 +91,9 @@ public class TMSale extends AbstractTableModel {
             }
             case COL_QUANTIDADEVENDIDA -> {
                 return "Quantidade Vendida";
+            }
+            case COL_PAGAMENTO -> {
+                return "Pagamento";
             }
             case COL_VENDEDOR -> {
                 return "Vendedor";

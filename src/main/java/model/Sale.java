@@ -38,7 +38,7 @@ public class Sale implements Serializable {
     private Stock produto;
     @Column
     private double valor;
-    private double pagamento;
+    private String pagamento;
     private int quantidadeVendida;
     private Long idVendedor;
     
@@ -47,12 +47,12 @@ public class Sale implements Serializable {
         this.dataHora = LocalDateTime.of(2023, 1, 1, 0, 0);
         produto = new Stock();
         this.valor = 0.0;
-        this.pagamento = 0.0;
+        this.pagamento = "";
         this.quantidadeVendida = 0;
         this.idVendedor = -1L;
     }
     
-    public void Sale(Long id, LocalDateTime data, Stock produto, Double valor, double pagamento, int quantidadeVendida ,Long idVendedor){
+    public void Sale(Long id, LocalDateTime data, Stock produto, Double valor, String pagamento, int quantidadeVendida ,Long idVendedor){
         this.id = id;
         this.dataHora = data;
         this.produto = produto;

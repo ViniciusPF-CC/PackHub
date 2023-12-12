@@ -235,9 +235,17 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
             String telefone = edtTelefone.getText();
             String endereco = edtEndereco.getText();
             String cnpj = edtCnpj.getText();
-            supplierController.cadastrarSupplier(nome, telefone, endereco, cnpj);
-            supplierController.atualizarTabela(grdSupplier);
-            this.idSupplierEditando = -1L;
+
+            if (idSupplierEditando > 0) {
+                supplierController.atualizarSupplier(idSupplierEditando, nome, endereco, telefone, cnpj);
+                JOptionPane.showMessageDialog(null, "Edição feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                supplierController.atualizarTabela(grdSupplier);
+            } else {
+                supplierController.cadastrarSupplier(nome, endereco, telefone, cnpj);
+                JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                supplierController.atualizarTabela(grdSupplier);
+            }
+            limparCampos();
         } catch (SupplierException s) {
             System.err.println(s.getMessage());
             JOptionPane.showMessageDialog(this, s.getMessage());
@@ -253,7 +261,7 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
 
             int response = JOptionPane.showConfirmDialog(null,
                     "Deseja exlcuir o  \n("
-                    + supplierExcluido.getNome()+ ", ",
+                    + supplierExcluido.getNome() + ", ",
                     "Confirmar exclusão",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
