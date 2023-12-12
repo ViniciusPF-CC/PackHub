@@ -14,13 +14,13 @@ import java.security.NoSuchAlgorithmException;
  */
 public abstract class Autenticador {
     
-    private static int idLogado;
+    private static Long idLogado; 
 
-    public static int getIdLogado() {
+    public static Long getIdLogado() {
         return idLogado;
     }
 
-    public static void setIdLogado(int idLogado) {
+    public static void setIdLogado(Long idLogado) {
         Autenticador.idLogado = idLogado;
     }
     

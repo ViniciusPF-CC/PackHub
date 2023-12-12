@@ -4,6 +4,13 @@
  */
 package view;
 
+import controller.AutenticadorController;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import model.auth.Autenticador;
+
 /**
  *
  * @author vinic
@@ -13,8 +20,13 @@ public class FrLogin extends javax.swing.JFrame {
     /**
      * Creates new form FrLogin
      */
+    AutenticadorController autenticadorController;
+    
     public FrLogin() {
+        
+        autenticadorController = new AutenticadorController();
         initComponents();
+        lblErroLogin.setVisible(false);
     }
 
     /**
@@ -34,6 +46,7 @@ public class FrLogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnRegister = new javax.swing.JButton();
         bntLogin = new javax.swing.JButton();
+        lblErroLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Autenticação");
@@ -73,31 +86,42 @@ public class FrLogin extends javax.swing.JFrame {
             }
         });
 
+        lblErroLogin.setForeground(new java.awt.Color(255, 0, 0));
+        lblErroLogin.setText("Usuário ou senha incorretos");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(edtUser)
-                    .addComponent(edtPassword)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(edtUser)
+                            .addComponent(edtPassword)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(78, 78, 78)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(bntLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnRegister)
+                                        .addGap(19, 19, 19))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(lblErroLogin)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bntLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRegister)
-                .addGap(95, 95, 95))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,11 +138,13 @@ public class FrLogin extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(lblErroLogin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bntLogin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegister)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -130,13 +156,47 @@ public class FrLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_edtUserActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        FrRegister register = new FrRegister(this,true);
+        FrRegister register = new FrRegister(this, true);
         register.setLocationRelativeTo(this);
         register.setVisible(true);
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void bntLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLoginActionPerformed
-        // TODO add your handling code here:
+        try {
+
+            String email = edtUser.getText();
+            String senha = new String(edtPassword.getPassword()).trim();
+            String senhaHash = null;
+
+            try {
+                senhaHash = Autenticador.textToHash(senha);
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(FrLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+//            if (email.equals("adm@adm.com") && senhaHash.equals("a7ec159e76d31f3d869712e677deb4b352e7cb6594838ba3cf4579f2a4490245")) {
+//                FrSelectActionAdmin frAdm = new FrSelectActionAdmin();
+//                frAdm.setVisible(true);
+//                this.setVisible(false);
+//            }
+
+            char tipo = autenticadorController.autenticarPorEmailSenha(email, senhaHash);
+
+            if (tipo == 'm') {
+                FrSelectActionAdmin frAdm = new FrSelectActionAdmin();
+                frAdm.setVisible(true);
+                this.setVisible(false);
+            }
+
+            if (tipo == 'e') {
+                FrSelectActionEmployee frEmp = new FrSelectActionEmployee();
+                frEmp.setVisible(true);
+                this.setVisible(false);
+            }
+            lblErroLogin.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }//GEN-LAST:event_bntLoginActionPerformed
 
 
@@ -149,5 +209,6 @@ public class FrLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblErroLogin;
     // End of variables declaration//GEN-END:variables
 }

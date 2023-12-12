@@ -24,7 +24,7 @@ public class DistribuicaoEmbalagem {
         factory.close();
 //        FrLogin login = new FrLogin();
 //        login.setVisible(true);
-        FrSelectActionAdmin select = new FrSelectActionAdmin();
+        FrLogin select = new FrLogin();
         select.setVisible(true);
     }
 }
