@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import lombok.Data;
 import java.util.Date;
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -32,8 +33,9 @@ public class Sale implements Serializable {
     private Long id;
     @Column
     private LocalDateTime dataHora;
-    @OneToMany(mappedBy = "supplier")
-    private List<Stock> produtos;
+    @ManyToOne
+    @JoinColumn(name = "stock_id")
+    private Stock produto;
     @Column
     private double valor;
     private double pagamento;
@@ -43,17 +45,17 @@ public class Sale implements Serializable {
     public void Sale(){
         this.id = -1L;
         this.dataHora = LocalDateTime.of(2023, 1, 1, 0, 0);
-        this.produtos = new ArrayList<>();
+        produto = new Stock();
         this.valor = 0.0;
         this.pagamento = 0.0;
         this.quantidadeVendida = 0;
         this.idVendedor = -1L;
     }
     
-    public void Sale(Long id, LocalDateTime data, List produtos, Double valor, double pagamento, int quantidadeVendida ,Long idVendedor){
+    public void Sale(Long id, LocalDateTime data, Stock produto, Double valor, double pagamento, int quantidadeVendida ,Long idVendedor){
         this.id = id;
         this.dataHora = data;
-        this.produtos = produtos;
+        this.produto = produto;
         this.valor = valor;
         this.pagamento = pagamento;
         this.quantidadeVendida = quantidadeVendida;
@@ -63,7 +65,7 @@ public class Sale implements Serializable {
     public void copy(Sale other){
         this.id = other.id;
         this.dataHora = other.dataHora;
-        this.produtos = other.produtos;
+        this.produto = other.produto;
         this.valor = other.valor;
         this.pagamento = other.pagamento;
         this.quantidadeVendida = other.quantidadeVendida;

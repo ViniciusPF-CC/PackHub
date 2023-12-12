@@ -57,11 +57,11 @@ public class SaleDAO implements IDao<Sale>{
     public Sale find(Long id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
 
-        Sale u = this.entityManager.find(Sale.class, id);
+        Sale s = this.entityManager.find(Sale.class, id);
 
         this.entityManager.close();
 
-        return u;
+        return s;
     }
     
     

@@ -49,23 +49,37 @@ public class SaleController {
         Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
     }
 
-    public void cadastrarSale(LocalDateTime dataHora, List<Stock> produtos, double valor, double pagamento, int quantidadeVendida) {
+    public void cadastrarSale(LocalDateTime dataHora, String produto, double valor, double pagamento, int quantidadeVendida, Long idVendedor) {
+
+        long idStock = getIdDoidStock(String.valueOf(produto));
+
+        StockController stockS = new StockController();
+
+        Stock stockV = stockS.buscarStockPorId(idStock);
 
         ValidateSale valid = new ValidateSale();
-        Sale sale = valid.validaCamposEntrada(dataHora, produtos, valor, pagamento, 0);
+        Sale sale = valid.validaCamposEntrada(dataHora, stockV, valor, pagamento, quantidadeVendida, idVendedor);
 
-        if (repositorio.find(sale.getId()) != null) {
-            throw new SaleException("Error - Já existe um produto com esse código");
-        } else {
-            repositorio.save(sale);
-        }
+        repositorio.save(sale);
     }
 
-    public void atualizarSale(Long id, LocalDateTime dataHora, List<Stock> produtos, double valor, double pagamento, int quantidadeVendida) {
+    public void atualizarSale(Long id, LocalDateTime dataHora, String produto, double valor, double pagamento, int quantidadeVendida, Long idVendedor) {
+
+        long idStock = getIdDoidStock(String.valueOf(produto));
+
+        StockController stockS = new StockController();
+
+        Stock stockV = stockS.buscarStockPorId(idStock);
 
         ValidateSale valid = new ValidateSale();
-        Sale novaSale = valid.validaCamposEntrada(dataHora, produtos, valor, pagamento, 0);
+        Sale novaSale = valid.validaCamposEntrada(dataHora, stockV, valor, pagamento, quantidadeVendida, idVendedor);
         novaSale.setId(id);
+
+        // Aqui você precisa verificar se a venda com o ID fornecido existe antes de atualizar
+        if (repositorio.find(id) == null) {
+            throw new SaleException("Error - Não existe uma venda com o ID fornecido para atualizar");
+        }
+
         repositorio.update(novaSale);
     }
 

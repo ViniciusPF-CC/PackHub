@@ -12,20 +12,21 @@ import model.Sale;
  *
  * @author Gabriel
  */
-public class TMSale extends AbstractTableModel{
-    
+public class TMSale extends AbstractTableModel {
+
     private List<Sale> lista;
-    
+
     private final int COL_ID = 0;
     private final int COL_DATAHORA = 1;
-    private final int COL_PRODUTOS = 2;
+    private final int COL_PRODUTO = 2;
     private final int COL_VALOR = 3;
-    private final int COL_PAGAMENTO = 4;
-    
+    private final int COL_QUANTIDADEVENDIDA = 4;
+    private final int COL_VENDEDOR = 5;
+
     public TMSale(List<Sale> lstSale) {
         this.lista = lstSale;
     }
-    
+
     @Override
     public int getRowCount() {
         return lista.size();
@@ -33,10 +34,10 @@ public class TMSale extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 6;
     }
-    
-     @Override
+
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Sale aux = (lista.isEmpty()) ? new Sale() : lista.get(rowIndex);
 
@@ -50,24 +51,26 @@ public class TMSale extends AbstractTableModel{
             case COL_DATAHORA -> {
                 return aux.getDataHora();
             }
-            case COL_PRODUTOS -> {
-                return aux.getProdutos();
+            case COL_PRODUTO -> {
+                return aux.getProduto().getDescricao();
             }
             case COL_VALOR -> {
                 return aux.getValor();
             }
-            case COL_PAGAMENTO -> {
-                return aux.getPagamento();
+            case COL_QUANTIDADEVENDIDA -> {
+                return aux.getQuantidadeVendida();
+            }
+            case COL_VENDEDOR -> {
+                return aux.getIdVendedor();
             }
             default -> {
             }
         }
-        
+
         return aux;
     }
-    
-    
-        @Override
+
+    @Override
     public String getColumnName(int column) {
         switch (column) {
             case COL_ID -> {
@@ -76,14 +79,17 @@ public class TMSale extends AbstractTableModel{
             case COL_DATAHORA -> {
                 return "Data";
             }
-            case COL_PRODUTOS -> {
-                return "Produtos";
+            case COL_PRODUTO -> {
+                return "Produto";
             }
             case COL_VALOR -> {
                 return "Valor";
             }
-            case COL_PAGAMENTO -> {
-                return "Pagamento";
+            case COL_QUANTIDADEVENDIDA -> {
+                return "Quantidade Vendida";
+            }
+            case COL_VENDEDOR -> {
+                return "Vendedor";
             }
             default -> {
             }

@@ -16,17 +16,18 @@ import model.exceptions.SaleException;
  */
 public class ValidateSale {
 
-    public Sale validaCamposEntrada(LocalDateTime dataHora, List<Stock> produtos, double valor, double pagamento, int quantidadeVendida) {
+    public Sale validaCamposEntrada(LocalDateTime dataHora, Stock produto, double valor, double pagamento, int quantidadeVendida, Long idVendedor) {
         Sale sale = new Sale();
-        if (dataHora.equals(null) || produtos.isEmpty() || valor == 0.0 || pagamento == 0.0 || quantidadeVendida == 0.0) {
+        if (dataHora.equals(null) || produto.equals(null) || valor == 0.0 || pagamento == 0.0 || quantidadeVendida == 0 || idVendedor == 0) {
             throw new SaleException("Erro - Preencha todos os campos.");
         }
 
         sale.setDataHora(dataHora);
-        sale.setProdutos(produtos);
+        sale.setProduto(produto);
         sale.setValor(valor);
         sale.setPagamento(pagamento);
         sale.setQuantidadeVendida(quantidadeVendida);
+        sale.setIdVendedor(idVendedor);
 
         return sale;
     }

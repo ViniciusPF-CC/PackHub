@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import model.Stock;
-import model.exceptions.StockException;
 import controller.SupplierController;
 import controller.UserController;
 import java.time.LocalDateTime;
@@ -36,9 +35,13 @@ public class FrRegisterSale extends javax.swing.JDialog {
         initComponents();
         saleController = new SaleController();
         saleController.atualizarTabela(grdSales);
+        idSaleEditando = -1L;
+        produtoCombobox();
+        vendedorCombobox();
     }
 
     public void produtoCombobox() {
+        stockController = new StockController();
         cbxProduto.addItem("");
         String[] produtosString = stockController.buscarStockString().split("\n");
 
@@ -48,6 +51,7 @@ public class FrRegisterSale extends javax.swing.JDialog {
     }
 
     public void vendedorCombobox() {
+        userController = new UserController();
         cbxVendedor.addItem("");
         String[] vendedoresString = userController.buscarUserString().split("\n");
 
@@ -72,11 +76,10 @@ public class FrRegisterSale extends javax.swing.JDialog {
     }
 
     public void preencherFormulario(Sale sale) {
-        edtValor.setText(sale.getValor()+ "");
-        edtQuantVendida.setText(sale.getQuantidadeVendida()+ "");
-        edtPagamento.setText(sale.getPagamento()+ "");
+        edtValor.setText(sale.getValor() + "");
+        edtQuantVendida.setText(sale.getQuantidadeVendida() + "");
+        edtPagamento.setText(sale.getPagamento() + "");
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -267,24 +270,31 @@ public class FrRegisterSale extends javax.swing.JDialog {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
             String produto = String.valueOf(cbxProduto.getSelectedItem());
-            String quantidadeVendida = edtQuantVendida.getText();
-            float valor = Float.parseFloat(edtValor.getText());
-            String vendedor = String.valueOf(cbxVendedor.getSelectedItem());
-            String payment = edtPagamento.getText();
-            if (idSaleEditando > 0) {
-                saleController.atualizarSale(idSaleEditando, LocalDateTime.MAX, produtos, 0, pagamento, FRAMEBITS);
-                JOptionPane.showMessageDialog(null, "Edição feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                stockController.atualizarTabela(grdSales);
-            } else {
-                saleController.cadastrarSale(LocalDateTime.MAX, produtos, 0, pagamento, FRAMEBITS);
-                JOptionPane.showMessageDialog(null, "Error - Já existe um produto com esse código", "Falha", JOptionPane.INFORMATION_MESSAGE);
-                stockController.atualizarTabela(grdSales);
+            int quantidadeVendida = Integer.parseInt(edtQuantVendida.getText());
+            double valor = Double.parseDouble(edtValor.getText());
+            Long idVendedor = 0L; // Inicializa com um valor padrão, se necessário
+
+            if (cbxVendedor.getSelectedItem() != null) {
+                String selectedUser = String.valueOf(cbxVendedor.getSelectedItem());
+                String[] parts = selectedUser.split(" - ");
+                idVendedor = Long.parseLong(parts[0]);
             }
-            this.idSaleEditando = -1L;
+
+            double payment = Double.parseDouble(edtPagamento.getText());
+            if (idSaleEditando > 0) {
+                saleController.atualizarSale(idSaleEditando, LocalDateTime.now(), produto, valor, payment, quantidadeVendida, idVendedor);
+                JOptionPane.showMessageDialog(null, "Edição feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                saleController.atualizarTabela(grdSales);
+            } else {
+                saleController.cadastrarSale(LocalDateTime.now(), produto, valor, payment, quantidadeVendida, idVendedor);
+                JOptionPane.showMessageDialog(null, "Error - Já existe um produto com esse código", "Falha", JOptionPane.INFORMATION_MESSAGE);
+                saleController.atualizarTabela(grdSales);
+            }
+            limparCampos();
         } catch (NumberFormatException e) {
             System.err.println("Erro ao converter valores: " + e.getMessage());
             JOptionPane.showMessageDialog(this, "Erro ao converter valores: " + e.getMessage());
-        } catch (StockException s) {
+        } catch (SaleException s) {
             System.err.println(s.getMessage());
             JOptionPane.showMessageDialog(this, s.getMessage());
         }
@@ -311,7 +321,7 @@ public class FrRegisterSale extends javax.swing.JDialog {
 
             int response = JOptionPane.showConfirmDialog(null,
                     "Deseja exlcuir o  \n("
-                    + saleExcluido.getProdutos()+ ", ",
+                    + saleExcluido.getProduto() + ", ",
                     "Confirmar exclusão",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
@@ -323,7 +333,7 @@ public class FrRegisterSale extends javax.swing.JDialog {
 
                     saleController.atualizarTabela(grdSales);
                     JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso!");
-                } catch (StockException ex) {
+                } catch (SaleException ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage());
                 }
             }
