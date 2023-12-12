@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JTable;
 import model.Employee;
-import model.Payment;
 import model.Sale;
 import model.Stock;
 import model.dao.SaleDAO;
 import model.exceptions.SaleException;
 import model.valid.ValidateSale;
+import model.valid.ValidateStock;
 
 /**
  *
@@ -28,12 +28,12 @@ public class SaleController {
         repositorio = new SaleDAO();
     }
 
-    private Integer getIdDoidSale(String idSale) {
-        if (idSale.equals("")) {
+    private Integer getIdDoidStock(String idStock) {
+        if (idStock.equals("")) {
             return null;
         }
-        String[] novoIdSale = idSale.split(" - ");
-        return Integer.parseInt(novoIdSale[0]);
+        String[] novoIdStock = idStock.split(" - ");
+        return Integer.parseInt(novoIdStock[0]);
     }
 
     public void atualizarTabela(JTable grd) {
@@ -43,17 +43,30 @@ public class SaleController {
     }
 
     public void atualizarTabela(JTable grd, String idFuncionario) {
-        
+
         List lst = repositorio.findAll();
         TMSale tableModel = new TMSale(lst);
         Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
     }
-    
-    public void cadastrarSale(LocalDateTime dataHora, List<Stock> produtos, double valor, Payment pagamento) {
-        ValidateSale valid = new ValidateSale();
-        Sale sale = valid.validaCamposEntrada(dataHora, produtos, valor, pagamento);
-        repositorio.save(sale);
 
+    public void cadastrarSale(LocalDateTime dataHora, List<Stock> produtos, double valor, double pagamento, int quantidadeVendida) {
+
+        ValidateSale valid = new ValidateSale();
+        Sale sale = valid.validaCamposEntrada(dataHora, produtos, valor, pagamento, 0);
+
+        if (repositorio.find(sale.getId()) != null) {
+            throw new SaleException("Error - Já existe um produto com esse código");
+        } else {
+            repositorio.save(sale);
+        }
+    }
+
+    public void atualizarSale(Long id, LocalDateTime dataHora, List<Stock> produtos, double valor, double pagamento, int quantidadeVendida) {
+
+        ValidateSale valid = new ValidateSale();
+        Sale novaSale = valid.validaCamposEntrada(dataHora, produtos, valor, pagamento, 0);
+        novaSale.setId(id);
+        repositorio.update(novaSale);
     }
 
     public Sale buscarSalePorId(Long id) {

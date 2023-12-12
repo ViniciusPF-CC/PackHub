@@ -79,4 +79,17 @@ public class UserController {
             throw new UserException("Error - Item inexistente.");
         }
     }
+    
+        public String buscarUserString() {
+
+        List<User> users = repositorio.findAll();
+
+        String userString = "";
+        for (User user : users) {
+            userString += user.getId() + " - " + user.getNome()+ "\n";
+        }
+
+        return userString;
+    }
+    
 }

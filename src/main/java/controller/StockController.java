@@ -69,7 +69,7 @@ public class StockController {
         Stock novoStock = valid.validaCamposEntrada(codigo, descricao, precoCusto, precoVenda, quantEstoque, suppV);
         novoStock.setId(id);
         repositorio.update(novoStock);
-        
+
     }
 
     public void excluirStock(Long id) {
@@ -78,6 +78,26 @@ public class StockController {
         } else {
             throw new StockException("Error - Item inexistente.");
         }
+    }
+
+    public String buscarStockString() {
+
+        List<Stock> stocks = repositorio.findAll();
+
+        String stockString = "";
+        for (Stock stock : stocks) {
+            stockString += stock.getId() + " - " + stock.getDescricao() + "\n";
+        }
+
+        return stockString;
+    }
+
+    public Stock buscarStockPorId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Stock stock = (Stock) repositorio.find(id);
+        return stock;
     }
 
 }
