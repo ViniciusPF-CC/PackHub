@@ -169,7 +169,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="lbUserName" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lbUserName" max="32767" attributes="0"/>
+                          <Component id="lblValorComissao" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="imgUser" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
@@ -211,7 +214,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="imgUser" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -220,7 +223,9 @@
                       <Component id="lbUserName" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblValorComissao" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -241,7 +246,7 @@
                   <Component id="btnRelatorio" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnRelatorioContasaReceber" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="89" max="32767" attributes="0"/>
+              <EmptySpace pref="79" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
@@ -318,7 +323,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnRegistrarVenda">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Registrar Venda"/>
+        <Property name="text" type="java.lang.String" value="Registrar/Atribuir Venda"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarVendaActionPerformed"/>
@@ -339,6 +344,11 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRelatorioContasaReceberActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblValorComissao">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Comissao"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

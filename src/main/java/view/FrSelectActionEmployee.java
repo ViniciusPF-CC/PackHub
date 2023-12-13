@@ -4,6 +4,10 @@
  */
 package view;
 
+import controller.UserController;
+import model.User;
+import model.auth.Autenticador;
+
 /**
  *
  * @author vinic
@@ -13,8 +17,17 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
     /**
      * Creates new form FrSelectAction
      */
+    UserController userController;
     public FrSelectActionEmployee() {
         initComponents();
+        userController = new UserController();
+        long idUser = Autenticador.getIdLogado();
+        User user = userController.buscarUserPorId(idUser);
+        String nomeUser = user.getNome();
+        String valorComissao = String.valueOf(user.getValorComissao());
+
+        lbUserName.setText("Ola " + nomeUser);
+        lblValorComissao.setText("R$" + valorComissao);
     }
 
     /**
@@ -37,15 +50,16 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jButton4 = new javax.swing.JButton();
-        imgUser = new javax.swing.JLabel();
         btnAcessoStock = new javax.swing.JButton();
         imgLogo = new javax.swing.JLabel();
-        lbUserName = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnRelatorioVendas = new javax.swing.JButton();
         btnRelatorioConta = new javax.swing.JButton();
+        lbUserName = new javax.swing.JLabel();
+        lblValorComissao = new javax.swing.JLabel();
+        imgUser = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -133,9 +147,6 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        imgUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imgUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
-
         btnAcessoStock.setText("Acessar Stock");
         btnAcessoStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,8 +156,6 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
 
         imgLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Logo.png"))); // NOI18N
-
-        lbUserName.setText("Olá Fulano");
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Aqui estão todas as opções para gerenciar o seu negócio.");
@@ -169,6 +178,13 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
             }
         });
 
+        lbUserName.setText("Olá Fulano");
+
+        lblValorComissao.setText("Comissao");
+
+        imgUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imgUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -177,11 +193,6 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lbUserName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(imgUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -190,7 +201,14 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
                         .addComponent(btnRelatorioVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRelatorioConta, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblValorComissao, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(imgUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -201,14 +219,15 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(imgUser)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(imgUser))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
+                        .addGap(8, 8, 8)
                         .addComponent(lbUserName)))
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblValorComissao)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
@@ -233,7 +252,7 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAcessoStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcessoStockActionPerformed
-        FrSalesReport stock = new FrSalesReport(this,true);
+        FrStockAccess stock = new FrStockAccess(this, true);
         stock.setLocationRelativeTo(this);
         stock.setVisible(true);
     }//GEN-LAST:event_btnAcessoStockActionPerformed
@@ -243,7 +262,9 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnRelatorioVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioVendasActionPerformed
-        // TODO add your handling code here:
+        FrSalesReport stock = new FrSalesReport(this, true);
+        stock.setLocationRelativeTo(this);
+        stock.setVisible(true);
     }//GEN-LAST:event_btnRelatorioVendasActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -275,5 +296,6 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbUserName;
     private javax.swing.JLabel lbUserName1;
+    private javax.swing.JLabel lblValorComissao;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,17 +4,29 @@
  */
 package view;
 
+import controller.UserController;
+import model.User;
+import model.auth.Autenticador;
+
 /**
  *
  * @author vinic
  */
 public class FrSelectActionAdmin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrSelectAction
-     */
+    UserController userController;
+
     public FrSelectActionAdmin() {
+
         initComponents();
+        userController = new UserController();
+        long idUser = Autenticador.getIdLogado();
+        User user = userController.buscarUserPorId(idUser);
+        String nomeUser = user.getNome();
+        String valorComissao = String.valueOf(user.getValorComissao());
+
+        lbUserName.setText("Ola " + nomeUser);
+        lblValorComissao.setText("R$" + valorComissao);
     }
 
     /**
@@ -49,6 +61,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
         btnRegistrarVenda = new javax.swing.JButton();
         btnRegistrarFornecedor = new javax.swing.JButton();
         btnRelatorioContasaReceber = new javax.swing.JButton();
+        lblValorComissao = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -172,7 +185,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
             }
         });
 
-        btnRegistrarVenda.setText("Registrar Venda");
+        btnRegistrarVenda.setText("Registrar/Atribuir Venda");
         btnRegistrarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarVendaActionPerformed(evt);
@@ -193,6 +206,8 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
             }
         });
 
+        lblValorComissao.setText("Comissao");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,7 +218,9 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lbUserName)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblValorComissao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(imgUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1)
@@ -240,7 +257,9 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(lbUserName)))
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblValorComissao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
@@ -258,7 +277,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRelatorio)
                     .addComponent(btnRelatorioContasaReceber))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(16, 16, 16)
@@ -338,5 +357,6 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbUserName;
     private javax.swing.JLabel lbUserName1;
+    private javax.swing.JLabel lblValorComissao;
     // End of variables declaration//GEN-END:variables
 }
