@@ -48,6 +48,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
         btnRelatorio = new javax.swing.JButton();
         btnRegistrarVenda = new javax.swing.JButton();
         btnRegistrarFornecedor = new javax.swing.JButton();
+        btnRelatorioContasaReceber = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -185,6 +186,13 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
             }
         });
 
+        btnRelatorioContasaReceber.setText("Relatorio de Contas");
+        btnRelatorioContasaReceber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatorioContasaReceberActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -207,10 +215,13 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnRegistrarFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
                                 .addComponent(btnRegistrarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnRegistrarFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnRelatorioContasaReceber, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,10 +252,12 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
                     .addComponent(btnGerenciarUsuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRelatorio)
-                    .addComponent(btnRegistrarVenda))
+                    .addComponent(btnRegistrarVenda)
+                    .addComponent(btnRegistrarFornecedor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRegistrarFornecedor)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRelatorio)
+                    .addComponent(btnRelatorioContasaReceber))
                 .addContainerGap(89, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -295,12 +308,19 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
         stock.setVisible(true);
     }//GEN-LAST:event_btnRegistrarFornecedorActionPerformed
 
+    private void btnRelatorioContasaReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioContasaReceberActionPerformed
+        FrControlBillsAdmin stock = new FrControlBillsAdmin(this, true);
+        stock.setLocationRelativeTo(this);
+        stock.setVisible(true);
+    }//GEN-LAST:event_btnRelatorioContasaReceberActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGerenciarEstoque;
     private javax.swing.JButton btnGerenciarUsuario;
     private javax.swing.JButton btnRegistrarFornecedor;
     private javax.swing.JButton btnRegistrarVenda;
     private javax.swing.JButton btnRelatorio;
+    private javax.swing.JButton btnRelatorioContasaReceber;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JLabel imgLogo1;
     private javax.swing.JLabel imgUser;

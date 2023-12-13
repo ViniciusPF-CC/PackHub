@@ -15,6 +15,7 @@ import model.dao.SaleDAO;
 import model.exceptions.SaleException;
 import model.valid.ValidateSale;
 import model.auth.Autenticador;
+import java.util.ArrayList;
 import model.valid.ValidateStock;
 
 /**
@@ -49,6 +50,12 @@ public class SaleController {
         String idUsuarioLogado = Autenticador.getIdLogado().toString();
         List<Sale> lst = buscarVendasPorUsuario(idUsuarioLogado);
         TMSale tableModel = new TMSale(lst);
+        Util.jTableShow(grd, tableModel, null);
+    }
+
+    public void atualizarTabelaVendasAPrazo(JTable grd) {
+        List<Sale> vendasAPrazo = buscarVendasAPrazo();
+        TMSale tableModel = new TMSale(vendasAPrazo);
         Util.jTableShow(grd, tableModel, null);
     }
 
@@ -117,6 +124,17 @@ public class SaleController {
         }
         Sale sale = (Sale) repositorio.find(id);
         return sale;
+    }
+
+    public List<Sale> buscarVendasAPrazo() {
+        List<Sale> vendasAPrazo = new ArrayList<>();
+
+        for (Sale sale : repositorio.findAll()) {
+            if ("a prazo".equals(sale.getPagamento())) {
+                vendasAPrazo.add(sale);
+            }
+        }
+        return vendasAPrazo;
     }
 
     public void excluirSale(Long id) {

@@ -28,7 +28,7 @@ public class FrControlBillsAdmin extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         saleController = new SaleController();
-        saleController.atualizarTabela(grdBills);
+        saleController.atualizarTabelaVendasAPrazo(grdBills);
     }
 
     /**
