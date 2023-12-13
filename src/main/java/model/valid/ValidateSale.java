@@ -19,7 +19,7 @@ public class ValidateSale {
 
     public Sale validaCamposEntrada(LocalDateTime dataHora, Stock produto, double valor, String pagamento, int quantidadeVendida, User vendedor) {
         Sale sale = new Sale();
-        if (dataHora.equals(null) || produto.equals(null) || valor == 0.0 || pagamento.isEmpty() || quantidadeVendida == 0 || vendedor.equals(null)) {
+        if (dataHora == null || produto == null || valor == 0.0 || pagamento.isEmpty() || quantidadeVendida == 0 || vendedor == null) {
             throw new SaleException("Erro - Preencha todos os campos.");
         }
 

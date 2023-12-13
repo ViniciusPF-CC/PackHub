@@ -103,6 +103,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
         btnEdit = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         cbxFornecedor = new javax.swing.JComboBox<>();
+        btnLimparCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar item");
@@ -186,6 +187,13 @@ public class FrStockRegistration extends javax.swing.JDialog {
             }
         });
 
+        btnLimparCampos.setText("Limpar Campos");
+        btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCamposActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,6 +227,8 @@ public class FrStockRegistration extends javax.swing.JDialog {
                         .addComponent(btnEdit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLimparCampos)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -259,7 +269,8 @@ public class FrStockRegistration extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(btnEdit)
-                    .addComponent(btnExcluir))
+                    .addComponent(btnExcluir)
+                    .addComponent(btnLimparCampos))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -344,10 +355,23 @@ public class FrStockRegistration extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxFornecedorActionPerformed
 
+    private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
+        // TODO add your handling code here:
+        edtCodProduto.setText("");
+        edtCostPrice.setText("");
+        edtDescProduto.setText("");
+        edtPrecoVenda.setText("");
+        edtQuantEstoque.setText("");
+        cbxFornecedor.removeAllItems();
+        idStockEditando = -1L;
+        
+    }//GEN-LAST:event_btnLimparCamposActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnLimparCampos;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cbxFornecedor;
     private javax.swing.JTextField edtCodProduto;
