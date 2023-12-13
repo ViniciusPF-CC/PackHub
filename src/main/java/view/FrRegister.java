@@ -72,6 +72,7 @@ public class FrRegister extends javax.swing.JDialog {
         edtPhone = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         edtSenha = new javax.swing.JPasswordField();
+        btnLimparCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -118,6 +119,13 @@ public class FrRegister extends javax.swing.JDialog {
             }
         });
 
+        btnLimparCampos.setText("Limpar Campos");
+        btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCamposActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,13 +142,16 @@ public class FrRegister extends javax.swing.JDialog {
                     .addComponent(edtPhone)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(edtSenha))
+                    .addComponent(edtSenha)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLimparCampos)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -149,10 +160,15 @@ public class FrRegister extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addGap(4, 4, 4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnLimparCampos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(edtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
@@ -208,11 +224,21 @@ public class FrRegister extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtSenhaActionPerformed
 
+    private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
+        // TODO add your handling code here:
+        edtCPF.setText("");
+        edtEmail.setText("");
+        edtName.setText("");
+        edtSenha.setText("");
+        edtPhone.setText("");
+    }//GEN-LAST:event_btnLimparCamposActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLimparCampos;
     private javax.swing.JButton btnRegister;
     private javax.swing.JFormattedTextField edtCPF;
     private javax.swing.JTextField edtEmail;

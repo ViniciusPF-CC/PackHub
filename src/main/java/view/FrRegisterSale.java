@@ -142,6 +142,7 @@ public class FrRegisterSale extends javax.swing.JDialog {
         cbxProduto = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         cbxPagamento = new javax.swing.JComboBox<>();
+        btnLimparCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar item");
@@ -217,6 +218,13 @@ public class FrRegisterSale extends javax.swing.JDialog {
             }
         });
 
+        btnLimparCampos.setText("Limpar Campos");
+        btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCamposActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -228,16 +236,6 @@ public class FrRegisterSale extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(12, 12, 12)
-                                .addComponent(btnEdit)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnExcluir))
-                            .addComponent(jLabel10))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cbxPagamento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -253,7 +251,19 @@ public class FrRegisterSale extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(edtQuantVendida, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))))
+                            .addComponent(jLabel7)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(12, 12, 12)
+                                .addComponent(btnEdit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExcluir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLimparCampos)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -285,7 +295,8 @@ public class FrRegisterSale extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEdit)
                     .addComponent(btnExcluir)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(btnLimparCampos))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                 .addContainerGap())
@@ -381,10 +392,19 @@ public class FrRegisterSale extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxPagamentoActionPerformed
 
+    private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
+        // TODO add your handling code here:
+        edtQuantVendida.setText("");
+        edtValor.setText("");
+        cbxProduto.removeAllItems();
+        idSaleEditando = -1L;
+    }//GEN-LAST:event_btnLimparCamposActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnLimparCampos;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cbxPagamento;
     private javax.swing.JComboBox<String> cbxProduto;
