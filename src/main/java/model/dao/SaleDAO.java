@@ -15,15 +15,16 @@ import model.Stock;
  *
  * @author Gabriel
  */
-public class SaleDAO implements IDao<Sale>{
+public class SaleDAO implements IDao<Sale> {
+
     private EntityManager entityManager;
     private Query qry;
     private String jpql;
-    
-    public SaleDAO(){
-        
+
+    public SaleDAO() {
+
     }
-    
+
     @Override
     public void save(Sale obj) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
@@ -34,7 +35,7 @@ public class SaleDAO implements IDao<Sale>{
 
         this.entityManager.close();
     }
-    
+
     @Override
     public boolean delete(Long id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
@@ -47,12 +48,12 @@ public class SaleDAO implements IDao<Sale>{
             this.entityManager.getTransaction().rollback();
             throw new RuntimeException("Error - Stock inexistente.");
         }
-        
+
         this.entityManager.getTransaction().commit();
         this.entityManager.close();
         return true;
     }
-    
+
     @Override
     public Sale find(Long id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
@@ -63,8 +64,7 @@ public class SaleDAO implements IDao<Sale>{
 
         return s;
     }
-    
-    
+
     @Override
     public List<Sale> findAll() {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
@@ -79,8 +79,7 @@ public class SaleDAO implements IDao<Sale>{
         this.entityManager.close();
         return (List<Sale>) lst;
     }
-    
-    
+
     @Override
     public void update(Sale obj) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
@@ -91,8 +90,7 @@ public class SaleDAO implements IDao<Sale>{
 
         this.entityManager.close();
     }
-    
-    
+
     public Stock findById(String id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
 
@@ -109,5 +107,15 @@ public class SaleDAO implements IDao<Sale>{
         } else {
             return resultList.get(0);
         }
+    }
+
+    public List<Sale> findByUsuario(String user_id) {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+
+        jpql = "SELECT s FROM Sale s WHERE s.vendedor.id = :user_id";
+        qry = this.entityManager.createQuery(jpql);
+        qry.setParameter("user_id", Long.valueOf(user_id));
+
+        return qry.getResultList();
     }
 }

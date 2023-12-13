@@ -14,6 +14,7 @@ import model.Stock;
 import model.dao.SaleDAO;
 import model.exceptions.SaleException;
 import model.valid.ValidateSale;
+import model.auth.Autenticador;
 import model.valid.ValidateStock;
 
 /**
@@ -44,14 +45,14 @@ public class SaleController {
         return Integer.parseInt(novoIdUser[0]);
     }
 
-    public void atualizarTabela(JTable grd) {
-        List lst = repositorio.findAll();
+    public void atualizarTabelaUser(JTable grd) {
+        String idUsuarioLogado = Autenticador.getIdLogado().toString();
+        List<Sale> lst = buscarVendasPorUsuario(idUsuarioLogado);
         TMSale tableModel = new TMSale(lst);
-        Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
+        Util.jTableShow(grd, tableModel, null);
     }
 
-    public void atualizarTabela(JTable grd, String idFuncionario) {
-
+    public void atualizarTabela(JTable grd) {
         List lst = repositorio.findAll();
         TMSale tableModel = new TMSale(lst);
         Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
@@ -96,12 +97,18 @@ public class SaleController {
 
         novaSale.setId(id);
 
-        // Aqui você precisa verificar se a venda com o ID fornecido existe antes de atualizar
         if (repositorio.find(id) == null) {
             throw new SaleException("Error - Não existe uma venda com o ID fornecido para atualizar");
         }
 
         repositorio.update(novaSale);
+    }
+
+    public List<Sale> buscarVendasPorUsuario(String vendedorId) {
+        if (vendedorId.equals("")) {
+            return null;
+        }
+        return repositorio.findByUsuario(vendedorId);
     }
 
     public Sale buscarSalePorId(Long id) {

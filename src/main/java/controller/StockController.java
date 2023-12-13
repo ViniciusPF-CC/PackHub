@@ -99,5 +99,4 @@ public class StockController {
         Stock stock = (Stock) repositorio.find(id);
         return stock;
     }
-
 }

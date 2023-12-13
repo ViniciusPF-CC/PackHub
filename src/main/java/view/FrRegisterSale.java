@@ -38,7 +38,7 @@ public class FrRegisterSale extends javax.swing.JDialog {
         initComponents();
         saleController = new SaleController();
         userController = new UserController();
-        saleController.atualizarTabela(grdSales);
+        saleController.atualizarTabelaUser(grdSales);
         idSaleEditando = -1L;
         produtoCombobox();
     }
@@ -264,11 +264,11 @@ public class FrRegisterSale extends javax.swing.JDialog {
             if (idSaleEditando > 0) {
                 saleController.atualizarSale(idSaleEditando, LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, vendedor);
                 JOptionPane.showMessageDialog(null, "Edição feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                saleController.atualizarTabela(grdSales);
+                saleController.atualizarTabelaUser(grdSales);
             } else {
                 saleController.cadastrarSale(LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, vendedor);
                 JOptionPane.showMessageDialog(null, "Error - Já existe um produto com esse código", "Falha", JOptionPane.INFORMATION_MESSAGE);
-                saleController.atualizarTabela(grdSales);
+                saleController.atualizarTabelaUser(grdSales);
             }
             limparCampos();
         } catch (NumberFormatException e) {
