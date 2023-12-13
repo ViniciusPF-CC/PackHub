@@ -48,7 +48,8 @@ public class FrRegisterSale extends javax.swing.JDialog {
 
         lbUserName.setText("Ola " + nome);
         lblValorComissao.setText("R$" + valorComissao);
-        saleController.atualizarTabelaUser(grdSales);
+
+        saleController.atualizarTabelaSale(grdSales);
         idSaleEditando = -1L;
         produtoCombobox();
 
@@ -374,12 +375,13 @@ public class FrRegisterSale extends javax.swing.JDialog {
                 if (idSaleEditando > 0) {
                     saleController.atualizarSale(idSaleEditando, LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, vendedor);
                     JOptionPane.showMessageDialog(null, "Edição feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                    saleController.atualizarTabelaUser(grdSales);
+                    saleController.atualizarTabelaSale(grdSales);
                 } else {
                     saleController.cadastrarSale(LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, vendedor);
                     JOptionPane.showMessageDialog(null, "Venda registrada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     userController.atualizarValorReceber(Autenticador.getIdLogado(), valor);
-                    saleController.atualizarTabelaUser(grdSales);
+                    lblValorComissao.setText("R$" + userController.atualizarValorReceberView(Autenticador.getIdLogado()));
+                    saleController.atualizarTabelaSale(grdSales);
                 }
 
                 stockController.atualizarQauntidadeEstoque(idProduto, quantidadeVendida);

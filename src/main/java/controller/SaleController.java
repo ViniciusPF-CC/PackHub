@@ -46,7 +46,7 @@ public class SaleController {
         return Integer.parseInt(novoIdUser[0]);
     }
 
-    public void atualizarTabelaUser(JTable grd) {
+    public void atualizarTabelaSale(JTable grd) {
         String idUsuarioLogado = Autenticador.getIdLogado().toString();
         List<Sale> lst = buscarVendasPorUsuario(idUsuarioLogado);
         TMSale tableModel = new TMSale(lst);

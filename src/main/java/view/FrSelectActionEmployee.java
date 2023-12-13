@@ -61,6 +61,7 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
         lbUserName = new javax.swing.JLabel();
         lblValorComissao = new javax.swing.JLabel();
         imgUser = new javax.swing.JLabel();
+        btnRegistrarVenda = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -172,7 +173,7 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
             }
         });
 
-        btnRelatorioConta.setText("Gerenciar estoque");
+        btnRelatorioConta.setText("Relatorio de Contas");
         btnRelatorioConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRelatorioContaActionPerformed(evt);
@@ -185,6 +186,13 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
 
         imgUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imgUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
+
+        btnRegistrarVenda.setText("Registrar Venda");
+        btnRegistrarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarVendaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,7 +210,8 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
                         .addComponent(btnRelatorioVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRelatorioConta, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRegistrarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -239,7 +248,9 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
                     .addComponent(btnAcessoStock)
                     .addComponent(btnRelatorioVendas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRelatorioConta)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRelatorioConta)
+                    .addComponent(btnRegistrarVenda))
                 .addContainerGap(124, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -276,8 +287,15 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRelatorioContaActionPerformed
 
+    private void btnRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVendaActionPerformed
+        FrRegisterSale stock = new FrRegisterSale(this, true);
+        stock.setLocationRelativeTo(this);
+        stock.setVisible(true);
+    }//GEN-LAST:event_btnRegistrarVendaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcessoStock;
+    private javax.swing.JButton btnRegistrarVenda;
     private javax.swing.JButton btnRelatorioConta;
     private javax.swing.JButton btnRelatorioVendas;
     private javax.swing.JLabel imgLogo;

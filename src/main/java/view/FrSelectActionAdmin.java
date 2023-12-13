@@ -185,7 +185,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
             }
         });
 
-        btnRegistrarVenda.setText("Registrar/Atribuir Venda");
+        btnRegistrarVenda.setText("Registrar Venda");
         btnRegistrarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarVendaActionPerformed(evt);

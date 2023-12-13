@@ -111,6 +111,16 @@ public class UserController {
         }
     }
 
+    public double atualizarValorReceberView(Long id) {
+        User user = (User) repositorio.find(id);
+        if (user != null) {
+
+            return user.getValorComissao();
+        }else {
+            return 0.0;
+        }
+    }
+
     public String obterNomePorId(long id) {
         User user = (User) repositorio.find(id);
 
