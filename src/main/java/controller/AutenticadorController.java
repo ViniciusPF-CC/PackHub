@@ -29,13 +29,13 @@ public class AutenticadorController {
         if (idUser != null && "Admin".equals(typePositions)) {
 
             Autenticador.setIdLogado(idUser);
-            return 'm';
+            return 'a';
         }
 
-        if (idUser != null && "Fornecedor".equals(typePositions)) {
+        if (idUser != null && "Funcionario".equals(typePositions)) {
 
             Autenticador.setIdLogado(idUser);
-            return 'e';
+            return 'f';
         }
         return 'n';
     }

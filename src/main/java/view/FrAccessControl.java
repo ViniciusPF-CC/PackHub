@@ -163,7 +163,7 @@ public class FrAccessControl extends javax.swing.JDialog {
             }
         });
 
-        cbxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Fornecedor" }));
+        cbxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Funcionario" }));
         cbxTipoUsuario.setSelectedIndex(-1);
         cbxTipoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -176,13 +176,13 @@ public class FrLogin extends javax.swing.JFrame {
 
             char tipo = autenticadorController.autenticarPorEmailSenha(email, senhaHash);
             
-            if (tipo == 'm') {
+            if (tipo == 'a') {
                 FrSelectActionAdmin frAdm = new FrSelectActionAdmin();
                 frAdm.setVisible(true);
                 this.setVisible(false);
             }
 
-            if (tipo == 'e') {
+            if (tipo == 'f') {
                 FrSelectActionEmployee frEmp = new FrSelectActionEmployee();
                 frEmp.setVisible(true);
                 this.setVisible(false);
