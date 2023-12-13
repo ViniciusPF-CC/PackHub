@@ -86,7 +86,7 @@ public class StockController {
 
         String stockString = "";
         for (Stock stock : stocks) {
-            stockString += stock.getId() + " - " + stock.getDescricao() + "\n";
+            stockString += stock.getId() + " - " + stock.getDescricao() + " | Qtd.: " + stock.getQuantEstoque()+ "\n";
         }
 
         return stockString;

@@ -30,6 +30,8 @@ public class User implements Serializable {
     private String email;
     private String cpf;
     private String phone;
+    private double comissao;
+    private double valorComissao;
     private String typePositions;
     
     public User(){
@@ -39,15 +41,19 @@ public class User implements Serializable {
         email = "";
         cpf = "";
         phone = "";
+        comissao = 0.0;
+        valorComissao = 0.0;
         typePositions = "user";
     }
-    public User(Long id, String nome,String senha, String email, String cpf, String phone, String typePositions){
+    public User(Long id, String nome,String senha, String email, String cpf, String phone, double comissao, double valorComissao, String typePositions){
         this.id = id;
         this.nome = nome;
         this.senha = senha;
         this.email = email;
         this.cpf =  cpf;
         this.phone = phone;
+        this.comissao = comissao;
+        this.valorComissao = valorComissao;
         this.typePositions = typePositions;
     }
     
@@ -58,6 +64,8 @@ public class User implements Serializable {
         this.email = other.email;
         this.cpf = other.cpf;
         this.phone = other.phone;
+        this.comissao = other.comissao;
+        this.valorComissao = other.valorComissao;
         this.typePositions = other.typePositions;
     }
 }

@@ -51,16 +51,16 @@ public class UserController {
         Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
     }
 
-    public void atualizarUserAdmin(Long idUser, String nome, String email, String senha, String cpf, String phone, String typePositions) {
+    public void atualizarUserAdmin(Long idUser, String nome, String email, String senha, String cpf, String phone, double comissao, String typePositions) {
         ValidateUser valid = new ValidateUser();
-        User novoUser = valid.validaCamposEntradaAdmin(nome, email, senha, cpf, phone, typePositions);
+        User novoUser = valid.validaCamposEntradaAdmin(nome, email, senha, cpf, phone, comissao, typePositions);
         novoUser.setId(idUser);
         repositorio.update(novoUser);
     }
 
-    public void cadastrarUserAdmin(String nome, String email, String senha, String documento, String phone, String typePositions) {
+    public void cadastrarUserAdmin(String nome, String email, String senha, String documento, String phone, double comissao, String typePositions) {
         ValidateUser valid = new ValidateUser();
-        User novoUser = valid.validaCamposEntradaAdmin(nome, email, senha, documento, phone, typePositions);
+        User novoUser = valid.validaCamposEntradaAdmin(nome, email, senha, documento, phone, comissao, typePositions);
 
         if (repositorio.findByEmail(novoUser.getEmail()) != null) {
             throw new UserException("Error - Já existe um usuario com este 'email'.");
@@ -100,4 +100,14 @@ public class UserController {
         return user;
     }
 
+    public void atualizarValorReceber(Long id, double valorTotal) {
+        User user = (User) repositorio.find(id);
+        if (user != null) {
+            double valorComissao = user.getValorComissao() + (valorTotal*(user.getComissao()/100));
+
+            user.setValorComissao(valorComissao);
+
+            repositorio.update(user);
+        }
+    }
 }

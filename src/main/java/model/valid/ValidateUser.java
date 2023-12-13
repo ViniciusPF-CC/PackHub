@@ -36,9 +36,9 @@ public class ValidateUser {
         return user;
     }
 
-    public User validaCamposEntradaAdmin(String nome, String email, String senha, String cpf, String phone, String typePositions) {
+    public User validaCamposEntradaAdmin(String nome, String email, String senha, String cpf, String phone,double comissao ,String typePositions) {
         User user = new User();
-        if (nome.isEmpty() || email.isEmpty() || senha.isEmpty() || cpf.isEmpty() || phone.isEmpty() || typePositions.isEmpty()) {
+        if (nome.isEmpty() || email.isEmpty() || cpf.isEmpty() || phone.isEmpty() || typePositions.isEmpty()) {
             throw new UserException("Erro - Preencha todos os campos.");
         }
 
@@ -54,6 +54,7 @@ public class ValidateUser {
         user.setSenha(senha);
         user.setCpf(cpf);
         user.setPhone(phone);
+        user.setComissao(comissao);
         user.setTypePositions(typePositions);
 
         JOptionPane.showMessageDialog(null, "Edição realizada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
