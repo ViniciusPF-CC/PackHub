@@ -5,12 +5,14 @@
 package view;
 
 import controller.UserController;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import model.User;
+import model.auth.Autenticador;
 import model.exceptions.StockException;
 import model.exceptions.UserException;
 
@@ -285,16 +287,20 @@ public class FrAccessControl extends javax.swing.JDialog {
         try {
             String nome = edtNome.getText();
             String email = edtEmail.getText();
-            String password = new String(edtSenha.getPassword());
+
+            String password = new String(edtSenha.getPassword()).trim();
+            String senhaHash = null;
+            senhaHash = Autenticador.textToHash(password);
+
             String cpf = edtCpf.getText();
             String phone = edtTelefone.getText();
             String typeUser = cbxTipoUsuario.getSelectedItem().toString();
             if (idUserEditando > 0) {
-                userController.atualizarUserAdmin(idUserEditando, nome, email, password, cpf, phone, typeUser);
+                userController.atualizarUserAdmin(idUserEditando, nome, email, senhaHash, cpf, phone, typeUser);
                 userController.atualizarTabela(grdUser);
             } else {
 //                try {
-                userController.cadastrarUserAdmin(nome, email, password, cpf, phone, typeUser);
+                userController.cadastrarUserAdmin(nome, email, senhaHash, cpf, phone, typeUser);
                 userController.atualizarTabela(grdUser);
 //                } catch (UserException ex) {
 //                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Falha", JOptionPane.INFORMATION_MESSAGE);
@@ -307,6 +313,8 @@ public class FrAccessControl extends javax.swing.JDialog {
         } catch (UserException u) {
             System.err.println(u.getMessage());
             JOptionPane.showMessageDialog(this, u.getMessage());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(FrAccessControl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

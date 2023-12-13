@@ -5,11 +5,13 @@
 package view;
 
 import controller.UserController;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
+import model.auth.Autenticador;
 import model.exceptions.UserException;
 
 /**
@@ -180,11 +182,15 @@ public class FrRegister extends javax.swing.JDialog {
         // TODO add your handling code here:
 
         try {
-            String password = new String(edtSenha.getPassword());
-            userController.cadastrarUser(edtName.getText(), edtEmail.getText(), password, edtCPF.getText(), edtPhone.getText());
+            String password = new String(edtSenha.getPassword()).trim();
+            String senhaHash = null;
+            senhaHash = Autenticador.textToHash(password);
+            userController.cadastrarUser(edtName.getText(), edtEmail.getText(), senhaHash, edtCPF.getText(), edtPhone.getText());
         } catch (UserException u) {
             System.err.println(u.getMessage());
             JOptionPane.showMessageDialog(this, u.getMessage());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(FrRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         this.dispose();

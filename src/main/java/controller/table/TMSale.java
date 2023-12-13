@@ -65,7 +65,7 @@ public class TMSale extends AbstractTableModel {
                 return aux.getPagamento();
             }
             case COL_VENDEDOR -> {
-                return aux.getIdVendedor();
+                return aux.getVendedor().getNome();
             }
             default -> {
             }

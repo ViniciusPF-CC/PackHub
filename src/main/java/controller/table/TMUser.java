@@ -16,9 +16,8 @@ public class TMUser extends AbstractTableModel {
     private final int COL_NOME = 1;
     private final int COL_EMAIL = 2;
     private final int COL_CPF = 3;
-    private final int COL_CNPJ = 4;
-    private final int COL_PHONE = 5;
-    private final int COL_TYPEPOSITIONS = 6;
+    private final int COL_PHONE = 4;
+    private final int COL_TYPEPOSITIONS = 5;
 
     public TMUser(List<User> lstUser) {
         this.lista = lstUser;
@@ -31,7 +30,7 @@ public class TMUser extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 7;
+        return 6;
     }
 
     @Override
@@ -53,9 +52,6 @@ public class TMUser extends AbstractTableModel {
             }
             case COL_CPF -> {
                 return aux.getCpf();
-            }
-            case COL_CNPJ -> {
-                return aux.getCnpj();
             }
             case COL_PHONE -> {
                 return aux.getPhone();
@@ -85,9 +81,6 @@ public class TMUser extends AbstractTableModel {
             case COL_CPF -> {
                 return "CPF";
             }
-            case COL_CNPJ -> {
-                return "CNPJ";
-            }
             case COL_PHONE -> {
                 return "Phone";
             }
@@ -97,7 +90,6 @@ public class TMUser extends AbstractTableModel {
             default -> {
             }
         }
-
         return "";
     }
 }

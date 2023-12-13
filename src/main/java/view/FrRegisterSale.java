@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import model.Sale;
 import model.Supplier;
+import model.User;
+import model.auth.Autenticador;
 import model.exceptions.SaleException;
 
 /**
@@ -35,10 +37,10 @@ public class FrRegisterSale extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         saleController = new SaleController();
+        userController = new UserController();
         saleController.atualizarTabela(grdSales);
         idSaleEditando = -1L;
         produtoCombobox();
-        vendedorCombobox();
     }
 
     public void produtoCombobox() {
@@ -48,16 +50,6 @@ public class FrRegisterSale extends javax.swing.JDialog {
 
         for (String stockId : produtosString) {
             cbxProduto.addItem(stockId);
-        }
-    }
-
-    public void vendedorCombobox() {
-        userController = new UserController();
-        cbxVendedor.addItem("");
-        String[] vendedoresString = userController.buscarUserString().split("\n");
-
-        for (String userId : vendedoresString) {
-            cbxVendedor.addItem(userId);
         }
     }
 
@@ -100,8 +92,6 @@ public class FrRegisterSale extends javax.swing.JDialog {
         edtValor = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         edtQuantVendida = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        cbxVendedor = new javax.swing.JComboBox<>();
         btnSalvar = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
@@ -146,14 +136,6 @@ public class FrRegisterSale extends javax.swing.JDialog {
         jLabel6.setText("Valor:");
 
         jLabel7.setText("Quantidade vendida:");
-
-        jLabel8.setText("Vendedor:");
-
-        cbxVendedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxVendedorActionPerformed(evt);
-            }
-        });
 
         btnSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/btnSave.png"))); // NOI18N
@@ -226,11 +208,9 @@ public class FrRegisterSale extends javax.swing.JDialog {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(edtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel8)
-                            .addComponent(edtQuantVendida)
-                            .addComponent(jLabel7)
-                            .addComponent(cbxVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(edtQuantVendida, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -249,13 +229,9 @@ public class FrRegisterSale extends javax.swing.JDialog {
                     .addComponent(cbxProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edtQuantVendida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel6))
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(edtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -276,31 +252,21 @@ public class FrRegisterSale extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbxVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxVendedorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxVendedorActionPerformed
-
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
             String produto = String.valueOf(cbxProduto.getSelectedItem());
             int quantidadeVendida = Integer.parseInt(edtQuantVendida.getText());
             double valor = Double.parseDouble(edtValor.getText());
-            Long idVendedor = 0L; // Inicializa com um valor padrão, se necessário
-
-            if (cbxVendedor.getSelectedItem() != null) {
-                String selectedUser = String.valueOf(cbxVendedor.getSelectedItem());
-                String[] parts = selectedUser.split(" - ");
-                idVendedor = Long.parseLong(parts[0]);
-            }
 
             String pagamento = String.valueOf(cbxPagamento.getSelectedItem());
-
+            String vendedor = String.valueOf(Autenticador.getIdLogado());
+            
             if (idSaleEditando > 0) {
-                saleController.atualizarSale(idSaleEditando, LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, idVendedor);
+                saleController.atualizarSale(idSaleEditando, LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, vendedor);
                 JOptionPane.showMessageDialog(null, "Edição feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 saleController.atualizarTabela(grdSales);
             } else {
-                saleController.cadastrarSale(LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, idVendedor);
+                saleController.cadastrarSale(LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, vendedor);
                 JOptionPane.showMessageDialog(null, "Error - Já existe um produto com esse código", "Falha", JOptionPane.INFORMATION_MESSAGE);
                 saleController.atualizarTabela(grdSales);
             }
@@ -365,7 +331,6 @@ public class FrRegisterSale extends javax.swing.JDialog {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cbxPagamento;
     private javax.swing.JComboBox<String> cbxProduto;
-    private javax.swing.JComboBox<String> cbxVendedor;
     private javax.swing.JTextField edtQuantVendida;
     private javax.swing.JTextField edtValor;
     private javax.swing.JTable grdSales;
@@ -373,7 +338,6 @@ public class FrRegisterSale extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblImgTitle;

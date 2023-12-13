@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import model.Sale;
 import model.Stock;
+import model.User;
 import model.exceptions.SaleException;
 
 /**
@@ -16,9 +17,9 @@ import model.exceptions.SaleException;
  */
 public class ValidateSale {
 
-    public Sale validaCamposEntrada(LocalDateTime dataHora, Stock produto, double valor, String pagamento, int quantidadeVendida, Long idVendedor) {
+    public Sale validaCamposEntrada(LocalDateTime dataHora, Stock produto, double valor, String pagamento, int quantidadeVendida, User vendedor) {
         Sale sale = new Sale();
-        if (dataHora.equals(null) || produto.equals(null) || valor == 0.0 || pagamento.isEmpty() || quantidadeVendida == 0 || idVendedor == 0) {
+        if (dataHora.equals(null) || produto.equals(null) || valor == 0.0 || pagamento.isEmpty() || quantidadeVendida == 0 || vendedor.equals(null)) {
             throw new SaleException("Erro - Preencha todos os campos.");
         }
 
@@ -27,7 +28,7 @@ public class ValidateSale {
         sale.setValor(valor);
         sale.setPagamento(pagamento);
         sale.setQuantidadeVendida(quantidadeVendida);
-        sale.setIdVendedor(idVendedor);
+        sale.setVendedor(vendedor);
 
         return sale;
     }

@@ -28,6 +28,7 @@ import javax.persistence.OneToOne;
 @Entity
 @Data
 public class Sale implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,35 +41,37 @@ public class Sale implements Serializable {
     private double valor;
     private String pagamento;
     private int quantidadeVendida;
-    private Long idVendedor;
-    
-    public void Sale(){
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User vendedor;
+
+    public void Sale() {
         this.id = -1L;
         this.dataHora = LocalDateTime.of(2023, 1, 1, 0, 0);
         produto = new Stock();
         this.valor = 0.0;
         this.pagamento = "";
         this.quantidadeVendida = 0;
-        this.idVendedor = -1L;
+        vendedor = new User();
     }
-    
-    public void Sale(Long id, LocalDateTime data, Stock produto, Double valor, String pagamento, int quantidadeVendida ,Long idVendedor){
+
+    public void Sale(Long id, LocalDateTime data, Stock produto, Double valor, String pagamento, int quantidadeVendida, User vendedor) {
         this.id = id;
         this.dataHora = data;
         this.produto = produto;
         this.valor = valor;
         this.pagamento = pagamento;
         this.quantidadeVendida = quantidadeVendida;
-        this.idVendedor = idVendedor;
+        this.vendedor = vendedor;
     }
-    
-    public void copy(Sale other){
+
+    public void copy(Sale other) {
         this.id = other.id;
         this.dataHora = other.dataHora;
         this.produto = other.produto;
         this.valor = other.valor;
         this.pagamento = other.pagamento;
         this.quantidadeVendida = other.quantidadeVendida;
-        this.idVendedor = other.idVendedor;
+        this.vendedor = other.vendedor;
     }
 }

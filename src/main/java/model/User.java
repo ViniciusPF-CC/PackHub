@@ -29,7 +29,6 @@ public class User implements Serializable {
     private String senha;
     private String email;
     private String cpf;
-    private String cnpj;
     private String phone;
     private String typePositions;
     
@@ -39,17 +38,15 @@ public class User implements Serializable {
         senha = "";
         email = "";
         cpf = "";
-        cnpj = "";
         phone = "";
         typePositions = "user";
     }
-    public User(Long id, String nome,String senha, String email, String cpf, String cnpj, String phone, String typePositions){
+    public User(Long id, String nome,String senha, String email, String cpf, String phone, String typePositions){
         this.id = id;
         this.nome = nome;
         this.senha = senha;
         this.email = email;
         this.cpf =  cpf;
-        this.cnpj = cnpj;
         this.phone = phone;
         this.typePositions = typePositions;
     }
@@ -60,7 +57,6 @@ public class User implements Serializable {
         this.senha = other.senha;
         this.email = other.email;
         this.cpf = other.cpf;
-        this.cnpj = other.cnpj;
         this.phone = other.phone;
         this.typePositions = other.typePositions;
     }

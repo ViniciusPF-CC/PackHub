@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JTable;
 import model.Sale;
+import model.User;
 import model.Stock;
 import model.dao.SaleDAO;
 import model.exceptions.SaleException;
@@ -35,6 +36,14 @@ public class SaleController {
         return Integer.parseInt(novoIdStock[0]);
     }
 
+    private Integer getIdDoidUser(String idUser) {
+        if (idUser.equals("")) {
+            return null;
+        }
+        String[] novoIdUser = idUser.split(" - ");
+        return Integer.parseInt(novoIdUser[0]);
+    }
+
     public void atualizarTabela(JTable grd) {
         List lst = repositorio.findAll();
         TMSale tableModel = new TMSale(lst);
@@ -48,7 +57,7 @@ public class SaleController {
         Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
     }
 
-    public void cadastrarSale(LocalDateTime dataHora, String produto, double valor, String pagamento, int quantidadeVendida, Long idVendedor) {
+    public void cadastrarSale(LocalDateTime dataHora, String produto, double valor, String pagamento, int quantidadeVendida, String vendedor) {
 
         long idStock = getIdDoidStock(String.valueOf(produto));
 
@@ -56,13 +65,19 @@ public class SaleController {
 
         Stock stockV = stockS.buscarStockPorId(idStock);
 
+        long idUser = getIdDoidUser(String.valueOf(vendedor));
+
+        UserController userU = new UserController();
+
+        User UserV = userU.buscarUserPorId(idUser);
+
         ValidateSale valid = new ValidateSale();
-        Sale sale = valid.validaCamposEntrada(dataHora, stockV, valor, pagamento, quantidadeVendida, idVendedor);
+        Sale sale = valid.validaCamposEntrada(dataHora, stockV, valor, pagamento, quantidadeVendida, UserV);
 
         repositorio.save(sale);
     }
 
-    public void atualizarSale(Long id, LocalDateTime dataHora, String produto, double valor, String pagamento, int quantidadeVendida, Long idVendedor) {
+    public void atualizarSale(Long id, LocalDateTime dataHora, String produto, double valor, String pagamento, int quantidadeVendida, String vendedor) {
 
         long idStock = getIdDoidStock(String.valueOf(produto));
 
@@ -70,8 +85,15 @@ public class SaleController {
 
         Stock stockV = stockS.buscarStockPorId(idStock);
 
+        long idUser = getIdDoidUser(String.valueOf(vendedor));
+
+        UserController userU = new UserController();
+
+        User UserV = userU.buscarUserPorId(idUser);
+
         ValidateSale valid = new ValidateSale();
-        Sale novaSale = valid.validaCamposEntrada(dataHora, stockV, valor, pagamento, quantidadeVendida, idVendedor);
+        Sale novaSale = valid.validaCamposEntrada(dataHora, stockV, valor, pagamento, quantidadeVendida, UserV);
+
         novaSale.setId(id);
 
         // Aqui você precisa verificar se a venda com o ID fornecido existe antes de atualizar
