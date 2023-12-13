@@ -41,6 +41,13 @@ public class FrRegisterSale extends javax.swing.JDialog {
         edtValor.setEditable(false);
         saleController = new SaleController();
         userController = new UserController();
+        long idUser = Autenticador.getIdLogado();
+
+        String nome = userController.obterNomePorId(idUser);
+        String valorComissao = userController.obterValorComissaoPorId(idUser);
+
+        lbUserName.setText("Ola " + nome);
+        lblValorComissao.setText("R$" + valorComissao);
         saleController.atualizarTabelaUser(grdSales);
         idSaleEditando = -1L;
         produtoCombobox();
@@ -362,7 +369,7 @@ public class FrRegisterSale extends javax.swing.JDialog {
             String vendedor = String.valueOf(Autenticador.getIdLogado());
 
             if (verificarEstoqueSuficiente(idProduto, quantidadeVendida)) {
-                
+
                 // Atualiza a venda
                 if (idSaleEditando > 0) {
                     saleController.atualizarSale(idSaleEditando, LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, vendedor);
@@ -374,7 +381,7 @@ public class FrRegisterSale extends javax.swing.JDialog {
                     userController.atualizarValorReceber(Autenticador.getIdLogado(), valor);
                     saleController.atualizarTabelaUser(grdSales);
                 }
-                
+
                 stockController.atualizarQauntidadeEstoque(idProduto, quantidadeVendida);
                 limparCampos();
             } else {

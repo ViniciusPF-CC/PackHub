@@ -31,12 +31,13 @@ public class FrAccessControl extends javax.swing.JDialog {
         userController = new UserController();
         idUserEditando = -1L;
 //      UserCombobox();
+        userController = new UserController();
         long idUser = Autenticador.getIdLogado();
-        User user = userController.buscarUserPorId(idUser);
-        String nomeUser = user.getNome();
-        String valorComissao = String.valueOf(user.getValorComissao());
 
-        lbUserName.setText("Ola " + nomeUser);
+        String nome = userController.obterNomePorId(idUser);
+        String valorComissao = userController.obterValorComissaoPorId(idUser);
+
+        lbUserName.setText("Ola " + nome);
         lblValorComissao.setText("R$" + valorComissao);
 
         userController.atualizarTabela(grdUser);

@@ -27,13 +27,6 @@ public class FrRegister extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         userController = new UserController();
-        long idUser = Autenticador.getIdLogado();
-        User user = userController.buscarUserPorId(idUser);
-        String nomeUser = user.getNome();
-        String valorComissao = String.valueOf(user.getValorComissao());
-
-        lbUserName.setText("Ola " + nomeUser);
-        lblValorComissao.setText("R$" + valorComissao);
 
         this.addMaskCPF();
         this.addMaskPhone();
@@ -80,9 +73,6 @@ public class FrRegister extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         edtSenha = new javax.swing.JPasswordField();
         btnLimparCampos = new javax.swing.JButton();
-        lbUserName = new javax.swing.JLabel();
-        lblValorComissao = new javax.swing.JLabel();
-        imgUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -136,13 +126,6 @@ public class FrRegister extends javax.swing.JDialog {
             }
         });
 
-        lbUserName.setText("Olá Fulano");
-
-        lblValorComissao.setText("Comissao");
-
-        imgUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imgUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,12 +135,7 @@ public class FrRegister extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblValorComissao, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(imgUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(109, 109, 109))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,16 +162,7 @@ public class FrRegister extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(imgUser)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(lbUserName)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblValorComissao)))
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -280,7 +249,6 @@ public class FrRegister extends javax.swing.JDialog {
     private javax.swing.JTextField edtName;
     private javax.swing.JFormattedTextField edtPhone;
     private javax.swing.JPasswordField edtSenha;
-    private javax.swing.JLabel imgUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -288,7 +256,5 @@ public class FrRegister extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel lbUserName;
-    private javax.swing.JLabel lblValorComissao;
     // End of variables declaration//GEN-END:variables
 }

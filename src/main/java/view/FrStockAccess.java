@@ -26,18 +26,18 @@ public class FrStockAccess extends javax.swing.JDialog {
 
     StockController stockController;
     UserController userController;
-    
+
     public FrStockAccess(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
         userController = new UserController();
         long idUser = Autenticador.getIdLogado();
-        User user = userController.buscarUserPorId(idUser);
-        String nomeUser = user.getNome();
-        String valorComissao = String.valueOf(user.getValorComissao());
 
-        lbUserName.setText("Ola " + nomeUser);
+        String nome = userController.obterNomePorId(idUser);
+        String valorComissao = userController.obterValorComissaoPorId(idUser);
+
+        lbUserName.setText("Ola " + nome);
         lblValorComissao.setText("R$" + valorComissao);
 
         stockController = new StockController();

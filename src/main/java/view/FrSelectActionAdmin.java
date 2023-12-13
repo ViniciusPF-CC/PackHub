@@ -21,11 +21,11 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
         initComponents();
         userController = new UserController();
         long idUser = Autenticador.getIdLogado();
-        User user = userController.buscarUserPorId(idUser);
-        String nomeUser = user.getNome();
-        String valorComissao = String.valueOf(user.getValorComissao());
 
-        lbUserName.setText("Ola " + nomeUser);
+        String nome = userController.obterNomePorId(idUser);
+        String valorComissao = userController.obterValorComissaoPorId(idUser);
+
+        lbUserName.setText("Ola " + nome);
         lblValorComissao.setText("R$" + valorComissao);
     }
 

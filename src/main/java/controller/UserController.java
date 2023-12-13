@@ -103,11 +103,34 @@ public class UserController {
     public void atualizarValorReceber(Long id, double valorTotal) {
         User user = (User) repositorio.find(id);
         if (user != null) {
-            double valorComissao = user.getValorComissao() + (valorTotal*(user.getComissao()/100));
+            double valorComissao = user.getValorComissao() + (valorTotal * (user.getComissao() / 100));
 
             user.setValorComissao(valorComissao);
 
             repositorio.update(user);
+        }
+    }
+
+    public String obterNomePorId(long id) {
+        User user = (User) repositorio.find(id);
+
+        if (user != null) {
+            String nome = user.getNome();
+            return nome;
+        } else {
+            return "Usuário não encontrado";
+        }
+    }
+
+    public String obterValorComissaoPorId(long id) {
+        User user = (User) repositorio.find(id);
+
+        if (user != null) {
+            String valorComissao = String.valueOf(user.getValorComissao());
+
+            return valorComissao;
+        } else {
+            return "Usuário não encontrado";
         }
     }
 }
