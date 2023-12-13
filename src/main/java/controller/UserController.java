@@ -25,9 +25,9 @@ public class UserController {
         repositorio = new UserDAO();
     }
 
-    public void cadastrarUser(String nome, String email, String cpf, String phone) {
+    public void cadastrarUser(String nome, String email,String senha, String cpf, String phone) {
         ValidateUser valid = new ValidateUser();
-        User novoUser = valid.validaCamposEntrada(nome, email, cpf, phone);
+        User novoUser = valid.validaCamposEntrada(nome, email, senha, cpf, phone);
 
         if (repositorio.findByEmail(novoUser.getEmail()) != null) {
             throw new UserException("Error - Já existe um usuario com este 'email'.");
@@ -38,9 +38,9 @@ public class UserController {
         }
     }
 
-    public void atualizarUser(Long idUser, String nome, String email, String cpf, String phone) {
+    public void atualizarUser(Long idUser, String nome, String email, String senha, String cpf, String phone) {
         ValidateUser valid = new ValidateUser();
-        User novoUser = valid.validaCamposEntrada(nome, email, cpf, phone);
+        User novoUser = valid.validaCamposEntrada(nome, email, senha, cpf, phone);
         novoUser.setId(idUser);
         repositorio.update(novoUser);
     }
@@ -51,16 +51,16 @@ public class UserController {
         Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
     }
 
-    public void atualizarUserAdmin(Long idUser, String nome, String email, String documento, String phone, String typeUser) {
+    public void atualizarUserAdmin(Long idUser, String nome, String email,String senha, String cpf, String phone, String typePositions) {
         ValidateUser valid = new ValidateUser();
-        User novoUser = valid.validaCamposEntradaAdmin(nome, email, documento, phone, typeUser);
+        User novoUser = valid.validaCamposEntradaAdmin(nome, email, senha,cpf, phone, typePositions);
         novoUser.setId(idUser);
         repositorio.update(novoUser);
     }
 
-    public void cadastrarUserAdmin(String nome, String email, String documento, String phone, String typeUser) {
+    public void cadastrarUserAdmin(String nome, String email, String senha,String documento, String phone, String typePositions) {
         ValidateUser valid = new ValidateUser();
-        User novoUser = valid.validaCamposEntradaAdmin(nome, email, documento, phone, typeUser);
+        User novoUser = valid.validaCamposEntradaAdmin(nome, email, senha,documento, phone, typePositions);
 
         if (repositorio.findByEmail(novoUser.getEmail()) != null) {
             throw new UserException("Error - Já existe um usuario com este 'email'.");

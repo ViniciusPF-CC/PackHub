@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.User;
+import static org.hibernate.criterion.Expression.sql;
 
 /**
  *
@@ -128,6 +129,46 @@ public class UserDAO implements IDao<User> {
             return null;
         } else {
             return (User) lst.get(0);
+        }
+    }
+
+    public Long getUserEmailAndSenha(String email, String senha) {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+
+        jpql = " SELECT u "
+                + " FROM User u "
+                + " WHERE email = :email"
+                + " AND senha = :senha ";
+        qry = this.entityManager.createQuery(jpql);
+        qry.setParameter("email", email);
+        qry.setParameter("senha", senha);
+        
+        
+
+        List<User> lst = qry.getResultList();
+        System.out.println(jpql);
+
+        if (lst.isEmpty()) {
+            return null;
+        } else {
+            return lst.get(0).getId();
+        }
+    }
+
+    public String getUserTypePosition(String email) {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        jpql = "SELECT u "
+                + "FROM User u "
+                + "WHERE email = :email";
+        qry = this.entityManager.createQuery(jpql);
+        qry.setParameter("email", email);
+
+        List<User> resultList = qry.getResultList();
+
+        if (resultList.isEmpty()) {
+            return null;
+        } else {
+            return resultList.get(0).getTypePositions();
         }
     }
 }

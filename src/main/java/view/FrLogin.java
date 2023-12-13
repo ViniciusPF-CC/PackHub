@@ -6,6 +6,7 @@ package view;
 
 import controller.AutenticadorController;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -58,14 +59,11 @@ public class FrLogin extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Autenticação");
 
-        edtUser.setText("Informe o e-mail");
         edtUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edtUserActionPerformed(evt);
             }
         });
-
-        edtPassword.setText("jPasswordField1");
 
         jLabel3.setText("E-mail");
 
@@ -171,17 +169,13 @@ public class FrLogin extends javax.swing.JFrame {
             try {
                 senhaHash = Autenticador.textToHash(senha);
             } catch (NoSuchAlgorithmException ex) {
+                
+                System.out.println(Arrays.toString(ex.getStackTrace()));
                 Logger.getLogger(FrLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-//            if (email.equals("adm@adm.com") && senhaHash.equals("a7ec159e76d31f3d869712e677deb4b352e7cb6594838ba3cf4579f2a4490245")) {
-//                FrSelectActionAdmin frAdm = new FrSelectActionAdmin();
-//                frAdm.setVisible(true);
-//                this.setVisible(false);
-//            }
-
             char tipo = autenticadorController.autenticarPorEmailSenha(email, senhaHash);
-
+            
             if (tipo == 'm') {
                 FrSelectActionAdmin frAdm = new FrSelectActionAdmin();
                 frAdm.setVisible(true);
@@ -195,6 +189,7 @@ public class FrLogin extends javax.swing.JFrame {
             }
             lblErroLogin.setVisible(true);
         } catch (Exception ex) {
+            System.out.println(Arrays.toString(ex.getStackTrace()));
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }//GEN-LAST:event_bntLoginActionPerformed

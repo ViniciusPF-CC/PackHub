@@ -4,36 +4,38 @@
  */
 package controller;
 
-import model.Employee;
+import factory.DatabaseJPA;
+import java.awt.datatransfer.SystemFlavorMap;
+import javax.persistence.EntityManager;
 import model.auth.Autenticador;
-import model.dao.EmployeeDAO;
-import model.dao.ManagerDAO;
+import model.dao.UserDAO;
 
-/**
- *
- * @author gusta
- */
 public class AutenticadorController {
 
-    private EmployeeDAO repEmployee;
-    private ManagerDAO repManager;
+    private UserDAO repUser;
+    private EntityManager entityManager;
 
     public AutenticadorController() {
-        repEmployee = new EmployeeDAO();
-        repManager = new ManagerDAO();
+        repUser = new UserDAO();
+        entityManager = DatabaseJPA.getInstance().getEntityManager();
     }
 
     public char autenticarPorEmailSenha(String email, String senha) {
-        Long idEmployee = repEmployee.getEmployeeByEmailAndSenha(email, senha);
-        if (!(idEmployee == 0)) {
-            Autenticador.setIdLogado(idEmployee);
-            return 'e';
+
+        Long idUser = repUser.getUserEmailAndSenha(email, senha);
+        String typePositions = repUser.getUserTypePosition(email);
+//        System.out.println("type:" + typePositions);
+
+        if (idUser != null && "Admin".equals(typePositions)) {
+
+            Autenticador.setIdLogado(idUser);
+            return 'm';
         }
 
-        Long idManager = repManager.getManagerByEmailAndSenha(email, senha);
-        if (!(idManager == 0)) {
-            Autenticador.setIdLogado(idManager);
-            return 'm';
+        if (idUser != null && "Fornecedor".equals(typePositions)) {
+
+            Autenticador.setIdLogado(idUser);
+            return 'e';
         }
         return 'n';
     }

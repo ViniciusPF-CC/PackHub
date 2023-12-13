@@ -112,17 +112,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="edtUser">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Informe o e-mail"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtUserActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="edtPassword">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>

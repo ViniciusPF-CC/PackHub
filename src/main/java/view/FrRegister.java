@@ -19,18 +19,18 @@ import model.exceptions.UserException;
 public class FrRegister extends javax.swing.JDialog {
 
     UserController userController;
-    
+
     public FrRegister(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         userController = new UserController();
-        
+
         initComponents();
-        
+
         this.addMaskCPF();
         this.addMaskPhone();
     }
-    
-    public void addMaskCPF(){
+
+    public void addMaskCPF() {
         try {
             MaskFormatter mask = new MaskFormatter("###.###.###-##");
             mask.install(edtCPF);
@@ -38,8 +38,8 @@ public class FrRegister extends javax.swing.JDialog {
             Logger.getLogger(FrRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void addMaskPhone(){
+
+    public void addMaskPhone() {
         try {
             MaskFormatter mask = new MaskFormatter("(##) # ####-####");
             mask.install(edtPhone);
@@ -68,6 +68,8 @@ public class FrRegister extends javax.swing.JDialog {
         btnRegister = new javax.swing.JButton();
         edtCPF = new javax.swing.JFormattedTextField();
         edtPhone = new javax.swing.JFormattedTextField();
+        jLabel7 = new javax.swing.JLabel();
+        edtSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -106,11 +108,19 @@ public class FrRegister extends javax.swing.JDialog {
             }
         });
 
+        jLabel7.setText("Senha:");
+
+        edtSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtSenhaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -119,14 +129,16 @@ public class FrRegister extends javax.swing.JDialog {
                     .addComponent(edtName)
                     .addComponent(edtEmail)
                     .addComponent(edtCPF)
+                    .addComponent(edtPhone)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(edtPhone))
+                    .addComponent(edtSenha))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -152,9 +164,13 @@ public class FrRegister extends javax.swing.JDialog {
                 .addComponent(jLabel6)
                 .addGap(4, 4, 4)
                 .addComponent(edtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(btnRegister)
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -162,13 +178,16 @@ public class FrRegister extends javax.swing.JDialog {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-        
-        try{
-            userController.cadastrarUser(edtName.getText(), edtEmail.getText(), edtCPF.getText(),edtPhone.getText());  
-        }catch (UserException u){
+
+        try {
+            String password = new String(edtSenha.getPassword());
+            userController.cadastrarUser(edtName.getText(), edtEmail.getText(), password, edtCPF.getText(), edtPhone.getText());
+        } catch (UserException u) {
             System.err.println(u.getMessage());
             JOptionPane.showMessageDialog(this, u.getMessage());
         }
+
+        this.dispose();
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void edtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCPFActionPerformed
@@ -179,10 +198,13 @@ public class FrRegister extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtNameActionPerformed
 
+    private void edtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtSenhaActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegister;
@@ -190,11 +212,13 @@ public class FrRegister extends javax.swing.JDialog {
     private javax.swing.JTextField edtEmail;
     private javax.swing.JTextField edtName;
     private javax.swing.JFormattedTextField edtPhone;
+    private javax.swing.JPasswordField edtSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }

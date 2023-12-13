@@ -48,7 +48,6 @@ public class FrAccessControl extends javax.swing.JDialog {
         edtCpf.setText("");
         edtEmail.setText("");
         edtCpf.setText("");
-        edtCNPJ.setText("");
     }
 
     public void preencherFormulario(User user) {
@@ -56,7 +55,6 @@ public class FrAccessControl extends javax.swing.JDialog {
         edtTelefone.setText(user.getPhone() + "");
         edtCpf.setText(user.getCpf() + "");
         edtEmail.setText(user.getEmail() + "");
-        edtCNPJ.setText(user.getCnpj() + "");
 
         if (user.getTypePositions() != null) {
             cbxTipoUsuario.setSelectedItem(user.getTypePositions());
@@ -82,7 +80,6 @@ public class FrAccessControl extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         edtEmail = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        edtCNPJ = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdUser = new javax.swing.JTable();
@@ -94,6 +91,7 @@ public class FrAccessControl extends javax.swing.JDialog {
         cbxTipoUsuario = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        edtSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar item");
@@ -119,7 +117,7 @@ public class FrAccessControl extends javax.swing.JDialog {
 
         jLabel6.setText("Email:");
 
-        jLabel7.setText("CNPJ:");
+        jLabel7.setText("Senha:");
 
         jLabel8.setText("Tipo de Usuario");
 
@@ -179,6 +177,12 @@ public class FrAccessControl extends javax.swing.JDialog {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Para editar informações do usuário, clique na linha da tabela na qual deseja realizar a edição e, em seguida, pressione o botão de editar.");
 
+        edtSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtSenhaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,7 +207,6 @@ public class FrAccessControl extends javax.swing.JDialog {
                             .addComponent(edtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(edtCNPJ, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
                             .addComponent(edtEmail)
                             .addComponent(cbxTipoUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
@@ -211,7 +214,8 @@ public class FrAccessControl extends javax.swing.JDialog {
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel6))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(edtSenha)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -246,7 +250,7 @@ public class FrAccessControl extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -281,15 +285,16 @@ public class FrAccessControl extends javax.swing.JDialog {
         try {
             String nome = edtNome.getText();
             String email = edtEmail.getText();
+            String password = new String(edtSenha.getPassword());
             String cpf = edtCpf.getText();
             String phone = edtTelefone.getText();
             String typeUser = cbxTipoUsuario.getSelectedItem().toString();
             if (idUserEditando > 0) {
-                userController.atualizarUserAdmin(idUserEditando, nome, email, cpf, phone, typeUser);
+                userController.atualizarUserAdmin(idUserEditando, nome, email, password, cpf, phone, typeUser);
                 userController.atualizarTabela(grdUser);
             } else {
 //                try {
-                userController.cadastrarUserAdmin(nome, email, cpf, phone, typeUser);
+                userController.cadastrarUserAdmin(nome, email, password, cpf, phone, typeUser);
                 userController.atualizarTabela(grdUser);
 //                } catch (UserException ex) {
 //                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Falha", JOptionPane.INFORMATION_MESSAGE);
@@ -349,16 +354,20 @@ public class FrAccessControl extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxTipoUsuarioActionPerformed
 
+    private void edtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtSenhaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cbxTipoUsuario;
-    private javax.swing.JTextField edtCNPJ;
     private javax.swing.JTextField edtCpf;
     private javax.swing.JTextField edtEmail;
     private javax.swing.JTextField edtNome;
+    private javax.swing.JPasswordField edtSenha;
     private javax.swing.JFormattedTextField edtTelefone;
     private javax.swing.JTable grdUser;
     private javax.swing.JLabel jLabel1;

@@ -8,7 +8,6 @@ import controller.table.TMSale;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JTable;
-import model.Employee;
 import model.Sale;
 import model.Stock;
 import model.dao.SaleDAO;

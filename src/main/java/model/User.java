@@ -26,6 +26,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+    private String senha;
     private String email;
     private String cpf;
     private String cnpj;
@@ -35,15 +36,17 @@ public class User implements Serializable {
     public User(){
         id= -1L;
         nome = "";
+        senha = "";
         email = "";
         cpf = "";
         cnpj = "";
         phone = "";
         typePositions = "user";
     }
-    public User(Long id, String nome, String email, String cpf, String cnpj, String phone, String typePositions){
+    public User(Long id, String nome,String senha, String email, String cpf, String cnpj, String phone, String typePositions){
         this.id = id;
         this.nome = nome;
+        this.senha = senha;
         this.email = email;
         this.cpf =  cpf;
         this.cnpj = cnpj;
@@ -54,6 +57,7 @@ public class User implements Serializable {
     public void copy(User other){
         this.id = other.id;
         this.nome = other.nome;
+        this.senha = other.senha;
         this.email = other.email;
         this.cpf = other.cpf;
         this.cnpj = other.cnpj;
