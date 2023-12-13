@@ -99,4 +99,36 @@ public class StockController {
         Stock stock = (Stock) repositorio.find(id);
         return stock;
     }
+
+    public double buscarPrecoPorId(Long id) {
+        Stock stock = (Stock) repositorio.find(id);
+        if (stock != null) {
+            return stock.getPrecoVenda();
+        }
+        return 0.0;
+    }
+
+    public int buscarQuantidadeEstoquebyId(Long id) {
+
+        Stock stock = (Stock) repositorio.find(id);
+        if (stock != null) {
+            return stock.getQuantEstoque();
+        }
+        return 0;
+    }
+
+    public void atualizarQauntidadeEstoque(Long id, int quantidadeVendida) {
+        Stock stock = (Stock) repositorio.find(id);
+        if (stock != null) {
+            int quantidadeAtual = stock.getQuantEstoque();
+            int novaQuantidade = quantidadeAtual - quantidadeVendida;
+
+            novaQuantidade = Math.max(0, novaQuantidade);
+
+            stock.setQuantEstoque(novaQuantidade);
+
+            repositorio.update(stock);
+        }
+
+    }
 }

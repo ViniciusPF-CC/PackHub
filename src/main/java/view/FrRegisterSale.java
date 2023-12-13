@@ -21,6 +21,8 @@ import model.Supplier;
 import model.User;
 import model.auth.Autenticador;
 import model.exceptions.SaleException;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -41,6 +43,42 @@ public class FrRegisterSale extends javax.swing.JDialog {
         saleController.atualizarTabelaUser(grdSales);
         idSaleEditando = -1L;
         produtoCombobox();
+
+        edtQuantVendida.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateValor();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateValor();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateValor();
+            }
+
+            private void updateValor() {
+                try {
+                    int quantidadeVendida = Integer.parseInt(edtQuantVendida.getText());
+
+                    String[] produto = String.valueOf(cbxProduto.getSelectedItem()).split("-");
+
+                    long idProduto = Long.parseLong(produto[0].trim());
+
+                    double preco = stockController.buscarPrecoPorId(idProduto);
+
+                    double valorTotal = quantidadeVendida * preco;
+
+                    edtValor.setText(String.valueOf(valorTotal));
+                } catch (NumberFormatException ex) {
+                    System.out.println(ex);
+                    edtValor.setText("");
+                }
+            }
+        });
     }
 
     public void produtoCombobox() {
@@ -68,7 +106,7 @@ public class FrRegisterSale extends javax.swing.JDialog {
     }
 
     public void preencherFormulario(Sale sale) {
-        
+
         if (sale.getProduto() != null) {
             cbxProduto.setSelectedItem(sale.getProduto());
         }
@@ -77,6 +115,11 @@ public class FrRegisterSale extends javax.swing.JDialog {
         if (sale.getPagamento() != null) {
             cbxPagamento.setSelectedItem(sale.getPagamento());
         }
+    }
+
+    private boolean verificarEstoqueSuficiente(long idProduto, int quantidadeVendida) {
+        int estoqueAtual = stockController.buscarQuantidadeEstoquebyId(idProduto);
+        return estoqueAtual >= quantidadeVendida;
     }
 
     @SuppressWarnings("unchecked")
@@ -255,20 +298,33 @@ public class FrRegisterSale extends javax.swing.JDialog {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
             String produto = String.valueOf(cbxProduto.getSelectedItem());
+
+            String[] produto1 = String.valueOf(cbxProduto.getSelectedItem()).split("-");
+
+            long idProduto = Long.parseLong(produto1[0].trim());
+
             int quantidadeVendida = Integer.parseInt(edtQuantVendida.getText());
             double valor = Double.parseDouble(edtValor.getText());
 
             String pagamento = String.valueOf(cbxPagamento.getSelectedItem());
             String vendedor = String.valueOf(Autenticador.getIdLogado());
-            
-            if (idSaleEditando > 0) {
-                saleController.atualizarSale(idSaleEditando, LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, vendedor);
-                JOptionPane.showMessageDialog(null, "Edição feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                saleController.atualizarTabelaUser(grdSales);
+
+            if (verificarEstoqueSuficiente(idProduto, quantidadeVendida)) {
+                // Atualiza a venda
+                if (idSaleEditando > 0) {
+                    saleController.atualizarSale(idSaleEditando, LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, vendedor);
+                    JOptionPane.showMessageDialog(null, "Edição feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    saleController.atualizarTabelaUser(grdSales);
+                } else {
+                    saleController.cadastrarSale(LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, vendedor);
+                    JOptionPane.showMessageDialog(null, "Venda registrada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    saleController.atualizarTabelaUser(grdSales);
+                }
+
+                stockController.atualizarQauntidadeEstoque(idProduto, quantidadeVendida);
+                limparCampos();
             } else {
-                saleController.cadastrarSale(LocalDateTime.now(), produto, valor, pagamento, quantidadeVendida, vendedor);
-                JOptionPane.showMessageDialog(null, "Error - Já existe um produto com esse código", "Falha", JOptionPane.INFORMATION_MESSAGE);
-                saleController.atualizarTabelaUser(grdSales);
+                JOptionPane.showMessageDialog(this, "Estoque insuficiente para a venda", "Erro", JOptionPane.ERROR_MESSAGE);
             }
             limparCampos();
         } catch (NumberFormatException e) {
@@ -279,6 +335,7 @@ public class FrRegisterSale extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, s.getMessage());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         Sale saleEditando = (Sale) this.getObjetoSelecionadoNaGrid();

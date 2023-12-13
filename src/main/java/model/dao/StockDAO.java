@@ -7,7 +7,9 @@ package model.dao;
 import factory.DatabaseJPA;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import model.Stock;
 
 /**
@@ -52,7 +54,7 @@ public class StockDAO implements IDao<Stock> {
         this.entityManager.getTransaction().commit();
         this.entityManager.close();
         return true;
-    
+
     }
 
     @Override
@@ -107,6 +109,21 @@ public class StockDAO implements IDao<Stock> {
             return null;
         } else {
             return resultList.get(0);
+        }
+    }
+
+    public float findPrecoByNome(String nome) {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        jpql = "SELECT s.precoVenda FROM Stock s WHERE s.descricao = :nome";
+        TypedQuery<Float> qry = entityManager.createQuery(jpql, Float.class);
+        qry.setParameter("nome", nome);
+
+        try {
+            return qry.getSingleResult();
+        } catch (NoResultException e) {
+            return 0.0f;
+        } finally {
+            entityManager.close();
         }
     }
 
