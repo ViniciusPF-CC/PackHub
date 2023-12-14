@@ -24,6 +24,7 @@ public class FrLogin extends javax.swing.JFrame {
      * Creates new form FrLogin
      */
     AutenticadorController autenticadorController;
+
     public FrLogin() {
 
         autenticadorController = new AutenticadorController();
@@ -187,6 +188,10 @@ public class FrLogin extends javax.swing.JFrame {
                 frEmp.setVisible(true);
                 this.setVisible(false);
             }
+            if (tipo == 'u') {
+                JOptionPane.showMessageDialog(this, "Solicite autorização ao administrador para acessar o sistema.");
+            }
+
             lblErroLogin.setVisible(true);
         } catch (Exception ex) {
             System.out.println(Arrays.toString(ex.getStackTrace()));

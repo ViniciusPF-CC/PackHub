@@ -37,6 +37,13 @@ public class AutenticadorController {
             Autenticador.setIdLogado(idUser);
             return 'f';
         }
+
+        if (idUser != null && "user".equals(typePositions)) {
+
+            Autenticador.setIdLogado(idUser);
+            return 'u';
+        }
+
         return 'n';
     }
 

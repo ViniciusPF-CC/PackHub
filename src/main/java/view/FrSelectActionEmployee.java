@@ -31,6 +31,18 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
         lblValorComissao.setText("R$" + valorComissao);
     }
 
+    public void atualizar() {
+
+        userController = new UserController();
+        long idUser = Autenticador.getIdLogado();
+
+        String nome = userController.obterNomePorId(idUser);
+        String valorComissao = userController.obterValorComissaoPorId(idUser);
+
+        lbUserName.setText("Ola " + nome);
+        lblValorComissao.setText("R$" + valorComissao);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,6 +74,7 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
         lblValorComissao = new javax.swing.JLabel();
         imgUser = new javax.swing.JLabel();
         btnRegistrarVenda = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -194,6 +207,13 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
             }
         });
 
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -214,11 +234,14 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
                         .addComponent(btnRegistrarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblValorComissao, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(imgUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lbUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblValorComissao, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(imgUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnRefresh, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -251,7 +274,9 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRelatorioConta)
                     .addComponent(btnRegistrarVenda))
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(16, 16, 16)
@@ -295,8 +320,13 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
         stock.setVisible(true);
     }//GEN-LAST:event_btnRegistrarVendaActionPerformed
 
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        atualizar();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcessoStock;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnRegistrarVenda;
     private javax.swing.JButton btnRelatorioConta;
     private javax.swing.JButton btnRelatorioVendas;
