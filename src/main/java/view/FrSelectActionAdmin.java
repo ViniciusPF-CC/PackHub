@@ -310,7 +310,7 @@ public class FrSelectActionAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
-        FrSalesReport stock = new FrSalesReport(this, true);
+        FrSalesReportAdmin stock = new FrSalesReportAdmin(this, true);
         stock.setLocationRelativeTo(this);
         stock.setVisible(true);
     }//GEN-LAST:event_btnRelatorioActionPerformed
