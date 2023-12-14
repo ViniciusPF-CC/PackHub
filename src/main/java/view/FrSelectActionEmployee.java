@@ -284,7 +284,9 @@ public class FrSelectActionEmployee extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnRelatorioContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioContaActionPerformed
-        // TODO add your handling code here:
+        FrControlBills stock = new FrControlBills(this, true);
+        stock.setLocationRelativeTo(this);
+        stock.setVisible(true);
     }//GEN-LAST:event_btnRelatorioContaActionPerformed
 
     private void btnRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVendaActionPerformed

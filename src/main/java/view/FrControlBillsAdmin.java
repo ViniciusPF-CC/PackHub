@@ -32,7 +32,7 @@ public class FrControlBillsAdmin extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         saleController = new SaleController();
-        saleController.atualizarTabelaVendasAPrazo(grdBills);
+        saleController.atualizarTabelaSaleAPrazo(grdBills);
         userController = new UserController();
         long idUser = Autenticador.getIdLogado();
 
@@ -41,6 +41,7 @@ public class FrControlBillsAdmin extends javax.swing.JDialog {
 
         lbUserName.setText("Ola " + nome);
         lblValorComissao.setText("R$" + valorComissao);
+        saleController.atualizarTabela(grdBills);
     }
 
     /**

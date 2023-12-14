@@ -40,7 +40,7 @@ public class FrControlBills extends javax.swing.JDialog {
 
         lbUserName.setText("Ola " + nomeUser);
         lblValorComissao.setText("R$" + valorComissao);
-        saleController.atualizarTabela(grdBills);
+        saleController.atualizarTabelaSaleAPrazoUser(grdBills);
     }
 
     /**

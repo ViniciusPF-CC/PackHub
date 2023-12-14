@@ -53,10 +53,16 @@ public class SaleController {
         Util.jTableShow(grd, tableModel, null);
     }
 
-    public void atualizarTabelaVendasAPrazo(JTable grd) {
+    public void atualizarTabelaSaleAPrazo(JTable grd) {
         List<Sale> vendasAPrazo = buscarVendasAPrazo();
         TMSale tableModel = new TMSale(vendasAPrazo);
         Util.jTableShow(grd, tableModel, null);
+    }
+
+    public void atualizarTabelaSaleAPrazoUser(JTable grd) {
+        List<Sale> vendasAPrazo = buscarVendasAPrazoPorUsuario();
+        TMSale tableModel = new TMSale(vendasAPrazo);
+        Util.jTableShow(grd, tableModel, null); // Supondo que exista algo similar ao TMCadFuncionario para Turma.
     }
 
     public void atualizarTabela(JTable grd) {
@@ -131,6 +137,18 @@ public class SaleController {
 
         for (Sale sale : repositorio.findAll()) {
             if ("a prazo".equals(sale.getPagamento())) {
+                vendasAPrazo.add(sale);
+            }
+        }
+        return vendasAPrazo;
+    }
+
+    public List<Sale> buscarVendasAPrazoPorUsuario() {
+        List<Sale> vendasAPrazo = new ArrayList<>();
+        String idUsuarioLogado = Autenticador.getIdLogado().toString();
+
+        for (Sale sale : repositorio.findAll()) {
+            if (idUsuarioLogado.equals(sale.getVendedor().getId().toString()) && "a prazo".equals(sale.getPagamento())) {
                 vendasAPrazo.add(sale);
             }
         }

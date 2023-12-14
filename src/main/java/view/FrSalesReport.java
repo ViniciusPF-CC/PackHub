@@ -42,7 +42,7 @@ public class FrSalesReport extends javax.swing.JDialog {
 
         salesController = new SaleController();
 
-        salesController.atualizarTabela(grdSales);
+        salesController.atualizarTabelaSale(grdSales);
     }
 
     /**
