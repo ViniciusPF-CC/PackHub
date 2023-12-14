@@ -334,6 +334,11 @@ public class FrStockRegistration extends javax.swing.JDialog {
             float precoVenda = Float.parseFloat(edtPrecoVenda.getText());
             Integer quantEstoque = Integer.valueOf(edtQuantEstoque.getText());
             String fornecedor = String.valueOf(cbxFornecedor.getSelectedItem());
+
+            if (precoVenda < precoCusto) {
+                throw new StockException("O preço de venda não pode ser menor que o preço de custo.");
+            }
+
             if (idStockEditando > 0) {
                 stockController.atualizarStock(idStockEditando, codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
                 JOptionPane.showMessageDialog(null, "Edição feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -351,6 +356,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
             System.err.println(s.getMessage());
             JOptionPane.showMessageDialog(this, s.getMessage());
         }
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
