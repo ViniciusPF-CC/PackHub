@@ -340,7 +340,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
                 stockController.atualizarTabela(grdStock);
             } else {
                 stockController.cadastrarStock(codigo, descricao, precoCusto, precoVenda, quantEstoque, fornecedor);
-                JOptionPane.showMessageDialog(null, "Error - Já existe um produto com esse código", "Falha", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 stockController.atualizarTabela(grdStock);
             }
             this.idStockEditando = -1L;

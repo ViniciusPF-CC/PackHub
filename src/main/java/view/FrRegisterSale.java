@@ -112,8 +112,9 @@ public class FrRegisterSale extends javax.swing.JDialog {
     public void limparCampos() {
         edtQuantVendida.setText("");
         edtValor.setText("");
+        cbxProduto.removeAllItems();
     }
-
+    
     public void preencherFormulario(Sale sale) {
 
         if (sale.getProduto() != null) {
@@ -397,9 +398,11 @@ public class FrRegisterSale extends javax.swing.JDialog {
             System.err.println(s.getMessage());
             JOptionPane.showMessageDialog(this, s.getMessage());
         }
+        produtoCombobox();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
 
+    
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         Sale saleEditando = (Sale) this.getObjetoSelecionadoNaGrid();
 
