@@ -41,7 +41,7 @@ public class FrControlBillsAdmin extends javax.swing.JDialog {
 
         lbUserName.setText("Ola " + nome);
         lblValorComissao.setText("R$" + valorComissao);
-        saleController.atualizarTabela(grdBills);
+        saleController.atualizarTabelaSaleAPrazo(grdBills);
     }
 
     /**

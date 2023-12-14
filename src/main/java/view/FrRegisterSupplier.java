@@ -42,7 +42,28 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
         lbUserName.setText("Ola " + nome);
         lblValorComissao.setText("R$" + valorComissao);
 
+        this.addMaskCNPJ();
+        this.addMaskPhone();
+
         supplierController.atualizarTabela(grdSupplier);
+    }
+
+    public void addMaskCNPJ() {
+        try {
+            MaskFormatter mask = new MaskFormatter("##.###.###/####-##");
+            mask.install(edtCnpj);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrRegisterSupplier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void addMaskPhone() {
+        try {
+            MaskFormatter mask = new MaskFormatter("(##) # ####-####");
+            mask.install(edtTelefone);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrRegisterSupplier.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private Object getObjetoSelecionadoNaGrid() {
@@ -82,11 +103,9 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         edtNome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        edtTelefone = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         edtEndereco = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        edtCnpj = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdSupplier = new javax.swing.JTable();
         btnSalvar = new javax.swing.JButton();
@@ -97,6 +116,8 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
         lbUserName = new javax.swing.JLabel();
         lblValorComissao = new javax.swing.JLabel();
         imgUser = new javax.swing.JLabel();
+        edtCnpj = new javax.swing.JFormattedTextField();
+        edtTelefone = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar item");
@@ -212,10 +233,10 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
                                     .addComponent(edtTelefone))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(edtCnpj, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
-                                    .addComponent(edtEndereco)
+                                    .addComponent(edtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
                                     .addComponent(jLabel7)
-                                    .addComponent(jLabel6)))
+                                    .addComponent(jLabel6)
+                                    .addComponent(edtCnpj)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -256,9 +277,9 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
                     .addComponent(jLabel4)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(edtCnpj)
+                    .addComponent(edtTelefone))
                 .addGap(36, 36, 36)
                 .addComponent(btnSalvar)
                 .addGap(39, 39, 39)
@@ -358,10 +379,10 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnLimparCampos;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JTextField edtCnpj;
+    private javax.swing.JFormattedTextField edtCnpj;
     private javax.swing.JTextField edtEndereco;
     private javax.swing.JTextField edtNome;
-    private javax.swing.JTextField edtTelefone;
+    private javax.swing.JFormattedTextField edtTelefone;
     private javax.swing.JTable grdSupplier;
     private javax.swing.JLabel imgUser;
     private javax.swing.JLabel jLabel3;

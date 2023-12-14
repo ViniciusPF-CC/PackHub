@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import model.User;
@@ -40,7 +41,28 @@ public class FrAccessControl extends javax.swing.JDialog {
         lbUserName.setText("Ola " + nome);
         lblValorComissao.setText("R$" + valorComissao);
 
+        this.addMaskCPF();
+        this.addMaskPhone();
+
         userController.atualizarTabela(grdUser);
+    }
+
+    public void addMaskCPF() {
+        try {
+            MaskFormatter mask = new MaskFormatter("###.###.###-##");
+            mask.install(edtCPF);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrAccessControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void addMaskPhone() {
+        try {
+            MaskFormatter mask = new MaskFormatter("(##) # ####-####");
+            mask.install(edtTelefone);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrAccessControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private Object getObjetoSelecionadoNaGrid() {
@@ -55,16 +77,15 @@ public class FrAccessControl extends javax.swing.JDialog {
     public void limparCampos() {
         edtNome.setText("");
         edtTelefone.setText("");
-        edtCpf.setText("");
+        edtCPF.setText("");
         edtEmail.setText("");
-        edtCpf.setText("");
         spnComissao.setValue(0.0);
     }
 
     public void preencherFormulario(User user) {
         edtNome.setText(user.getNome() + "");
         edtTelefone.setText(user.getPhone() + "");
-        edtCpf.setText(user.getCpf() + "");
+        edtCPF.setText(user.getCpf() + "");
         edtEmail.setText(user.getEmail() + "");
 
         if (user.getTypePositions() != null) {
@@ -87,7 +108,6 @@ public class FrAccessControl extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         edtNome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        edtCpf = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         edtEmail = new javax.swing.JTextField();
@@ -95,7 +115,6 @@ public class FrAccessControl extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdUser = new javax.swing.JTable();
-        edtTelefone = new javax.swing.JFormattedTextField();
         btnSalvar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
@@ -110,6 +129,8 @@ public class FrAccessControl extends javax.swing.JDialog {
         lbUserName = new javax.swing.JLabel();
         lblValorComissao = new javax.swing.JLabel();
         imgUser = new javax.swing.JLabel();
+        edtCPF = new javax.swing.JFormattedTextField();
+        edtTelefone = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar item");
@@ -247,9 +268,9 @@ public class FrAccessControl extends javax.swing.JDialog {
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5)
-                                    .addComponent(edtNome)
-                                    .addComponent(edtCpf)
-                                    .addComponent(edtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(edtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                                    .addComponent(edtCPF)
+                                    .addComponent(edtTelefone))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(edtEmail)
@@ -302,17 +323,17 @@ public class FrAccessControl extends javax.swing.JDialog {
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(edtEmail)
+                    .addComponent(edtNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -320,9 +341,9 @@ public class FrAccessControl extends javax.swing.JDialog {
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spnComissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spnComissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSalvar)
                 .addGap(11, 11, 11)
@@ -355,9 +376,19 @@ public class FrAccessControl extends javax.swing.JDialog {
             String senhaHash = null;
             senhaHash = Autenticador.textToHash(password);
 
-            String cpf = edtCpf.getText();
+            String cpf = edtCPF.getText();
             String phone = edtTelefone.getText();
-            String typeUser = cbxTipoUsuario.getSelectedItem().toString();
+//            String typeUser = cbxTipoUsuario.getSelectedItem().toString();
+
+            String typeUser = null;
+            Object selectedItem = cbxTipoUsuario.getSelectedItem();
+            if (selectedItem != null) {
+                typeUser = selectedItem.toString();
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecione um tipo de usuário.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             double comissao = (double) spnComissao.getValue();
             if (idUserEditando > 0) {
                 userController.atualizarUserAdmin(idUserEditando, nome, email, senhaHash, cpf, phone, comissao, typeUser);
@@ -432,7 +463,7 @@ public class FrAccessControl extends javax.swing.JDialog {
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
         // TODO add your handling code here:
-        edtCpf.setText("");
+        edtCPF.setText("");
         edtEmail.setText("");
         edtNome.setText("");
         edtSenha.setText("");
@@ -448,7 +479,7 @@ public class FrAccessControl extends javax.swing.JDialog {
     private javax.swing.JButton btnLimparCampos;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cbxTipoUsuario;
-    private javax.swing.JTextField edtCpf;
+    private javax.swing.JFormattedTextField edtCPF;
     private javax.swing.JTextField edtEmail;
     private javax.swing.JTextField edtNome;
     private javax.swing.JPasswordField edtSenha;

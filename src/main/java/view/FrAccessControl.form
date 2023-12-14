@@ -51,9 +51,9 @@
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="edtNome" max="32767" attributes="0"/>
-                                  <Component id="edtCpf" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="edtTelefone" alignment="0" min="-2" pref="389" max="-2" attributes="0"/>
+                                  <Component id="edtNome" pref="389" max="32767" attributes="0"/>
+                                  <Component id="edtCPF" max="32767" attributes="0"/>
+                                  <Component id="edtTelefone" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -125,9 +125,9 @@
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="edtEmail" min="-2" max="-2" attributes="0"/>
-                  <Component id="edtNome" min="-2" pref="22" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="edtEmail" max="32767" attributes="0"/>
+                  <Component id="edtNome" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -135,9 +135,9 @@
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="edtCpf" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="edtSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="edtSenha" min="-2" max="-2" attributes="0"/>
+                  <Component id="edtCPF" min="-2" pref="26" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -147,9 +147,9 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="edtTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbxTipoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="spnComissao" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="edtTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
@@ -202,8 +202,6 @@
         <Property name="text" type="java.lang.String" value="CPF:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="edtCpf">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="text" type="java.lang.String" value="Telefone:"/>
@@ -248,8 +246,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JFormattedTextField" name="edtTelefone">
-    </Component>
     <Component class="javax.swing.JButton" name="btnSalvar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -368,6 +364,10 @@
           <Image iconType="3" name="/imagens/user.png"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="edtCPF">
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="edtTelefone">
     </Component>
   </SubComponents>
 </Form>
