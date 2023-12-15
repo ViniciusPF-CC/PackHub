@@ -71,6 +71,7 @@ public class FrStockAccess extends javax.swing.JDialog {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Visualizar estoque existente");
 
+        grdStock.setAutoCreateRowSorter(true);
         grdStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},

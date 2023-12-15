@@ -143,6 +143,7 @@ public class FrRegisterSupplier extends javax.swing.JDialog {
 
         jLabel7.setText("CNPJ:");
 
+        grdSupplier.setAutoCreateRowSorter(true);
         grdSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},

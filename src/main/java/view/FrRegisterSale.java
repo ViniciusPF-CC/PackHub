@@ -167,6 +167,7 @@ public class FrRegisterSale extends javax.swing.JDialog {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Registrar Venda");
 
+        grdSales.setAutoCreateRowSorter(true);
         grdSales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},

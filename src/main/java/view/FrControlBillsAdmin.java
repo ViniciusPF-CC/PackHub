@@ -60,6 +60,8 @@ public class FrControlBillsAdmin extends javax.swing.JDialog {
         lbUserName = new javax.swing.JLabel();
         lblValorComissao = new javax.swing.JLabel();
         imgUser = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        edtNomeVendedor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar item");
@@ -71,6 +73,7 @@ public class FrControlBillsAdmin extends javax.swing.JDialog {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Visualizar contas existentes");
 
+        grdBills.setAutoCreateRowSorter(true);
         grdBills.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -99,11 +102,23 @@ public class FrControlBillsAdmin extends javax.swing.JDialog {
         imgUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imgUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
 
+        jLabel3.setText("Filtrar (Vendedor):");
+
+        edtNomeVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtNomeVendedorActionPerformed(evt);
+            }
+        });
+        edtNomeVendedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                edtNomeVendedorKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -116,8 +131,15 @@ public class FrControlBillsAdmin extends javax.swing.JDialog {
                         .addComponent(imgUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE))
+                    .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtNomeVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +157,11 @@ public class FrControlBillsAdmin extends javax.swing.JDialog {
                         .addComponent(lblValorComissao)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(edtNomeVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -143,10 +169,24 @@ public class FrControlBillsAdmin extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void edtNomeVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtNomeVendedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtNomeVendedorActionPerformed
+
+    private void edtNomeVendedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtNomeVendedorKeyReleased
+//        String nomeDigitado = edtNomeVendedor.getText();
+//        if (!nomeDigitado.isEmpty())
+//            this.saleController.atualizarTabela(grdSales, nomeDigitado);
+//        else
+//            this.saleController.atualizarTabela(grdSales);
+    }//GEN-LAST:event_edtNomeVendedorKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField edtNomeVendedor;
     private javax.swing.JTable grdBills;
     private javax.swing.JLabel imgUser;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbUserName;
     private javax.swing.JLabel lblImgTitle;

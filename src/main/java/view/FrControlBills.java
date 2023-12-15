@@ -70,6 +70,7 @@ public class FrControlBills extends javax.swing.JDialog {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Visualizar contas existentes");
 
+        grdBills.setAutoCreateRowSorter(true);
         grdBills.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},

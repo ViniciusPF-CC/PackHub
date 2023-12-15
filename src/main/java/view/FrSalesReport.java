@@ -90,6 +90,7 @@ public class FrSalesReport extends javax.swing.JDialog {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Visualizar vendas existentes");
 
+        grdSales.setAutoCreateRowSorter(true);
         grdSales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},

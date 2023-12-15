@@ -150,6 +150,7 @@ public class FrStockRegistration extends javax.swing.JDialog {
 
         jLabel8.setText("Fornecedor:");
 
+        grdStock.setAutoCreateRowSorter(true);
         grdStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},

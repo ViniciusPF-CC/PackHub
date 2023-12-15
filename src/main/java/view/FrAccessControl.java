@@ -160,6 +160,7 @@ public class FrAccessControl extends javax.swing.JDialog {
 
         jLabel8.setText("Tipo de Usuario");
 
+        grdUser.setAutoCreateRowSorter(true);
         grdUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
