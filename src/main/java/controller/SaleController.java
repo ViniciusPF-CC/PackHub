@@ -5,7 +5,10 @@
 package controller;
 
 import controller.table.TMSale;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JTable;
 import model.Sale;
@@ -132,6 +135,13 @@ public class SaleController {
         return sale;
     }
 
+    public void atualizarTabela(JTable grd, String nome) {
+        List lst = repositorio.findByVendedorName(nome);
+
+        TMSale tableModel = new TMSale(lst);
+        grd.setModel(tableModel);
+    }
+
     public List<Sale> buscarVendasAPrazo() {
         List<Sale> vendasAPrazo = new ArrayList<>();
 
@@ -161,5 +171,35 @@ public class SaleController {
         } else {
             throw new SaleException("Error - Item inexistente.");
         }
+    }
+
+    public double calcularValorTotalVendasMensais() {
+        LocalDateTime dataAtual = LocalDateTime.now();
+        Month mesAtual = dataAtual.getMonth();
+        String idUsuarioLogado = Autenticador.getIdLogado().toString();
+
+        double valorTotalVendas = 0.0;
+
+        for (Sale sale : repositorio.findByUsuario(idUsuarioLogado)) {
+            if (sale.getDataHora().getMonth() == mesAtual) {
+                valorTotalVendas += sale.getValor();
+            }
+        }
+
+        return valorTotalVendas;
+    }
+
+    public double calcularValorTotalVendas() {
+        String idUsuarioLogado = Autenticador.getIdLogado().toString();
+
+        double valorTotalVendas = 0.0;
+
+        for (Sale sale : repositorio.findByUsuario(idUsuarioLogado)) {
+
+            valorTotalVendas += sale.getValor();
+
+        }
+
+        return valorTotalVendas;
     }
 }

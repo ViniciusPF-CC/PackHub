@@ -118,4 +118,18 @@ public class SaleDAO implements IDao<Sale> {
 
         return qry.getResultList();
     }
+
+    public List<Sale> findByVendedorName(String user_name) {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+
+        jpql = "SELECT s FROM Sale s WHERE s.vendedor.nome like :user_name";
+        qry = this.entityManager.createQuery(jpql);
+        qry.setParameter("user_name", "%" + user_name + "%");
+
+        List<Sale> lst = qry.getResultList();
+
+        this.entityManager.close();
+
+        return lst;
+    }
 }
